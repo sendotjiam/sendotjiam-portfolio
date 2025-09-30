@@ -1,5 +1,5 @@
 // Application configuration constants
-export const BASE_URL = `${import.meta.env.BASE_URL}/` || '/';
+export const BASE_URL = `${import.meta.env.BASE_URL}` || '/';
 
 // Asset paths helper function
 export const getAssetPath = (path: string): string => {
