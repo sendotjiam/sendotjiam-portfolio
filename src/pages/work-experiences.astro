@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import Project from "../components/Project.astro";
 import Sidebar from "../components/Sidebar.astro";
+import { BASE_URL, getAssetPath } from '../config/constants';
 const experiences = [
   {
     jobTitle: "iOS Engineer",
@@ -72,8 +73,8 @@ const experiences = [
       <nav class="main">
         <div class="container">
           <div class="back-nav-container">
-            <a href={import.meta.env.BASE_URL} class="back-nav-button w-inline-block"
-              ><img src={`${import.meta.env.BASE_URL}/assets/back.svg`} loading="lazy" alt="" class="back-nav-img" />
+            <a href={BASE_URL} class="back-nav-button w-inline-block"
+              ><img src={getAssetPath('/assets/back.svg')} loading="lazy" alt="" class="back-nav-img" />
               <div>Back</div></a
             >
           </div>

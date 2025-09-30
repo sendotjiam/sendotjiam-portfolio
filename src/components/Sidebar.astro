@@ -1,4 +1,5 @@
 ---
+import { BASE_URL, ROUTES, getAssetPath } from '../config/constants';
 const { selectedItem } = Astro.props;
 ---
 
@@ -12,10 +13,10 @@ const { selectedItem } = Astro.props;
   class="sidebar w-nav"
 >
   <div class="nav-content">
-    <a href={import.meta.env.BASE_URL} class="w-nav-brand" aria-label="home">
+    <a href={BASE_URL} class="w-nav-brand" aria-label="home">
       <div class="niv-data">
         <img
-          src={`${import.meta.env.BASE_URL}/assets/photo/sendo.jpg`}
+          src={getAssetPath('/assets/photo/sendo.jpg')}
           loading="eager"
           alt="Profile picture"
           class="niv-image"
@@ -29,13 +30,13 @@ const { selectedItem } = Astro.props;
 
     <nav role="navigation" class="w-nav-menu">
       <a
-        href={import.meta.env.BASE_URL}
+        href={BASE_URL}
         class={`nav-link-container w-inline-block ${
           selectedItem === 'home' ? 'w--current' : ''
         }`}
       >
         <img
-          src={`${import.meta.env.BASE_URL}/assets/home.svg`}
+          src={getAssetPath('/assets/home.svg')}
           loading="eager"
           alt=""
           class="nav-link-image"
@@ -43,7 +44,7 @@ const { selectedItem } = Astro.props;
         <div>Home</div>
       </a>
       <a
-        href={`${import.meta.env.BASE_URL}/work-experiences`}
+        href={ROUTES.WORK_EXPERIENCES}
         class={`nav-link-container w-inline-block ${
           selectedItem === 'work-experiences' ? 'w--current' : ''
         }`}
@@ -52,7 +53,7 @@ const { selectedItem } = Astro.props;
         }
       >
         <img
-          src={`${import.meta.env.BASE_URL}/assets/code.svg`}
+          src={getAssetPath('/assets/code.svg')}
           loading="eager"
           alt=""
           class="nav-link-image"
@@ -60,13 +61,13 @@ const { selectedItem } = Astro.props;
         <div>Work Experiences</div>
       </a>
       <a
-        href={`${import.meta.env.BASE_URL}/education`}
+        href={ROUTES.EDUCATION}
         class={`nav-link-container w-inline-block ${
           selectedItem === 'education' ? 'w--current' : ''
         }`}
       >
         <img
-          src={`${import.meta.env.BASE_URL}/assets/dns.svg`}
+          src={getAssetPath('/assets/dns.svg')}
           loading="eager"
           alt=""
           class="nav-link-image"
@@ -74,13 +75,13 @@ const { selectedItem } = Astro.props;
         <div>Education</div>
       </a>
       <a
-        href={`${import.meta.env.BASE_URL}/projects`}
+        href={ROUTES.PROJECTS}
         class={`nav-link-container w-inline-block ${
           selectedItem === 'projects' ? 'w--current' : ''
         }`}
       >
         <img
-          src={`${import.meta.env.BASE_URL}/assets/favorite.svg`}
+          src={getAssetPath('/assets/favorite.svg')}
           loading="eager"
           alt=""
           class="nav-link-image"
@@ -97,7 +98,7 @@ const { selectedItem } = Astro.props;
       tabindex="0"
     >
       <img
-        src={`${import.meta.env.BASE_URL}/assets/menu.svg`}
+        src={getAssetPath('/assets/menu.svg')}
         loading="eager"
         alt=""
         class="navbar-icon"
