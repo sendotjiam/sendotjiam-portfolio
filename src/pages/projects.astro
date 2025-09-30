@@ -93,7 +93,7 @@ const projects = [
                         title={project.title} 
                         desc={project.desc}
                         tech={project.tech}
-                        logo={project.logo}
+                        logo={getAssetPath(project.logo)}
                         appStoreLink={project.appStoreLink}
                       />
                     ))}
