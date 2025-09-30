@@ -1,0 +1,101 @@
+---
+import Header from '../components/Header.astro';
+import Project from '../components/Project.astro';
+import Sidebar from '../components/Sidebar.astro';
+const projects = [
+  {
+    title: "WikiBus",
+    desc: [
+      "A comprehensive bus app for Singapore's public transportation system. Provides real-time bus arrival times, route information, and bus stop details to help commuters navigate Singapore's extensive bus network efficiently."
+    ],
+    tech: ["iOS", "UIKit", "Coordinator Pattern", "Model View ViewModel", "Combine", "Modularization"],
+    appStoreLink: "https://id.linkedin.com/posts/sendo-tjiamis-a03a73192_wiki-bus-activity-7071854626613952512-VNfx"
+  },
+  {
+    title: "Tokopedia",
+    desc: [
+      "Indonesia's leading e-commerce platform offering a comprehensive marketplace experience with features like free shipping, daily promos, and secure payment options. The app serves millions of users with product discovery, seller tools, and integrated payment solutions."
+    ],
+    tech: ["Swift", "UIKit", "Texture (AsyncDisplayKit)", "RxSwift", "Combine", "The Composable Architecture (TCA)", "Model View ViewModel", "Unit Testing", "Modularization", "REST API", "GraphQL"],
+    appStoreLink: "https://apps.apple.com/id/app/tokopedia/id1001394201"
+  },
+  {
+    title: "EduAI",
+    desc: [
+      "An on-demand AI tutor and life coach that creates personalized learning paths for lifelong education, focusing on Singapore primary level English, EduAI adapts learning to fit each student rather than forcing students to fit a rigid curriculum."
+    ],
+    tech: ["React", "Node.js", "MongoDB", "OpenAI API"],
+    appStoreLink: "https://www.eduai.biz/"
+  },
+  {
+    title: "BuyMax",
+    desc: [
+      "A cryptocurrency price viewer application with real-time market data and trading information. Displays live cryptocurrency prices and market updates for informed trading decisions."
+    ],
+    tech: ["Swift", "iOS", "Model View ViewModel", "WebSocket"],
+    appStoreLink: "https://github.com/sendotjiam/buymax-ios"
+  },
+  {
+    title: "OVO",
+    desc: [
+      "Indonesia's leading all-in-one fintech app for payments, savings, and lifestyle services. Features include cashless payments, bill payments, money transfers, cashback rewards, and integrated merchant ecosystem serving millions of users across Indonesia."
+    ],
+    tech: ["Swift", "UIKit", "ReactiveKit", "Model View ViewModel", "Unit Testing", "REST API", "Firebase"],
+    appStoreLink: "https://apps.apple.com/id/app/ovo/id1047926101"
+  },
+  {
+    title: "MotionBank",
+    desc: [
+      "Digital banking application by MNC Bank offering comprehensive financial services including easy account opening, virtual credit card, QRIS payments, time deposits, bill payments, and modern banking solutions for Indonesian customers."
+    ],
+    tech: ["Swift", "UIKit (Xib)", "RxSwift", "Model View ViewModel", "REST API", "Firebase"],
+    appStoreLink: "https://apps.apple.com/us/app/motionbank/id1506555741"
+  },
+  {
+    title: "KlikDiabetes",
+    desc: [
+      "Comprehensive diabetes management application providing health record tracking, personalized diet and nutrition guidance, medication reminders, and educational resources to help users effectively manage their diabetes therapy and maintain healthy lifestyles."
+    ],
+    tech: ["Swift", "UIKit (Xib)", "Delegate", "Model View Controller", "REST API"],
+    appStoreLink: "https://apps.apple.com/id/app/klik-diabetes/id1541593080"
+  }
+];
+---
+
+<!DOCTYPE html>
+<html
+>
+  <Header title="Projects | Sendo Tjiamis" />
+  <body>
+    <div class="content">
+        <Sidebar selectedItem="projects" />
+      <nav class="main">
+        <div class="container">
+          <div class="back-nav-container">
+            <a href="/" class="back-nav-button w-inline-block"
+              ><img src="/assets/back.svg" loading="lazy" alt="" class="back-nav-img" />
+              <div>Back</div></a
+            >
+          </div>
+          <div class="content-container">
+            <h1 style="font-weight: bold;">Projects</h1>
+            <section class="items-container">
+                <div class="resouce-items">
+                    {projects.map(project => (
+                      <Project 
+                        title={project.title} 
+                        desc={project.desc}
+                        tech={project.tech}
+                        appStoreLink={project.appStoreLink}
+                      />
+                    ))}
+                  </div>
+            </section>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+  </body>
+</html>

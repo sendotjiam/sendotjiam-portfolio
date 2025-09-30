@@ -21,8 +21,8 @@ const { selectedItem } = Astro.props;
           class="niv-image"
         />
         <div>
-          <div class="label-white">Sam Bernstein</div>
-          <div class="label-gray">Software Engineer</div>
+          <div class="label-white" style="font-weight: bold;">Sendo Tjiamis</div>
+          <div class="label-gray" style="font-weight: bold;">iOS Engineer</div>
         </div>
       </div>
     </a>
@@ -43,12 +43,12 @@ const { selectedItem } = Astro.props;
         <div>Home</div>
       </a>
       <a
-        href="/software-development"
+        href="/work-experiences"
         class={`nav-link-container w-inline-block ${
-          selectedItem === 'software-development' ? 'w--current' : ''
+          selectedItem === 'work-experiences' ? 'w--current' : ''
         }`}
         aria-current={
-          selectedItem === 'software-development' ? 'page' : undefined
+          selectedItem === 'work-experiences' ? 'page' : undefined
         }
       >
         <img
@@ -57,12 +57,12 @@ const { selectedItem } = Astro.props;
           alt=""
           class="nav-link-image"
         />
-        <div>Software development</div>
+        <div>Work Experiences</div>
       </a>
       <a
-        href="/devops"
+        href="/education"
         class={`nav-link-container w-inline-block ${
-          selectedItem === 'devops' ? 'w--current' : ''
+          selectedItem === 'education' ? 'w--current' : ''
         }`}
       >
         <img
@@ -71,12 +71,12 @@ const { selectedItem } = Astro.props;
           alt=""
           class="nav-link-image"
         />
-        <div>DevOps</div>
+        <div>Education</div>
       </a>
       <a
-        href="/personal-projects"
+        href="/projects"
         class={`nav-link-container w-inline-block ${
-          selectedItem === 'personal-projects' ? 'w--current' : ''
+          selectedItem === 'projects' ? 'w--current' : ''
         }`}
       >
         <img
@@ -85,7 +85,7 @@ const { selectedItem } = Astro.props;
           alt=""
           class="nav-link-image"
         />
-        <div>Personal projects</div>
+        <div>Projects</div>
       </a>
     </nav>
 
