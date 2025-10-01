@@ -80,24 +80,17 @@ const experiences = [
           </div>
           <div class="content-container">
             <h1 style="font-weight: bold;">Work Experiences</h1>
-            <!-- <p style="color: #6b7280; margin-bottom: 2rem;">My professional journey in iOS development</p> -->
-            <section class="timeline-container">
-                <div class="timeline-wrapper">
-                    {experiences.map((experience, index) => (
-                      <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                          <div class="timeline-date">{experience.date}</div>
-                          <Project 
-                            jobTitle={experience.jobTitle}
-                            company={experience.company}
-                            desc={experience.desc}
-                            tech={experience.tech}
-                            logo={getAssetPath(experience.logo)}
-                            appStoreLink={experience.appStoreLink}
-                          />
-                        </div>
-                      </div>
+            <section class="items-container">
+                <div class="resouce-items">
+                    {experiences.map(experience => (
+                      <Project 
+                        jobTitle={experience.jobTitle}
+                        company={`${experience.company} • ${experience.date}`}
+                        desc={experience.desc}
+                        tech={experience.tech}
+                        logo={getAssetPath(experience.logo)}
+                        appStoreLink={experience.appStoreLink}
+                      />
                     ))}
                   </div>
             </section>
@@ -109,89 +102,3 @@ const experiences = [
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
   </body>
 </html>
-
-<style>
-  .content-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
-  .timeline-container {
-    margin-top: 2rem;
-  }
-
-  .timeline-wrapper {
-    position: relative;
-    padding-left: 0;
-  }
-
-  .timeline-item {
-    position: relative;
-    margin-bottom: 3rem;
-    padding-left: 3rem;
-  }
-
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 20px;
-    bottom: -3rem;
-    width: 2px;
-    background: #e5e7eb;
-    z-index: 1;
-  }
-
-  .timeline-item:last-child::before {
-    display: none;
-  }
-
-  .timeline-dot {
-    position: absolute;
-    left: 8px;
-    top: 12px;
-    width: 16px;
-    height: 16px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 50%;
-    border: 3px solid white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    z-index: 2;
-  }
-
-  .timeline-content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .timeline-date {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #667eea;
-    margin-bottom: 0.75rem;
-    padding: 0.25rem 0.75rem;
-    background: rgba(102, 126, 234, 0.1);
-    border-radius: 12px;
-    display: inline-block;
-    border: 1px solid rgba(102, 126, 234, 0.2);
-  }
-
-  /* Responsive design */
-  @media (max-width: 768px) {
-    .timeline-item {
-      padding-left: 2rem;
-      margin-bottom: 2rem;
-    }
-    
-    .timeline-item::before {
-      left: 10px;
-    }
-    
-    .timeline-dot {
-      left: 4px;
-      width: 12px;
-      height: 12px;
-    }
-  }
-</style>
