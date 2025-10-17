@@ -113,5 +113,17 @@ import { ROUTES, getAssetPath } from '../config/constants';
     </div>
 
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <!-- Analytics Initialization -->
+    <script>
+      import { initAnalytics } from '../scripts/analytics-init.js';
+      
+      // Initialize analytics when page loads
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAnalytics);
+      } else {
+        initAnalytics();
+      }
+    </script>
   </body>
 </html>

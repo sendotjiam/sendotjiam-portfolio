@@ -80,17 +80,19 @@ const experiences = [
           </div>
           <div class="content-container">
             <h1 style="font-weight: bold;">Work Experiences</h1>
-            <section class="items-container">
-                <div class="resouce-items">
-                    {experiences.map(experience => (
-                      <Project 
-                        jobTitle={experience.jobTitle}
-                        company={`${experience.company} • ${experience.date}`}
-                        desc={experience.desc}
-                        tech={experience.tech}
-                        logo={getAssetPath(experience.logo)}
-                        appStoreLink={experience.appStoreLink}
-                      />
+            <section class="items-container" data-section="work-experiences">
+                <div class="resouce-items timeline-container">
+                    {experiences.map((experience, index) => (
+                      <div class="timeline-item" data-company={experience.company} data-job-title={experience.jobTitle}>
+                        <Project 
+                          jobTitle={experience.jobTitle}
+                          company={`${experience.company} • ${experience.date}`}
+                          desc={experience.desc}
+                          tech={experience.tech}
+                          logo={getAssetPath(experience.logo)}
+                          appStoreLink={experience.appStoreLink}
+                        />
+                      </div>
                     ))}
                   </div>
             </section>
@@ -100,5 +102,17 @@ const experiences = [
     </div>
 
     <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+    
+    <!-- Analytics Initialization -->
+    <script>
+      import { initAnalytics } from '../scripts/analytics-init.js';
+      
+      // Initialize analytics when page loads
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAnalytics);
+      } else {
+        initAnalytics();
+      }
+    </script>
   </body>
 </html>

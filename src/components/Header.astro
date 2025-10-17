@@ -1,10 +1,14 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
-import { getAssetPath } from '../config/constants';
+import { getAssetPath, GA4_MEASUREMENT_ID } from '../config/constants';
 interface HeaderProps {
   title: string;
 }
 const { title } = Astro.props as HeaderProps;
+
+// Environment-based configuration
+const isDevelopment = import.meta.env.DEV;
+const isProduction = import.meta.env.PROD;
 ---
 
 <head>
@@ -27,4 +31,35 @@ const { title } = Astro.props as HeaderProps;
   </script>
   <link href={getAssetPath('/assets/favicon.png')} rel="shortcut icon" type="image/x-icon" />
   <link href={getAssetPath('/assets/favicon.png')} rel="apple-touch-icon" />
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`}></script>
+  <script is:inline define:vars={{ isDevelopment, isProduction, GA4_MEASUREMENT_ID }}>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    // Environment-based configuration
+    const gaConfig = {
+      debug_mode: isDevelopment, // Enable debug mode only in development
+      send_page_view: true,
+    };
+
+    if (isProduction) {
+      gtag('config', GA4_MEASUREMENT_ID, gaConfig);
+      console.log('GA4 initialized for production with ID:', GA4_MEASUREMENT_ID);
+    }
+  
+    // Development logging
+    if (isDevelopment) {
+      console.log('Development Environment Detected');
+      console.log('GA4 Status: Disabled in development (to avoid localhost errors)');
+      console.log('GA4 will be active when deployed to production');
+      
+      // Mock analytics for development testing
+      window.gtag = window.gtag || function() {
+        console.log('Mock GA4 Event:', arguments);
+      };
+    }
+  </script>
 </head>
