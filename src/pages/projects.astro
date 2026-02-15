@@ -5,6 +5,15 @@ import Sidebar from '../components/Sidebar.astro';
 import { BASE_URL, getAssetPath } from '../config/constants';
 const projects = [
   {
+    title: "Grab Driver",
+    desc: [
+      "The primary tool for driver-partners across Southeast Asia to manage bookings and earnings. Contributed to the In Transit flow, enhancing the experience and reliability from job acceptance through to completion, ensuring a seamless journey for both drivers and passengers."
+    ],
+    tech: ["Swift", "UIKit", "RxSwift", "VIPER", "Unit Testing", "UI Testing", "Modularization", "TCP"],
+    logo: "/assets/company-logo/grab-logo.jpeg",
+    appStoreLink: "https://apps.apple.com/us/app/grab-driver-app-for-partners/id1257641454"
+  },
+  {
     title: "WikiBus",
     desc: [
       "A comprehensive bus app for Singapore's public transportation system. Provides real-time bus arrival times, route information, and bus stop details to help commuters navigate Singapore's extensive bus network efficiently."
@@ -87,6 +96,64 @@ const projects = [
           <div class="content-container">
             <h1 style="font-weight: bold;">Projects</h1>
             <section class="items-container">
+                <!-- iOS App Development Skills -->
+                <div class="projects-container" style="cursor: default; text-decoration: none; margin-bottom: 48px;">
+                  <div class="single-projects-content">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                      <div style="background-color: white; border-radius: 6px; padding: 4px;">
+                        <img src={getAssetPath('/assets/apple-logo.png')} alt="Apple iOS" style="width: 32px; height: 32px;" />
+                      </div>
+                      <h4 style="font-weight: bold; margin: 0;">iOS Development Skills</h4>
+                    </div>
+                    <div class="tech-tools-container">
+                      <div class="mini-label-white gray-color">Frameworks &amp; Technologies</div>
+                      <div class="chips-container chips-container-large-width">
+                        <div class="single-chip small-chip">Swift</div>
+                        <div class="single-chip small-chip">SwiftUI</div>
+                        <div class="single-chip small-chip">UIKit</div>
+                        <div class="single-chip small-chip">Texture (AsyncDisplayKit)</div>
+                        <div class="single-chip small-chip">Model View View Model (MVVM)</div>
+                        <div class="single-chip small-chip">The Composable Architecture (TCA)</div>
+                        <div class="single-chip small-chip">Reactive Programming (RxSwift/Combine)</div>
+                        <div class="single-chip small-chip">Unit Testing</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Technical Skills -->
+                <div class="projects-container" style="cursor: default; text-decoration: none; margin-bottom: 64px;">
+                  <div class="single-projects-content">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                      <div style="background-color: #202020; border-radius: 6px; padding: 4px;">
+                        <img src={getAssetPath('/assets/code.svg')} alt="Skills" style="width: 32px; height: 32px;" />
+                      </div>
+                      <h4 style="font-weight: bold; margin: 0;">Technical Skills</h4>
+                    </div>
+                    <div class="tech-tools-container">
+                      <div class="mini-label-white gray-color">Languages</div>
+                      <div class="chips-container chips-container-large-width">
+                        <div class="single-chip small-chip">Dart</div>
+                        <div class="single-chip small-chip">Java</div>
+                        <div class="single-chip small-chip">Python</div>
+                        <div class="single-chip small-chip">HTML</div>
+                        <div class="single-chip small-chip">CSS</div>
+                        <div class="single-chip small-chip">Javascript</div>
+                        <div class="single-chip small-chip">PHP</div>
+                      </div>
+                    </div>
+                    <div class="tech-tools-container">
+                      <div class="mini-label-white gray-color">Other Frameworks &amp; Technologies</div>
+                      <div class="chips-container chips-container-small-width">
+                        <div class="single-chip small-chip">Flutter</div>
+                        <div class="single-chip small-chip">Web Development (HTML, CSS, Javascript)</div>
+                        <div class="single-chip small-chip">Backend Development (Node.js, Laravel)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h2 style="font-weight: bold; margin-bottom: 32px;">Featured Projects</h2>
                 <div class="resouce-items">
                     {projects.map(project => (
                       <Project 

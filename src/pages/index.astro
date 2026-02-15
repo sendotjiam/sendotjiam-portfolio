@@ -1,6 +1,8 @@
 ---
 import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
+import Project from "../components/Project.astro";
+import { experiences } from "../data/experiences";
 import { ROUTES, getAssetPath } from '../config/constants';
 ---
 
@@ -50,63 +52,25 @@ import { ROUTES, getAssetPath } from '../config/constants';
             </div>
           </main>
           <div class="projects-section">
-            <!-- iOS App Development -->
-            <a href={ROUTES.WORK_EXPERIENCES} class="projects-container">
-              <div class="single-projects-content">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                  <div style="background-color: white; border-radius: 6px; padding: 4px;">
-                    <img src={getAssetPath('/assets/apple-logo.png')} alt="Apple iOS" style="width: 32px; height: 32px;" />
-                  </div>
-                  <h4 style="font-weight: bold; margin: 0;">iOS Development</h4>
-                </div>
-                <div class="tech-tools-container">
-                  <div class="mini-label-white gray-color">Frameworks &amp; Technologies</div>
-                  <div class="chips-container chips-container-large-width">
-                    <div class="single-chip small-chip">Swift</div>
-                    <div class="single-chip small-chip">SwiftUI</div>
-                    <div class="single-chip small-chip">UIKit</div>
-                    <div class="single-chip small-chip">Texture (AsyncDisplayKit)</div>
-                    <div class="single-chip small-chip">Model View View Model (MVVM)</div>
-                    <div class="single-chip small-chip">The Composable Architecture (TCA)</div>
-                    <div class="single-chip small-chip">Reactive Programming (RxSwift/Combine)</div>
-                    <div class="single-chip small-chip">Unit Testing</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <br>
-            <!-- Projects Development -->
-            <a href={ROUTES.PROJECTS} class="projects-container">
-              <div class="single-projects-content">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                  <div style="background-color: #202020; border-radius: 6px; padding: 4px;">
-                    <img src={getAssetPath('/assets/code.svg')} alt="Projects" style="width: 32px; height: 32px;" />
-                  </div>
-                  <h4 style="font-weight: bold; margin: 0;">Personal Projects</h4>
-                </div>
-                <div class="tech-tools-container">
-                  <div class="mini-label-white gray-color">Languages</div>
-                  <div class="chips-container chips-container-large-width">
-                    <div class="single-chip small-chip">Dart</div>
-                    <div class="single-chip small-chip">Java</div>
-                    <div class="single-chip small-chip">Python</div>
-                    <div class="single-chip small-chip">HTML</div>
-                    <div class="single-chip small-chip">CSS</div>
-                    <div class="single-chip small-chip">Javascript</div>
-                    <div class="single-chip small-chip">PHP</div>
-                  </div>
-                </div>
-                <div class="tech-tools-container">
-                  <div class="mini-label-white gray-color">Frameworks &amp; Technologies</div>
-                  <div class="chips-container chips-container-small-width">
-                    <div class="single-chip small-chip">Flutter</div>
-                    <div class="single-chip small-chip">Web Development (HTML, CSS, Javascript)</div>
-                    <div class="single-chip small-chip">Backend Development (Node.js, Laravel)</div>
-                  </div>
-                </div>
-              </div>
-            </a>
 
+            <div style="margin-bottom: 64px;">
+              <h1 style="font-weight: bold; margin-bottom: 32px; font-size: 3rem;">Work Experiences</h1>
+              <div class="resouce-items">
+                {experiences.map((experience, index) => (
+                  <div style="margin-bottom: 40px;">
+                    <Project 
+                      jobTitle={experience.jobTitle}
+                      company={`${experience.company} • ${experience.date}`}
+                      desc={experience.desc}
+                      tech={experience.tech}
+                      logo={getAssetPath(experience.logo)}
+                      appStoreLink={experience.appStoreLink}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <br>
           </div>
         </div>
       </nav>

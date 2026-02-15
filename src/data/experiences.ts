@@ -1,14 +1,22 @@
----
-import Header from "../components/Header.astro";
-import Project from "../components/Project.astro";
-import Sidebar from "../components/Sidebar.astro";
-import { BASE_URL, getAssetPath } from '../config/constants';
-const experiences = [
+export const experiences = [
+  {
+    jobTitle: "Software Engineer - iOS",
+    company: "Grab",
+    logo: "/assets/company-logo/grab-logo.jpeg",
+    date: "Nov 2025 - Present",
+    desc: [
+      "Developed and maintained the Grab Driver iOS app, ensuring high performance and reliability for driver partners across Southeast Asia.",
+      "Implemented new features and improvements for Grab Driver app, specifically for the In Transit flow (spanning from job acceptance until after the job is completed)",
+      "Collaborated with cross-functional teams (Product, Design, QA, Backend) to deliver high-quality features on time.",
+    ],
+    tech: ["Swift", "UIKit", "RxSwift", "VIPER", "Model View ViewModel", "Unit Testing", "UI Testing", "Modularization", "REST API", "TCP Socket"],
+    appStoreLink: "https://apps.apple.com/us/app/grab-driver-app-for-partners/id1257641454"
+  },
   {
     jobTitle: "iOS Engineer",
     company: "ByteDance (Tokopedia)",
     logo: "/assets/company-logo/bytedance-logo.jpeg",
-    date: "Oct 2023 - Present",
+    date: "Oct 2023 - Nov 2025",
     desc: [
       "Developed the TikTok Seller Center iOS app, enabling account binding and fast onboarding — a key step in migrating sellers from Tokopedia Seller Center to TikTok Seller Center.",
       "Built a reusable TikTok Buyer & Seller Binding service by integrating the TikTok Open Auth SDK — laying the foundation for Tokopedia and TikTok Shop integration.",
@@ -62,57 +70,3 @@ const experiences = [
     appStoreLink: "https://apps.apple.com/id/app/klik-diabetes/id1541593080"
   }
 ];
----
-
-<!DOCTYPE html>
-<html>
-  <Header title="Work Experiences | Sendo Tjiamis" />
-  <body>
-    <div class="content">
-        <Sidebar selectedItem="work-experiences" />
-      <nav class="main">
-        <div class="container">
-          <div class="back-nav-container">
-            <a href={BASE_URL} class="back-nav-button w-inline-block"
-              ><img src={getAssetPath('/assets/back.svg')} loading="lazy" alt="" class="back-nav-img" />
-              <div>Back</div></a
-            >
-          </div>
-          <div class="content-container">
-            <h1 style="font-weight: bold;">Work Experiences</h1>
-            <section class="items-container" data-section="work-experiences">
-                <div class="resouce-items timeline-container">
-                    {experiences.map((experience, index) => (
-                      <div class="timeline-item" data-company={experience.company} data-job-title={experience.jobTitle}>
-                        <Project 
-                          jobTitle={experience.jobTitle}
-                          company={`${experience.company} • ${experience.date}`}
-                          desc={experience.desc}
-                          tech={experience.tech}
-                          logo={getAssetPath(experience.logo)}
-                          appStoreLink={experience.appStoreLink}
-                        />
-                      </div>
-                    ))}
-                  </div>
-            </section>
-          </div>
-        </div>
-      </nav>
-    </div>
-
-    <!--[if lte IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
-    
-    <!-- Analytics Initialization -->
-    <script>
-      import { initAnalytics } from '../scripts/analytics-init.js';
-      
-      // Initialize analytics when page loads
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAnalytics);
-      } else {
-        initAnalytics();
-      }
-    </script>
-  </body>
-</html>
