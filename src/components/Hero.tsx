@@ -16,11 +16,11 @@ export default function Hero() {
   };
 
   const corePillars = [
-    { title: 'Swift 6 & Strict Concurrency', subtitle: 'Modern Threading & Data-Race Safety' },
-    { title: 'SwiftUI & Programmatic UIKit', subtitle: 'Declarative & High-Throughput UI' },
-    { title: 'Modular SPM & Micro-Apps', subtitle: 'Scalable Enterprise Monorepos' },
-    { title: 'Instruments & Memory Profiling', subtitle: 'Runtime Optimization & Leak Detection' },
-    { title: 'Agentic AI Harnesses', subtitle: 'Antigravity, Claude & Gemini Workflows' },
+    { title: 'Swift & Concurrency', subtitle: 'Modern Threading & Data-Race Safety' },
+    { title: 'SwiftUI & UIKit', subtitle: 'Declarative & High-Throughput UI' },
+    { title: 'Clean Architecture & VIPER', subtitle: 'Modular Enterprise Architecture' },
+    { title: 'Unit Tests & Code Quality', subtitle: 'Automated Testing & Code Reliability' },
+    { title: 'Agentic AI Harnesses', subtitle: 'Antigravity, Claude & Codex Workflows' },
   ];
 
   return (
