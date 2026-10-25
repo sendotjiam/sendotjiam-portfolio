@@ -16,7 +16,7 @@ Demonstrate world-class iOS engineering expertise, track record at tier-1 tech c
    - ByteDance (Tokopedia): TikTok Seller Center binding, Server-Driven UI, Modular Arch.
    - Grab (OVO): High-security payment features, biometric auth.
    - PT. Bank MNC International & Kalbe: Early banking and e-health mobile foundations.
-3. **Featured Projects:** Grab Driver iOS, Tokopedia & TikTok Seller, WikiBus Singapore, OVO Digital Wallet, BuyMax Crypto, EduAI Tutor.
+3. **Featured Projects:** Grab Driver iOS, Tokopedia & TikTok Seller, WikiBus Singapore, OVO Digital Wallet, PasteTap for macOS, EduAI Tutor.
 4. **Core Technical Competencies:** Swift 6 Concurrency, SwiftUI, UIKit (programmatic), Reactive streams (Combine/RxSwift), Modular SPM, Performance Profiling, and modern Agentic Harnesses.
 5. **Key Actions:** 
    - Primary: Contact / "Get in touch" (email)

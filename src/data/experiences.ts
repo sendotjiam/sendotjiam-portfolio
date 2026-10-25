@@ -29,8 +29,10 @@ export const experiences: ExperienceItem[] = [
       "RxSwift",
       "VIPER",
       "MVVM",
+      "UI Testing",
+      "Agentic Development",
+      "Oncall Investigation",
       "Grab AI Harness",
-      "Knowledge Base",
       "Unit Tests",
       "CI/CD"
     ],
@@ -46,7 +48,6 @@ export const experiences: ExperienceItem[] = [
       "Shipped high-impact user-facing features for the TikTok Seller Center iOS app in **Swift** and **SwiftUI**, driving merchant **activation and engagement** during the massive migration from Tokopedia.",
       "Built a reusable TikTok Buyer & Seller Binding service by integrating the **TikTok Open Auth SDK** — laying the foundation for Tokopedia and TikTok Shop integration.",
       "Revamped login and registration flows to instinctively eliminate UI jank and confusing flows, creating a **seamless onboarding experience** that simplified user activation.",
-      "Architected **Server-Driven UI** for the Tokopedia Account page, enabling rapid **A/B testing**, product experimentation, and significantly faster iterations.",
       "Implemented mandatory KYC flow for new sellers using the GoTo Group KYC SDK, improving overall seller quality and compliance.",
       "Leveraged **data literacy** and product sense to build personalized shopping preference features, utilizing **metrics and dashboards** to validate improvements in user retention.",
       "Spearheaded the migration of global UI components from Texture to **UIKit** and **SwiftUI**, adopting modern app architecture and **concurrency patterns** to drastically improve performance and debug **complex code bases**."
@@ -56,12 +57,11 @@ export const experiences: ExperienceItem[] = [
       "SwiftUI",
       "UIKit",
       "Texture (AsyncDisplayKit)",
-      "Server-Driven UI",
+      "The Composable Architecture (TCA)",
       "TikTok Open Auth SDK",
       "Concurrency",
       "RxSwift",
       "Combine",
-      "TCA",
       "A/B Testing"
     ],
     appStoreLink: "https://apps.apple.com/id/app/tokopedia/id1001394201"
