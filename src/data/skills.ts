@@ -13,6 +13,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       'Swift',
       'Swift Concurrency',
+      'Asynchronous Programming',
       'Dart',
       'Python',
       'Object-Oriented Programming',
@@ -27,6 +28,7 @@ export const skillCategories: SkillCategory[] = [
       'UIKit',
       'RxSwift',
       'Combine',
+      'ReactiveKit',
       'Texture (AsyncDisplayKit)',
       'Flutter',
     ],
@@ -50,6 +52,7 @@ export const skillCategories: SkillCategory[] = [
     skills: [
       'Git',
       'Unit Tests',
+      'UI and Snapshot Tests',
       'XCTest',
       'Firebase',
       'Jira & Confluence',
@@ -61,6 +64,8 @@ export const skillCategories: SkillCategory[] = [
     icon: 'smart_toy',
     description: 'Agentic workflows, prompt harnesses, and autonomous development loops.',
     skills: [
+      'Agentic Orchestration',
+      'Advisor Agent',
       'Gemini (Antigravity)',
       'Claude',
       'Codex (ChatGPT)',

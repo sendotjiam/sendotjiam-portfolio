@@ -64,7 +64,7 @@ export const projects: ProjectItem[] = [
     badgeType: 'highlight',
     desc: 'Sub-millisecond, 1-tap clipboard HUD for macOS developers. Built with Swift, zero telemetry, and instant numeric keyboard shortcuts.',
     tech: ['Swift', 'macOS', 'SwiftUI', 'AppKit', 'SPM'],
-    logo: '/assets/code.svg',
+    logo: '/assets/project-logo/pastetap-logo.png',
     link: 'https://github.com/sendotjiam/paste-tap',
   },
   {
