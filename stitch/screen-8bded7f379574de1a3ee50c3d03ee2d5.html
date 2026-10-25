@@ -1,0 +1,534 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}
+  .scenery-card {
+    perspective: 1000px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  }
+  .scenery-card:hover {
+    transform: translateY(-4px) scale(1.005);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "outline-variant": "#e2e8f0", "tertiary-fixed": "#ffdbcb", "on-tertiary-fixed-variant": "#793100", "inverse-surface": "#1e293b", "on-tertiary-fixed": "#341100", "primary-fixed-dim": "#93c5fd", "tertiary-container": "#ffedd5", "on-tertiary-container": "#9a3412", "surface-bright": "#ffffff", "error": "#ef4444", "on-secondary-container": "#0369a1", "on-secondary": "#ffffff", "tertiary-fixed-dim": "#fdba74", "secondary": "#0284c7", "on-primary-container": "#1e3a8a", "background": "#ffffff", "surface-container": "#f8fafc", "inverse-primary": "#3b82f6", "secondary-container": "#e0f2fe", "primary-fixed": "#dbeafe", "primary": "#0066cc", "on-primary-fixed-variant": "#1d4ed8", "error-container": "#fee2e2", "primary-container": "#eff6ff", "surface-variant": "#f1f5f9", "on-error": "#ffffff", "on-secondary-fixed-variant": "#075985", "surface-container-low": "#ffffff", "on-surface-variant": "#64748b", "surface-container-high": "#f1f5f9", "on-surface": "#0f172a", "on-primary-fixed": "#172554", "surface": "#ffffff", "on-tertiary": "#ffffff", "surface-container-lowest": "#ffffff", "on-error-container": "#991b1b", "on-primary": "#ffffff", "outline": "#94a3b8", "tertiary": "#ea580c", "surface-tint": "#0066cc", "secondary-fixed-dim": "#7dd3fc", "surface-dim": "#f8fafc", "inverse-on-surface": "#f8fafc", "on-background": "#0f172a", "on-secondary-fixed": "#0c4a6e", "secondary-fixed": "#bae6fd", "surface-container-highest": "#e2e8f0" }, "borderRadius": { "DEFAULT": "0.375rem", "lg": "0.625rem", "xl": "0.875rem", "2xl": "1rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-mobile": "1.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "gutter-mobile": "1rem", "margin": "2rem" }, "fontFamily": { "body-md": ["Geist", "sans-serif"], "display-mobile": ["Geist", "sans-serif"], "headline-sm": ["Geist", "sans-serif"], "headline-md": ["Geist", "sans-serif"], "display": ["Geist", "sans-serif"], "body-lg": ["Geist", "sans-serif"], "mono-label": ["JetBrains Mono", "monospace"], "headline-lg": ["Geist", "sans-serif"], "mono-code": ["JetBrains Mono", "monospace"], "body-sm": ["Geist", "sans-serif"], "headline-lg-mobile": ["Geist", "sans-serif"] }, "fontSize": { "body-md": ["0.9375rem", { "lineHeight": "1.55", "letterSpacing": "-0.005em", "fontWeight": "400" }], "display-mobile": ["2.5rem", { "lineHeight": "1.15", "letterSpacing": "-0.025em", "fontWeight": "600" }], "headline-sm": ["1.125rem", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-md": ["1.5rem", { "lineHeight": "1.3", "letterSpacing": "-0.02em", "fontWeight": "500" }], "display": ["3.75rem", { "lineHeight": "1.1", "letterSpacing": "-0.035em", "fontWeight": "600" }], "body-lg": ["1.125rem", { "lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400" }], "mono-label": ["0.75rem", { "lineHeight": "1.2", "letterSpacing": "0.04em", "fontWeight": "500" }], "headline-lg": ["2rem", { "lineHeight": "1.2", "letterSpacing": "-0.025em", "fontWeight": "600" }], "mono-code": ["0.8125rem", { "lineHeight": "1.5", "letterSpacing": "-0.01em", "fontWeight": "400" }], "body-sm": ["0.8125rem", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg-mobile": ["1.75rem", { "lineHeight": "1.25", "letterSpacing": "-0.02em", "fontWeight": "600" }] } } } }</script></head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased selection:bg-primary-container selection:text-primary min-h-screen flex flex-col justify-between"><header class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 shadow-[0_1px_3px_rgba(0,0,0,0.02)]"><div class="h-16 max-w-4xl mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" data-path="home" href="#"><div class="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center font-mono-label text-mono-label text-white font-bold transition-all group-hover:scale-105">ST</div><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight hidden sm:inline-block font-semibold">Sendo Tjiamis</span></a></div><nav class="hidden md:flex items-center gap-space-xs p-1 bg-slate-100/70 border border-slate-200/50 rounded-full" data-active-classes="bg-white text-on-surface font-medium shadow-sm"><a class="px-space-md py-1 text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-body-sm rounded-full" data-path="about" href="#about">About</a><a class="px-space-md py-1 text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-body-sm rounded-full" data-path="experience" href="#experience">Experience</a><a class="px-space-md py-1 text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-body-sm rounded-full" data-path="projects" href="#projects">Projects</a><a class="px-space-md py-1 text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-body-sm rounded-full" data-path="skills" href="#skills">Skills</a><a class="px-space-md py-1 text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-body-sm rounded-full" data-path="contact" href="#contact">Contact</a></nav><div class="flex items-center gap-space-sm"><button aria-label="Toggle theme" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200/80 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors border border-slate-200/60" type="button"><span class="material-symbols-outlined text-[18px]">light_mode</span></button><a class="hidden sm:inline-flex items-center px-space-md py-1.5 rounded-lg bg-primary text-white font-body-sm text-body-sm font-medium hover:bg-blue-700 transition-colors shadow-sm" data-path="contact" href="#contact">Get in touch</a><div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 text-slate-700 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[18px]">person</span></div></div></div></header><main class="w-full max-w-4xl mx-auto px-margin-mobile md:px-margin pt-16 flex-1"><div class="flex flex-col w-full text-on-surface">
+<!-- Ambient Light Subtle Subtle Accent -->
+<div class="relative w-full overflow-hidden pointer-events-none">
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[680px] h-[300px] bg-sky-100/50 rounded-full blur-[100px] -z-10"></div>
+</div>
+<!-- 00 // HERO & INTRODUCTION -->
+<section class="w-full pt-10 pb-8" id="about"><div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center w-full"><div class="flex flex-col items-start gap-5 md:col-span-7"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-200/80 shadow-[0_1px_2px_rgba(0,0,0,0.03)]"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span><span class="font-mono-label text-mono-label text-slate-700 tracking-wide font-medium">Building iOS at Grab • Jakarta, ID</span></div><div class="flex flex-col gap-1.5"><h1 class="font-display text-display text-slate-900 tracking-tight font-bold">Sendo Tjiamis</h1><p class="font-headline-md text-headline-md text-primary font-normal">iOS Engineer building apps used by millions.</p></div><p class="font-body-lg text-body-lg text-slate-600 leading-relaxed">Senior iOS Engineer with 3+ years of dedicated craft in Swift, SwiftUI, UIKit, and high-throughput mobile architecture. Currently scaling driver and consumer experiences at <span class="text-slate-900 font-semibold">Grab</span>. Previously engineered core interactive feeds and mobile payment workflows at <span class="text-slate-900 font-semibold">ByteDance (TikTok)</span>.</p><div class="flex flex-wrap items-center gap-space-sm pt-1"><a class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-primary text-white font-body-sm text-body-sm font-medium hover:bg-blue-700 transition-all duration-150 shadow-sm active:scale-[0.98]" href="#contact"><span class="material-symbols-outlined text-[18px]">mail</span><span class="">sendo@tjiamis.dev</span></a><a class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-white border border-slate-200 text-slate-700 font-body-sm text-body-sm font-medium hover:bg-slate-50 hover:border-slate-300 transition-all duration-150 shadow-sm" download="Sendo_Tjiamis_CV.pdf" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span class="">Resume PDF</span></a><div class="flex items-center gap-space-xs ml-auto sm:ml-2"><a aria-label="GitHub Profile" class="w-10 h-10 rounded-lg bg-white border border-slate-200/80 hover:border-slate-300 flex items-center justify-center text-slate-600 hover:text-primary transition-colors shadow-sm" href="https://github.com" rel="noopener noreferrer" target="_blank"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd"></path></svg></a><a aria-label="LinkedIn Profile" class="w-10 h-10 rounded-lg bg-white border border-slate-200/80 hover:border-slate-300 flex items-center justify-center text-slate-600 hover:text-primary transition-colors shadow-sm" href="https://linkedin.com" rel="noopener noreferrer" target="_blank"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76c-.97 0-1.75-.79-1.75-1.76s.78-1.75 1.75-1.75 1.75.78 1.75 1.75-.78 1.76-1.75 1.76m1.39 9.74v-8.37H5.07v8.37h2.78z"></path></svg></a></div></div></div><div class="md:col-span-5 relative flex items-center justify-center py-6"><style class="">
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(1.5deg); }
+  }
+  @keyframes float-mid {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(-2deg); }
+  }
+  @keyframes float-fast {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
+  }
+  @keyframes float-gentle {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(2.5deg); }
+  }
+  .bubble-float-1 { animation: float-slow 6.5s ease-in-out infinite; }
+  .bubble-float-2 { animation: float-mid 5.8s ease-in-out infinite 0.8s; }
+  .bubble-float-3 { animation: float-fast 4.9s ease-in-out infinite 1.4s; }
+  .bubble-float-4 { animation: float-gentle 7.2s ease-in-out infinite 0.4s; }
+  .bubble-float-5 { animation: float-slow 5.4s ease-in-out infinite 1.9s; }
+  .bubble-float-6 { animation: float-mid 6.8s ease-in-out infinite 1.1s; }
+  .bubble-btn {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.2s ease;
+  }
+  .bubble-btn:hover {
+    transform: scale(1.12) translateY(-4px) !important;
+    box-shadow: 0 16px 32px -8px rgba(0, 102, 204, 0.18), 0 4px 12px rgba(0, 0, 0, 0.05);
+    z-index: 40 !important;
+  }
+  .bubble-btn:active {
+    transform: scale(0.94) !important;
+  }
+</style>
+<div class="relative w-full max-w-[380px] h-[360px] sm:h-[390px] flex items-center justify-center mx-auto select-none" id="bubbles-constellation"><!-- Ambient soft backdrop glow -->
+  <div class="absolute w-72 h-72 rounded-full bg-gradient-to-tr from-blue-400/20 via-sky-300/15 to-amber-300/20 blur-3xl -z-10 pointer-events-none"></div>
+  <div class="absolute w-44 h-44 rounded-full bg-indigo-300/20 blur-2xl top-4 right-4 -z-10 pointer-events-none"></div>
+
+  <!-- Interactive Status Toast Banner in Center -->
+  <div id="bubble-status-card" class="absolute z-30 transition-all duration-300 pointer-events-none opacity-0 scale-95 px-3 py-1.5 rounded-full bg-slate-900/90 text-white backdrop-blur-md text-[12px] font-mono-label shadow-lg flex items-center gap-1.5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+    <span id="bubble-status-text" class="">Swift 6 • Strict Concurrency</span>
+  </div>
+
+  <!-- Bubble 1: Centerpiece Swift 6 -->
+  <div class="absolute z-20 bubble-float-1" style="top: 32%; left: 30%;">
+    <button type="button" class="bubble-btn relative flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-white/90 backdrop-blur-xl border border-white/90 shadow-[0_12px_28px_rgba(240,81,56,0.14)] cursor-pointer group" data-tech="Swift 6" data-desc="Language Core • Strict Concurrency &amp; Modern Semantics">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center shadow-sm text-white shrink-0 group-hover:scale-105 transition-transform">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+          <path d="M20.25 14.5c-.3 0-.6.1-.9.2-1.9 1-4.2 1.4-6.3.7 1.8-.7 3.2-2.1 4-3.8-2.6 1.1-5.5 1-7.8-.5 3.3.4 6.7-.8 8.6-3.2-1.7.5-3.5.3-5-.5 3.4-1.2 5.3-4.4 5.2-4.4s-1 .8-2.1 1.4C14.7 3.5 12.8 3.5 11 4.5c-.6.3-1.1.7-1.6 1.2-.2.2-.4.4-.6.6C5.9 8.9 3 14 3.7 19.3c.1.7.3 1.4.6 2 .3-.4.7-.8 1.1-1.1 1.3-1 2.9-1.6 4.5-1.7-.8-.5-1.5-1.2-1.9-2 .9.4 1.9.6 2.9.5-1-.7-1.7-1.8-1.9-3 1 .6 2.1.8 3.3.7-1.3-1.2-1.9-3-1.6-4.8 1.5 1.6 3.5 2.7 5.7 3 0 0-.1 0 0 0 1.1.2 2.2.1 3.2-.2.2.4.4.8.6 1.2z"></path>
+        </svg>
+      </div>
+      <div class="flex flex-col text-left">
+        <span class="font-headline-sm text-[15px] font-semibold text-slate-900 leading-none">Swift 6</span>
+        <span class="font-mono-label text-[11px] text-orange-600 font-medium mt-1">Modern Runtime</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Bubble 2: SwiftUI (Top Left) -->
+  <div class="absolute z-10 bubble-float-2" style="top: 4%; left: 8%;">
+    <button type="button" class="bubble-btn relative flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-white/85 backdrop-blur-xl border border-blue-100/90 shadow-[0_10px_24px_rgba(0,102,204,0.12)] cursor-pointer group" data-tech="SwiftUI" data-desc="Declarative UI • State-Driven Reactive Architecture">
+      <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200/60 flex items-center justify-center text-primary shrink-0 group-hover:scale-105 transition-transform">
+        <svg class="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+      <div class="flex flex-col text-left">
+        <span class="font-headline-sm text-[13px] font-semibold text-slate-900 leading-none">SwiftUI</span>
+        <span class="font-mono-label text-[10px] text-primary font-medium mt-0.5">Declarative UI</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Bubble 3: UIKit (Programmatic UI - Top Right) -->
+  <div class="absolute z-10 bubble-float-3" style="top: 6%; right: 4%;">
+    <button type="button" class="bubble-btn relative flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-white/85 backdrop-blur-xl border border-indigo-100 shadow-[0_10px_24px_rgba(99,102,241,0.12)] cursor-pointer group" data-tech="UIKit" data-desc="Programmatic Autolayout • CoreAnimation &amp; View Hierarchy">
+      <div class="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200/60 flex items-center justify-center text-indigo-600 shrink-0 group-hover:scale-105 transition-transform">
+        <span class="material-symbols-outlined text-[18px]">layers</span>
+      </div>
+      <div class="flex flex-col text-left">
+        <span class="font-headline-sm text-[13px] font-semibold text-slate-900 leading-none">UIKit</span>
+        <span class="font-mono-label text-[10px] text-indigo-600 font-medium mt-0.5">Programmatic</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Bubble 4: Combine & Concurrency (Bottom Left) -->
+  <div class="absolute z-10 bubble-float-4" style="bottom: 10%; left: 4%;">
+    <button type="button" class="bubble-btn relative flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-white/85 backdrop-blur-xl border border-blue-100/90 shadow-[0_10px_24px_rgba(0,102,204,0.12)] cursor-pointer group" data-tech="Combine" data-desc="Reactive Event Streams • Publishers &amp; Async Sequences">
+      <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200/60 flex items-center justify-center text-primary shrink-0 group-hover:scale-105 transition-transform">
+        <span class="material-symbols-outlined text-[18px]">alt_route</span>
+      </div>
+      <div class="flex flex-col text-left">
+        <span class="font-headline-sm text-[13px] font-semibold text-slate-900 leading-none">Combine</span>
+        <span class="font-mono-label text-[10px] text-primary font-medium mt-0.5">Reactive Streams</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Bubble 5: SwiftData / CoreData (Bottom Right) -->
+  <div class="absolute z-10 bubble-float-5" style="bottom: 8%; right: 6%;">
+    <button type="button" class="bubble-btn relative flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-white/85 backdrop-blur-xl border border-emerald-100 shadow-[0_10px_24px_rgba(16,185,129,0.12)] cursor-pointer group" data-tech="SwiftData" data-desc="Modern Persistence • Schema Migrations &amp; Offline Sync">
+      <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-emerald-600 shrink-0 group-hover:scale-105 transition-transform">
+        <span class="material-symbols-outlined text-[18px]">database</span>
+      </div>
+      <div class="flex flex-col text-left">
+        <span class="font-headline-sm text-[13px] font-semibold text-slate-900 leading-none">SwiftData</span>
+        <span class="font-mono-label text-[10px] text-emerald-600 font-medium mt-0.5">Persistence</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Bubble 6: Xcode Developer Tools (Pill badge) -->
+  <div class="absolute z-20 bubble-float-6 hidden sm:block" style="top: 48%; right: -2%;">
+    <button type="button" class="bubble-btn relative flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-md cursor-pointer group" data-tech="Xcode Tools" data-desc="Build Systems, Swift Package Manager &amp; LLDB Debugging">
+      <span class="material-symbols-outlined text-[15px] text-primary">construction</span>
+      <span class="font-mono-label text-[11px] text-slate-800 font-semibold">Xcode SPM</span>
+    </button>
+  </div></div>
+
+<script class="">
+  (function() {
+    const constellation = document.getElementById('bubbles-constellation');
+    const toast = document.getElementById('bubble-status-card');
+    const toastText = document.getElementById('bubble-status-text');
+    if (!constellation || !toast || !toastText) return;
+
+    let hideTimer;
+    const buttons = constellation.querySelectorAll('.bubble-btn');
+    buttons.forEach(btn => {
+      const showInfo = () => {
+        clearTimeout(hideTimer);
+        const tech = btn.getAttribute('data-tech') || '';
+        const desc = btn.getAttribute('data-desc') || '';
+        toastText.innerHTML = '<strong>' + tech + '</strong> — ' + desc;
+        toast.classList.remove('opacity-0', 'scale-95');
+        toast.classList.add('opacity-100', 'scale-100');
+      };
+
+      const hideInfo = () => {
+        hideTimer = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'scale-100');
+          toast.classList.add('opacity-0', 'scale-95');
+        }, 1200);
+      };
+
+      btn.addEventListener('mouseenter', showInfo);
+      btn.addEventListener('mouseleave', hideInfo);
+      btn.addEventListener('click', (e) => {
+        showInfo();
+        btn.style.transition = 'transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        btn.style.transform = 'scale(1.22) translateY(-6px)';
+        setTimeout(() => {
+          btn.style.transform = '';
+          btn.style.transition = '';
+        }, 300);
+      });
+    });
+  })();
+</script></div></div><div class="w-full border-t border-slate-100 my-2"></div></section>
+<!-- 01 // CAREER & EXPERIENCE -->
+<section class="w-full pt-6 pb-space-lg" id="experience">
+<!-- Header Badge -->
+<div class="flex items-center justify-between gap-space-md mb-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-label text-mono-label text-primary font-semibold">01 / CAREER</span>
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+<h2 class="font-headline-lg text-headline-lg text-slate-900 font-bold">Experience</h2>
+</div>
+<span class="font-mono-label text-mono-label text-slate-400 hidden sm:inline-block">2022 — PRESENT (3+ YEARS)</span>
+</div>
+<!-- Career Timeline Stack -->
+<div class="relative flex flex-col gap-space-md pl-4 md:pl-6">
+<!-- Continuous Vertical Guide line -->
+<div class="absolute left-[7px] md:left-[15px] top-4 bottom-4 w-0.5 bg-slate-200"></div>
+<!-- Item 1: Grab -->
+<div class="relative flex items-start gap-space-md group">
+<!-- Concentric Timeline Node -->
+<div class="relative z-10 w-4 h-4 rounded-full bg-white flex items-center justify-center -ml-2 md:-ml-2 mt-1.5 shrink-0 ring-4 ring-white">
+<div class="w-2.5 h-2.5 rounded-full bg-primary ring-2 ring-primary/20"></div>
+</div>
+<div class="flex-1 p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all duration-200"><div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-space-md pb-space-sm border-b border-slate-100"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-white shadow-sm shrink-0"><svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c2.3 0 4.41-.78 6.1-2.09l-2.02-2.02C14.88 18.57 13.51 19 12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7c3.47 0 6.34 2.53 6.89 5.86H12v3.08h10V12c0-5.52-4.48-10-10-10z"></path></svg></div><div class="flex flex-col"><div class="flex items-center gap-space-xs flex-wrap"><span class="font-headline-sm text-headline-sm text-slate-900 font-bold">Grab</span><span class="text-slate-400">•</span><span class="font-headline-sm text-headline-sm text-primary font-medium">Senior iOS Engineer</span></div><p class="font-body-sm text-body-sm text-slate-500 mt-0.5">Driver &amp; Consumer Engineering • Jakarta, ID</p></div></div><span class="font-mono-label text-mono-label text-emerald-700 font-semibold bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded shrink-0 self-start">2022 — PRESENT</span></div><div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg items-center"><div class="md:col-span-7 flex flex-col justify-between gap-space-md"><ul class="flex flex-col gap-2.5 font-body-md text-body-md text-slate-600"><li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span><span class="">Architected modular offline-first booking and navigation pipeline, reducing cold launch time by <strong class="text-slate-900">28%</strong> on memory-constrained devices.</span></li><li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span><span class="">Spearheaded migration of critical driver booking funnels from legacy UIKit to modern <strong class="text-slate-900">SwiftUI</strong> with unidirectional immutable state dispatching.</span></li><li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">check_circle</span><span class="">Directly mentored junior and mid-level iOS engineers across Singapore and Jakarta hubs through structured architecture and Swift concurrency reviews.</span></li></ul><div class="flex flex-wrap gap-1.5 pt-space-xs"><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Swift 5.10</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">SwiftUI</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">CoreLocation</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">MapKit</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Clean Architecture</span></div></div><div class="md:col-span-5 flex justify-center"><div class="w-full max-w-[210px] rounded-2xl overflow-hidden border-2 border-slate-200/90 shadow-md bg-slate-50"><img src="https://lh3.googleusercontent.com/aida/AEtjO1UJ1kRLT8DLQOk-g1B0Pxpw7ZU_XbaV5D39yiOnwzzFrt9_WdxacdJA5976dYpu3yF1OhjOBFSw0A7MdiC0lCNXWTN_UVoqkEKjUuZuuNKg3a7kg4-6UFG-LTkREOxPGl7COfqTBv0i5d3skIlI4svOjUmMUf11B-AGtbo3il33Dwv7Fw2zv3kOtu6YBIa3_uNHcrcc-fWnAfzJuHzRLYnm7gx20DCK6ezDVZdf9bt2N_jD8KUx7Fcmtveu" alt="Grab superapp mobile interface preview" class="w-full h-auto object-cover"></div></div></div></div>
+</div>
+<!-- Item 2: ByteDance -->
+<div class="relative flex items-start gap-space-md group">
+<div class="relative z-10 w-4 h-4 rounded-full bg-white flex items-center justify-center -ml-2 md:-ml-2 mt-1.5 shrink-0 ring-4 ring-white">
+<div class="w-2.5 h-2.5 rounded-full bg-slate-400"></div>
+</div>
+<div class="flex-1 p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all duration-200"><div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-space-md pb-space-sm border-b border-slate-100"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-white shadow-sm shrink-0"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68a6.34 6.34 0 0 0 10.86 4.47A6.29 6.29 0 0 0 15.82 15V8.52a8.2 8.2 0 0 0 4.77 1.54V6.69z"></path></svg></div><div class="flex flex-col"><div class="flex items-center gap-space-xs flex-wrap"><span class="font-headline-sm text-headline-sm text-slate-900 font-bold">ByteDance (TikTok)</span><span class="text-slate-400">•</span><span class="font-headline-sm text-headline-sm text-primary font-medium">iOS Engineer</span></div><p class="font-body-sm text-body-sm text-slate-500 mt-0.5">Interactive Media &amp; Live Streaming • Singapore / Jakarta</p></div></div><span class="font-mono-label text-mono-label text-slate-600 font-semibold bg-slate-100 border border-slate-200 px-2.5 py-1 rounded shrink-0 self-start">2022 — 2023</span></div><div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg items-center"><div class="md:col-span-7 flex flex-col justify-between gap-space-md"><ul class="flex flex-col gap-2.5 font-body-md text-body-md text-slate-600"><li class="flex items-start gap-2"><span class="material-symbols-outlined text-slate-400 text-[18px] shrink-0 mt-0.5">check_circle</span><span class="">Optimized short-video feed memory footprint and customized <strong class="text-slate-900">AVPlayer</strong> segment caching, slashing frame drop and playback stall rate by <strong class="text-slate-900">14%</strong>.</span></li><li class="flex items-start gap-2"><span class="material-symbols-outlined text-slate-400 text-[18px] shrink-0 mt-0.5">check_circle</span><span class="">Designed resilient real-time live streaming overlay framework rendering high-throughput emoji comments and gift bursts with strict 60fps frame budgets.</span></li></ul><div class="flex flex-wrap gap-1.5 pt-space-xs"><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">AVFoundation</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Metal</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">WebSockets</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Performance Profiling</span></div></div><div class="md:col-span-5 flex justify-center"><div class="w-full max-w-[210px] rounded-2xl overflow-hidden border-2 border-slate-200/90 shadow-md bg-slate-900"><img src="https://lh3.googleusercontent.com/aida/AEtjO1XZknxdcvirEKG9koalB2lBtK7YCrJC1BzQ_2zXixefCGRN-adb2eA3-K2rxKtKH8oAfepdZnnumeYNwL6-SiSaS2_owoz6Upa_ua8rwT8GIgVYxqrcnLQCZaBH4NySPnwjG_dv3laMpax3rBU4sHFBz1qErPh7bbL8ct4pHjOmTS_iKcg7zulQUkS1lh-FjakZFEoGEWO2Ilxn0dIoEDCki9CoB5QyBN0mFyf_8v_0dg38J4_HcTbmCf70" alt="TikTok live stream interface mockup" class="w-full h-auto object-cover"></div></div></div></div>
+</div>
+<!-- Item 3: Tokopedia (Foundation) -->
+<div class="relative flex items-start gap-space-md group">
+<div class="relative z-10 w-4 h-4 rounded-full bg-white flex items-center justify-center -ml-2 md:-ml-2 mt-1.5 shrink-0 ring-4 ring-white">
+<div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+</div>
+<div class="flex-1 p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all duration-200"><div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-space-md pb-space-sm border-b border-slate-100"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200/60 flex items-center justify-center text-emerald-600 shadow-sm shrink-0"><span class="material-symbols-outlined text-[24px]">shopping_bag</span></div><div class="flex flex-col"><div class="flex items-center gap-space-xs flex-wrap"><span class="font-headline-sm text-headline-sm text-slate-900 font-bold">Tokopedia</span><span class="text-slate-400">•</span><span class="font-headline-sm text-headline-sm text-primary font-medium">iOS Engineer</span></div><p class="font-body-sm text-body-sm text-slate-500 mt-0.5">Core Checkout &amp; Digital Payments • Jakarta, ID</p></div></div><span class="font-mono-label text-mono-label text-slate-600 font-semibold bg-slate-100 border border-slate-200 px-2.5 py-1 rounded shrink-0 self-start">2021 — 2022</span></div><div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg items-center"><div class="md:col-span-7 flex flex-col justify-between gap-space-md"><p class="font-body-md text-body-md text-slate-600 leading-relaxed">Constructed modular payment flows integrated across prominent digital wallet partners, handling millions in daily transactional volume with robust biometrics and state validation.</p><div class="flex flex-wrap gap-1.5 pt-space-xs"><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Security &amp; Biometrics</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">UIKit</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">CoreData</span><span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">CI/CD Fastlane</span></div></div><div class="md:col-span-5 flex justify-center"><div class="w-full max-w-[210px] rounded-2xl overflow-hidden border-2 border-slate-200/90 shadow-md bg-emerald-50"><img src="https://lh3.googleusercontent.com/aida/AEtjO1U8Ll5t568iwfDOFXNe_uEi6ts-JjT-tkmuOzqHoz4eAkyKz00ongYbqiF8dUaPaOfzCgKDqAtCKMG7s6HgLSmaJ55uAZbBYs0Xag6xfxPx8k5mNshGcdNnhg56mO6InVAfw8N6C0viSjMv0lVz_A5JnzfLqerdPHqMo6twDxHoiZWKVXpOSlgSuCLZyO5w-j8UR-z-M3vP7xXqOcuVRVTNaqFezgwzf3m6A8-TNj_NYKb0-2YoGDgmeB0O" alt="Tokopedia checkout mobile screen mockup" class="w-full h-auto object-cover"></div></div></div></div>
+</div>
+</div>
+</section>
+<!-- 02 // SELECTED WORK & PROJECTS -->
+<section class="w-full pt-space-xl pb-space-lg" id="projects">
+<div class="flex items-center justify-between gap-space-md mb-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-label text-mono-label text-primary font-semibold">02 / SELECTED WORK</span>
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+<h2 class="font-headline-lg text-headline-lg text-slate-900 font-bold">Featured Projects</h2>
+</div>
+<a class="font-mono-label text-mono-label text-primary hover:text-blue-700 transition-colors hidden sm:inline-flex items-center gap-1 font-semibold" href="https://github.com" rel="noopener noreferrer" target="_blank">
+<span class="">VIEW ALL REPOS</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</a>
+</div>
+<!-- 4 Bespoke Grid Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md w-full">
+<!-- Card 1: SwiftFlow Architecture Kit -->
+<div class="group relative flex flex-col justify-between p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all duration-200">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[22px]">account_tree</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 font-mono-label text-mono-label">
+<span class="material-symbols-outlined text-amber-500 text-[14px]">star</span>
+<span class="">1.4k Stars</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold group-hover:text-primary transition-colors">
+                SwiftFlow Architecture Kit
+              </h3>
+<span class="material-symbols-outlined text-[16px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+              Lightweight unidirectional state management library for SwiftUI. Guarantees deterministic state mutation with built-in time-travel debugging and zero external dependencies.
+            </p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex flex-wrap gap-1.5 border-t border-slate-100">
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Swift 5.9</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">SwiftUI</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Combine</span>
+<span class="px-2 py-0.5 rounded-md bg-blue-50 text-primary border border-blue-200 font-mono-label text-mono-label font-medium">Open Source</span>
+</div>
+</div>
+<!-- Card 2: Grab Driver Navigation Module -->
+<div class="group relative flex flex-col justify-between p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all duration-200">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[22px]">navigation</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-600">Grab Core</span>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold group-hover:text-primary transition-colors">
+                Grab Driver Navigation Module
+              </h3>
+<span class="material-symbols-outlined text-[16px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+              High-frequency GPS interpolation and turn-by-turn guidance subsystem. Features custom dead-reckoning algorithms for tunnels and dense urban canyon environments.
+            </p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex flex-wrap gap-1.5 border-t border-slate-100">
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">UIKit</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">CoreLocation</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Metal</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">MapKit</span>
+</div>
+</div>
+<!-- Card 3: ByteLive Interactive Engine -->
+<div class="group relative flex flex-col justify-between p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all duration-200">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-600">Production Engine</span>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold group-hover:text-primary transition-colors">
+                ByteLive Interactive Engine
+              </h3>
+<span class="material-symbols-outlined text-[16px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+              Low-latency WebSocket message dispatching framework handling concurrent reactions with strict 60fps render guarantees and zero main-thread contention.
+            </p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex flex-wrap gap-1.5 border-t border-slate-100">
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Swift Concurrency</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Actors</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">WebSockets</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">Instruments</span>
+</div>
+</div>
+<!-- Card 4: Pulse Habit Tracker -->
+<div class="group relative flex flex-col justify-between p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all duration-200">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[22px]">widgets</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 font-mono-label text-mono-label text-emerald-700 font-medium">App Store Featured</span>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold group-hover:text-primary transition-colors">
+                Pulse — Native Micro-Habit Tracker
+              </h3>
+<span class="material-symbols-outlined text-[16px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">arrow_outward</span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+              Indie iOS utility crafted with Apple's latest ergonomics. Includes interactive Lock Screen &amp; Home Screen widgets, App Intents shortcuts, and local biometric security.
+            </p>
+</div>
+</div>
+<div class="pt-space-md mt-space-sm flex flex-wrap gap-1.5 border-t border-slate-100">
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">SwiftData</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">iOS 17</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">WidgetKit</span>
+<span class="px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200 font-mono-label text-mono-label text-slate-700">App Intents</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 03 // TECHNICAL EXPERTISE & SKILLS -->
+<section class="w-full pt-space-xl pb-space-lg" id="skills">
+<div class="flex items-center justify-between gap-space-md mb-space-lg">
+<div class="flex items-center gap-space-sm">
+<span class="font-mono-label text-mono-label text-primary font-semibold">03 / SKILLS</span>
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+<h2 class="font-headline-lg text-headline-lg text-slate-900 font-bold">Technical Expertise</h2>
+</div>
+<span class="font-mono-label text-mono-label text-slate-400 hidden sm:inline-block">IOS &amp; RUNTIME</span>
+</div>
+<!-- Grouped Skill Bento Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md w-full">
+<!-- Skill Group 1 -->
+<div class="p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">code</span>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Languages &amp; Core Runtime</h3>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600 mb-space-xs">
+          Proficient in modern Swift semantics, low-level memory safety, and thread orchestration.
+        </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Swift 5.10 / Swift 6</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Objective-C</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Swift Concurrency (Actors, Async/Await)</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">C / C++ Interop</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Memory Graph &amp; ARC</span>
+</div>
+</div>
+<!-- Skill Group 2 -->
+<div class="p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">layers</span>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold">iOS Frameworks &amp; Systems</h3>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600 mb-space-xs">
+          Deep practical integration of first-party Apple SDKs across UI and hardware layers.
+        </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">SwiftUI</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">UIKit (Programmatic)</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Combine</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">AVFoundation</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">CoreLocation / MapKit</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">SwiftData &amp; CoreData</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">WidgetKit</span>
+</div>
+</div>
+<!-- Skill Group 3 -->
+<div class="p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">architecture</span>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Architecture &amp; Patterns</h3>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600 mb-space-xs">
+          Modular design, maintainability, and clean separation of presentation from business domain.
+        </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Unidirectional Data Flow (UDF)</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">TCA (The Composable Architecture)</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Clean Swift / VIPER</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Offline-First Synchronizer</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Micro-Apps &amp; Modular SPM</span>
+</div>
+</div>
+<!-- Skill Group 4 -->
+<div class="p-space-lg rounded-xl bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-sm transition-all duration-200 flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">construction</span>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Tooling, Quality &amp; Profiling</h3>
+</div>
+<p class="font-body-sm text-body-sm text-slate-600 mb-space-xs">
+          Automated deployment, binary size optimization, and meticulous runtime profiling.
+        </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Xcode Instruments (Time Profiler, Leaks)</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Fastlane &amp; GitHub Actions</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Tuist &amp; CocoaPods</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">XCTest, Quick &amp; Nimble</span>
+<span class="px-3 py-1 rounded-md bg-slate-50 border border-slate-200 text-slate-800 font-mono-label text-mono-label">Linker Optimization (LTO)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 04 // CONTACT & COLLABORATION -->
+<section class="w-full pt-space-xl pb-space-lg" id="contact">
+<div class="flex items-center gap-space-sm mb-space-lg">
+<span class="font-mono-label text-mono-label text-primary font-semibold">04 / CONTACT</span>
+<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+<h2 class="font-headline-lg text-headline-lg text-slate-900 font-bold">Get in touch</h2>
+</div>
+<!-- Contact Interactive Slate Card -->
+<div class="w-full p-space-lg md:p-space-xl rounded-xl bg-slate-50 border border-slate-200/90 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs max-w-lg">
+<h3 class="font-headline-md text-headline-md text-slate-900 font-semibold">
+          Let’s build exceptional mobile products.
+        </h3>
+<p class="font-body-md text-body-md text-slate-600">
+          Available for iOS engineering roles, technical advisory, and discussions on high-performance mobile systems.
+        </p>
+<!-- Location and Availability Footnote -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs font-mono-label text-mono-label text-slate-500">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+<span class="">Jakarta, Indonesia (UTC+7)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="">Open to remote worldwide</span>
+</div>
+</div>
+</div>
+<!-- Action Box -->
+<div class="flex flex-col gap-space-xs w-full md:w-auto shrink-0">
+<a class="inline-flex items-center justify-center gap-2 px-space-lg py-3 rounded-lg bg-primary text-white font-body-sm text-body-sm font-medium hover:bg-blue-700 transition-colors shadow-sm" href="mailto:sendo@tjiamis.dev" id="email-btn">
+<span class="material-symbols-outlined text-[18px]">outgoing_mail</span>
+<span class="">sendo@tjiamis.dev</span>
+</a>
+<button class="inline-flex items-center justify-center gap-1.5 px-space-md py-2 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 font-mono-label text-mono-label transition-colors shadow-sm" id="copy-email-btn" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+<span id="copy-label" class="">Copy address</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Micro-Interactions & Parallax Tilt Script -->
+<script>
+  (function() {
+    const copyBtn = document.getElementById('copy-email-btn');
+    const copyLabel = document.getElementById('copy-label');
+    const email = 'sendo@tjiamis.dev';
+
+    if (copyBtn && copyLabel) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          copyLabel.textContent = 'Copied to clipboard!';
+          setTimeout(() => {
+            copyLabel.textContent = 'Copy address';
+          }, 2400);
+        } catch (err) {
+          copyLabel.textContent = 'sendo@tjiamis.dev';
+        }
+      });
+    }
+
+    // Interactive hover parallax tilt effect for the hero scenery
+    const container = document.getElementById('scenery-container');
+    if (container) {
+      container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const tiltX = (y / (rect.height / 2)) * -4;
+        const tiltY = (x / (rect.width / 2)) * 4;
+        container.style.transform = `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) scale3d(1.008, 1.008, 1.008)`;
+      });
+
+      container.addEventListener('mouseleave', () => {
+        container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
+
+    // Smooth anchor navigation handling for in-page anchors
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId && targetId !== '#') {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            targetEl.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+    });
+  })();
+</script></main><footer class="w-full bg-slate-50 border-t border-slate-200/80 mt-space-xl"><div class="max-w-4xl mx-auto px-margin-mobile md:px-margin py-space-xl flex flex-col md:flex-row items-center justify-between gap-space-lg text-slate-500"><div class="flex flex-col items-center md:items-start gap-space-xs"><div class="flex items-center gap-space-sm"><span class="font-mono-label text-mono-label">© 2025 Sendo Tjiamis</span><span class="w-1 h-1 rounded-full bg-slate-300"></span><span class="font-body-sm text-body-sm">Designed &amp; built with craftsmanship</span></div><div class="flex items-center gap-space-xs font-mono-label text-mono-label text-slate-400"><span class="w-2 h-2 rounded-full bg-emerald-500"></span><span class="">Jakarta, WIB (UTC+7)</span></div></div><div class="flex items-center gap-space-lg font-mono-label text-mono-label"><a class="text-slate-600 hover:text-slate-900 transition-colors" data-path="github" href="https://github.com" target="_blank">GitHub</a><a class="text-slate-600 hover:text-slate-900 transition-colors" data-path="linkedin" href="https://linkedin.com" target="_blank">LinkedIn</a><a class="text-slate-600 hover:text-slate-900 transition-colors" data-path="app-store" href="#">App Store</a><a class="text-primary hover:text-blue-700 transition-colors font-medium" data-path="resume" href="#">Resume</a></div></div></footer>
+
+</body></html>
