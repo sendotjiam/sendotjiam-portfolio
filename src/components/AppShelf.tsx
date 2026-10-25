@@ -8,14 +8,14 @@ export default function AppShelf() {
     <div className="w-full my-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="text-[13px] font-semibold text-apple-secondary uppercase tracking-wider">
+          <h2 className="text-[14px] font-semibold text-apple-secondary">
             Shipped Applications
           </h2>
           <p className="text-[14px] text-apple-label font-medium mt-0.5">
             Production iOS systems scaled for millions of active users
           </p>
         </div>
-        <span className="hidden sm:inline-flex text-[12px] text-apple-secondary font-medium">
+        <span className="hidden sm:inline-flex text-[12px] text-apple-secondary font-medium" aria-hidden="true">
           Scroll to explore →
         </span>
       </div>
@@ -28,12 +28,13 @@ export default function AppShelf() {
             href={project.link || '#'}
             target={project.link ? '_blank' : '_self'}
             rel="noopener noreferrer"
-            className="apple-card group snap-start shrink-0 w-[285px] sm:w-[320px] p-5 rounded-2xl flex flex-col justify-between apple-btn-active"
+            aria-label={`${project.title} — ${project.category}`}
+            className="apple-card group snap-start shrink-0 w-[285px] sm:w-[320px] p-5 rounded-2xl flex flex-col justify-between apple-btn-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint focus-visible:ring-offset-2"
           >
             <div>
               {/* Header: App Icon + Category Badge */}
               <div className="flex items-start justify-between gap-3 mb-3.5">
-                <div className="w-14 h-14 rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative group-hover:scale-105 transition-transform duration-200">
+                <div className="w-14 h-14 rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative group-hover:scale-105 transition-transform duration-200 motion-reduce:transform-none motion-reduce:transition-none">
                   {project.logo ? (
                     <Image
                       src={project.logo}
@@ -63,6 +64,7 @@ export default function AppShelf() {
                     {project.title}
                   </h3>
                   <svg
+                    aria-hidden="true"
                     className="w-3.5 h-3.5 text-apple-tertiary group-hover:text-apple-tint transition-colors shrink-0"
                     viewBox="0 0 24 24"
                     fill="none"

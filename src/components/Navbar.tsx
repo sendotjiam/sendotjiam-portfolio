@@ -65,7 +65,7 @@ export default function Navbar() {
         {/* Brand Profile & Name */}
         <a
           href="#about"
-          className="flex items-center gap-2.5 group apple-btn-active min-h-[44px] py-1"
+          className="flex items-center gap-2.5 group apple-btn-active min-h-[44px] py-1 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div className="w-8 h-8 rounded-full overflow-hidden border border-black/10 dark:border-white/15 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105">
@@ -94,7 +94,7 @@ export default function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className={`px-3.5 py-1 text-[13px] font-medium rounded-full transition-all duration-150 ${
+                className={`px-3.5 py-1 text-[13px] font-medium rounded-full transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                   isActive
                     ? 'bg-white dark:bg-neutral-800 text-apple-label shadow-sm'
                     : 'text-apple-secondary hover:text-apple-label'
@@ -113,17 +113,17 @@ export default function Navbar() {
             type="button"
             onClick={toggleTheme}
             aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-            className="w-10 h-10 rounded-full flex items-center justify-center text-apple-secondary hover:text-apple-label hover:bg-black/[0.05] dark:hover:bg-white/[0.1] transition-colors apple-btn-active cursor-pointer"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-apple-secondary hover:text-apple-label hover:bg-black/[0.05] dark:hover:bg-white/[0.1] transition-colors apple-btn-active cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
           >
             {mounted && isDark ? (
               /* Sun icon */
-              <svg className="w-4 h-4 fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" className="w-4 h-4 fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="4" />
                 <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
               </svg>
             ) : (
               /* Moon icon */
-              <svg className="w-4 h-4 fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" className="w-4 h-4 fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
               </svg>
             )}
@@ -135,14 +135,14 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={mobileMenuOpen}
-            className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-apple-secondary hover:text-apple-label hover:bg-black/[0.05] dark:hover:bg-white/[0.1] transition-colors apple-btn-active cursor-pointer"
+            className="md:hidden w-10 h-10 rounded-full flex items-center justify-center text-apple-secondary hover:text-apple-label hover:bg-black/[0.05] dark:hover:bg-white/[0.1] transition-colors apple-btn-active cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
           >
             {mobileMenuOpen ? (
-              <svg className="w-5 h-5 fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" className="w-5 h-5 fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="w-5 h-5 fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+              <svg aria-hidden="true" className="w-5 h-5 fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 7h16M4 12h16M4 17h16" />
               </svg>
             )}

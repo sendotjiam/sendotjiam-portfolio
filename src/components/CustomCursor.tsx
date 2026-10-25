@@ -101,13 +101,7 @@ export default function CustomCursor() {
           opacity: isVisible ? 1 : 0,
         }}
       >
-        <motion.div
-          animate={{
-            scale: isClicking ? 0.6 : isPointer ? 1.25 : 1,
-          }}
-          transition={{ type: 'spring', damping: 20, stiffness: 450 }}
-          className="w-2 h-2 rounded-full bg-apple-tint -translate-x-1/2 -translate-y-1/2 shadow-sm"
-        />
+        <div className="w-1.5 h-1.5 rounded-full bg-apple-tint -translate-x-1/2 -translate-y-1/2 shadow-sm" />
       </motion.div>
     </>
   );

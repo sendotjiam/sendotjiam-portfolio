@@ -24,14 +24,14 @@ function renderHighlightedText(text: string) {
 
 export default function Experience() {
   return (
-    <section id="experience" className="w-full py-10 border-t border-[var(--separator)]">
+    <section id="experience" className="w-full py-10 border-t border-[var(--separator)] scroll-mt-24">
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
         <div>
-          <h2 className="text-[13px] font-semibold text-apple-secondary uppercase tracking-wider">
+          <h2 className="text-[14px] font-semibold text-apple-secondary">
             Career
           </h2>
-          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1">
+          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
             Experience
           </h3>
         </div>
@@ -50,7 +50,7 @@ export default function Experience() {
           return (
             <div
               key={`${exp.company}-${exp.date}`}
-              className="liquid-glass-card p-6 sm:p-7 rounded-2xl flex flex-col gap-4"
+              className="apple-card p-6 sm:p-7 rounded-2xl flex flex-col gap-4"
             >
               {/* Header: Logo, Company, Title, Date */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-[var(--separator)]">
@@ -100,7 +100,7 @@ export default function Experience() {
               {/* Expandable Extra Bullets (Progressive Disclosure) */}
               {extraBullets.length > 0 && (
                 <details className="group">
-                  <summary className="text-[13px] font-medium text-apple-tint hover:underline cursor-pointer list-none flex items-center gap-1 select-none">
+                  <summary className="text-[13px] font-medium text-apple-tint hover:underline cursor-pointer list-none flex items-center gap-1 select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded">
                     <span className="group-open:hidden">Show {extraBullets.length} more highlights ↓</span>
                     <span className="hidden group-open:inline">Show fewer highlights ↑</span>
                   </summary>
@@ -133,10 +133,10 @@ export default function Experience() {
                     href={exp.appStoreLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[13px] font-semibold text-apple-tint hover:underline shrink-0"
+                    className="inline-flex items-center gap-1 text-[13px] font-semibold text-apple-tint hover:underline shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
                   >
                     <span>View on App Store</span>
-                    <svg className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                    <svg aria-hidden="true" className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M7 17L17 7M17 7H7M17 7V17" />
                     </svg>
                   </a>

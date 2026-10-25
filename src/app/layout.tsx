@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="light scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="light scroll-smooth overflow-x-clip" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -68,7 +68,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="bg-apple-bg text-apple-label font-sans antialiased selection:bg-apple-tint/20 selection:text-current min-h-screen flex flex-col justify-between transition-colors duration-200">
+      <body className="bg-apple-bg text-apple-label font-sans antialiased selection:bg-apple-tint/20 selection:text-current min-h-screen flex flex-col justify-between transition-colors duration-200 overflow-x-clip">
         <CustomCursor />
         {children}
       </body>

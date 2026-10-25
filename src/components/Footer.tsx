@@ -14,7 +14,7 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-1.5 text-apple-tertiary">
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true"></span>
             <span>Open to remote opportunities worldwide</span>
           </div>
         </div>
@@ -22,7 +22,7 @@ export default function Footer() {
         {/* Right Links */}
         <div className="flex items-center gap-6 font-medium">
           <a
-            className="text-apple-secondary hover:text-apple-tint transition-colors"
+            className="text-apple-secondary hover:text-apple-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
             href="https://github.com/sendotjiam"
             target="_blank"
             rel="noopener noreferrer"
@@ -30,7 +30,7 @@ export default function Footer() {
             GitHub
           </a>
           <a
-            className="text-apple-secondary hover:text-apple-tint transition-colors"
+            className="text-apple-secondary hover:text-apple-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
             href="https://www.linkedin.com/in/sendo-tjiamis-a03a73192"
             target="_blank"
             rel="noopener noreferrer"
@@ -38,7 +38,7 @@ export default function Footer() {
             LinkedIn
           </a>
           <a
-            className="text-apple-secondary hover:text-apple-tint transition-colors"
+            className="text-apple-secondary hover:text-apple-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
             href="https://apps.apple.com/us/app/grab-driver-app-for-partners/id1257641454"
             target="_blank"
             rel="noopener noreferrer"
@@ -46,7 +46,7 @@ export default function Footer() {
             App Store
           </a>
           <a
-            className="text-apple-tint hover:underline transition-colors"
+            className="text-apple-tint hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
             href="mailto:sendotjiamis9898@gmail.com"
           >
             Get in touch

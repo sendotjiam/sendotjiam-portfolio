@@ -3,14 +3,14 @@ import { education } from '@/data/education';
 
 export default function Education() {
   return (
-    <section id="education" className="w-full py-10 border-t border-[var(--separator)]">
+    <section id="education" className="w-full py-10 border-t border-[var(--separator)] scroll-mt-24">
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
         <div>
-          <h2 className="text-[13px] font-semibold text-apple-secondary uppercase tracking-wider">
+          <h2 className="text-[14px] font-semibold text-apple-secondary">
             Background
           </h2>
-          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1">
+          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
             Education &amp; Fellowships
           </h3>
         </div>
@@ -26,7 +26,7 @@ export default function Education() {
           return (
             <div
               key={item.id}
-              className={`liquid-glass-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between gap-4 ${
+              className={`apple-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between gap-4 ${
                 isFullWidth ? 'md:col-span-2' : ''
               }`}
             >
