@@ -3,102 +3,96 @@ import { projects } from '@/data/projects';
 
 export default function Projects() {
   return (
-    <section className="w-full pt-16 pb-12" id="projects">
-      {/* Header */}
-      <div className="flex items-center justify-between gap-space-md mb-8">
-        <div className="flex items-center gap-space-sm">
-          <span className="font-mono-label text-mono-label text-primary dark:text-sky-400 font-semibold tracking-wider">
-            02 / SELECTED WORK
-          </span>
-          <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
-          <h2 className="font-headline-lg text-headline-lg text-slate-900 dark:text-white font-bold">
-            Featured Projects
+    <section id="projects" className="w-full py-10 border-t border-[var(--separator)]">
+      {/* Section Header */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
+        <div>
+          <h2 className="text-[13px] font-semibold text-apple-secondary uppercase tracking-wider">
+            Selected Work
           </h2>
+          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1">
+            Featured Projects
+          </h3>
         </div>
 
         <a
-          className="font-mono-label text-mono-label text-primary dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 transition-colors hidden sm:inline-flex items-center gap-1 font-semibold"
           href="https://github.com/sendotjiam"
-          rel="noopener noreferrer"
           target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-apple-tint hover:underline transition-colors mt-2 sm:mt-0"
         >
-          <span>VIEW ALL REPOS</span>
-          <span className="material-symbols-outlined text-[14px]">arrow_outward</span>
+          <span>View all repositories</span>
+          <svg className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
         </a>
       </div>
 
-      {/* 2-Column Bento Grid */}
+      {/* 2-Column Responsive Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
         {projects.map((proj) => (
           <div
             key={proj.id}
-            className="group relative flex flex-col justify-between p-6 sm:p-7 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md transition-all duration-200"
+            className="apple-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl"
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3.5">
               {/* Card Top: Logo / Icon & Badge */}
               <div className="flex items-start justify-between gap-3">
-                <div className="w-11 h-11 rounded-lg overflow-hidden border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center bg-blue-50/50 dark:bg-slate-800 shrink-0 group-hover:scale-105 transition-transform relative shadow-sm">
+                <div className="w-12 h-12 rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105">
                   {proj.logo ? (
                     <Image
                       src={proj.logo}
                       alt={`${proj.title} icon`}
-                      width={44}
-                      height={44}
+                      width={48}
+                      height={48}
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="material-symbols-outlined text-primary text-[22px]">widgets</span>
+                    <div className="w-full h-full flex items-center justify-center text-apple-tint font-bold text-base">
+                      {proj.title.charAt(0)}
+                    </div>
                   )}
                 </div>
 
                 {proj.badge && (
-                  <span
-                    className={`font-mono-label text-mono-label px-2.5 py-1 rounded-full border ${
-                      proj.badgeType === 'accent'
-                        ? 'bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-800 text-primary dark:text-sky-400 font-medium'
-                        : proj.badgeType === 'highlight'
-                        ? 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300 font-medium flex items-center gap-1'
-                        : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
-                    }`}
-                  >
-                    {proj.stars && (
-                      <span className="material-symbols-outlined text-[13px] text-amber-500">star</span>
-                    )}
-                    <span>{proj.badge}</span>
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/[0.04] dark:bg-white/[0.08] text-apple-secondary border border-[var(--separator)]">
+                    {proj.badge}
                   </span>
                 )}
               </div>
 
               {/* Title & Description */}
-              <div className="flex flex-col gap-1.5 mt-1">
+              <div className="flex flex-col gap-1.5">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-headline-sm text-headline-sm text-slate-900 dark:text-white font-semibold group-hover:text-primary dark:group-hover:text-sky-400 transition-colors">
+                  <h4 className="text-[17px] font-bold text-apple-label group-hover:text-apple-tint transition-colors">
                     {proj.title}
-                  </h3>
+                  </h4>
                   {proj.link && (
                     <a
                       href={proj.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Visit ${proj.title}`}
-                      className="text-slate-400 group-hover:text-primary dark:group-hover:text-sky-400 transition-colors"
+                      className="text-apple-secondary hover:text-apple-tint transition-colors"
                     >
-                      <span className="material-symbols-outlined text-[16px]">arrow_outward</span>
+                      <svg className="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                      </svg>
                     </a>
                   )}
                 </div>
-                <p className="font-body-md text-body-md text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="text-[14px] text-apple-secondary leading-relaxed">
                   {proj.desc}
                 </p>
               </div>
             </div>
 
-            {/* Bottom: Tech Tags */}
-            <div className="pt-4 mt-3 flex flex-wrap gap-1.5 border-t border-slate-100 dark:border-slate-800/80">
+            {/* Bottom Tech Tags */}
+            <div className="pt-4 mt-3 flex flex-wrap gap-1.5 border-t border-[var(--separator)]">
               {proj.tech.map((t) => (
                 <span
                   key={t}
-                  className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-mono-label text-mono-label text-slate-700 dark:text-slate-300"
+                  className="px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.05] text-[12px] font-medium text-apple-secondary"
                 >
                   {t}
                 </span>

@@ -14,14 +14,15 @@ export default function CustomCursor() {
   const mouseY = useMotionValue(-100);
 
   // Spring-smoothed coordinates for the fluid liquid follower ring
-  const springConfig = { damping: 26, stiffness: 380, mass: 0.4 };
+  const springConfig = { damping: 28, stiffness: 400, mass: 0.35 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
     // Only activate for fine pointer devices (desktop mouse/trackpad), never touch devices
     const isFinePointer = window.matchMedia('(pointer: fine)').matches;
-    if (!isFinePointer) return;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!isFinePointer || prefersReducedMotion) return;
 
     setEnabled(true);
 
@@ -33,7 +34,7 @@ export default function CustomCursor() {
       const target = e.target as HTMLElement | null;
       if (target) {
         const interactive = target.closest(
-          'a, button, input, textarea, select, [role="button"], .liquid-glass-pill, .bubble-btn, .scenery-card'
+          'a, button, input, textarea, select, [role="button"], summary, .apple-card, .apple-btn-active'
         );
         setIsPointer(Boolean(interactive));
       }
@@ -63,7 +64,7 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Outer Apple VisionOS Liquid Glass Follower Aura */}
+      {/* Outer Apple iPadOS/VisionOS-style Fluid Follower Ring */}
       <motion.div
         aria-hidden="true"
         className="fixed top-0 left-0 pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-200"
@@ -75,22 +76,22 @@ export default function CustomCursor() {
       >
         <motion.div
           animate={{
-            width: isPointer ? 44 : 30,
-            height: isPointer ? 44 : 30,
-            scale: isClicking ? 0.82 : 1,
+            width: isPointer ? 42 : 26,
+            height: isPointer ? 42 : 26,
+            scale: isClicking ? 0.85 : 1,
             backgroundColor: isPointer
-              ? 'rgba(0, 102, 204, 0.14)'
-              : 'rgba(0, 102, 204, 0.06)',
+              ? 'rgba(0, 113, 227, 0.12)'
+              : 'rgba(0, 113, 227, 0.05)',
             borderColor: isPointer
-              ? 'rgba(0, 102, 204, 0.55)'
-              : 'rgba(0, 102, 204, 0.28)',
+              ? 'rgba(0, 113, 227, 0.45)'
+              : 'rgba(0, 113, 227, 0.22)',
           }}
-          transition={{ type: 'spring', damping: 22, stiffness: 320 }}
-          className="rounded-full border backdrop-blur-[2px] shadow-[0_0_16px_rgba(0,102,204,0.18)] -translate-x-1/2 -translate-y-1/2"
+          transition={{ type: 'spring', damping: 24, stiffness: 350 }}
+          className="rounded-full border backdrop-blur-[2px] -translate-x-1/2 -translate-y-1/2"
         />
       </motion.div>
 
-      {/* Inner Precision Glass Droplet */}
+      {/* Inner Precision Center Droplet */}
       <motion.div
         aria-hidden="true"
         className="fixed top-0 left-0 pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-150"
@@ -102,10 +103,10 @@ export default function CustomCursor() {
       >
         <motion.div
           animate={{
-            scale: isClicking ? 0.65 : isPointer ? 1.35 : 1,
+            scale: isClicking ? 0.6 : isPointer ? 1.25 : 1,
           }}
-          transition={{ type: 'spring', damping: 18, stiffness: 450 }}
-          className="w-2.5 h-2.5 rounded-full bg-primary dark:bg-sky-400 shadow-[0_1px_4px_rgba(0,102,204,0.4)] -translate-x-1/2 -translate-y-1/2"
+          transition={{ type: 'spring', damping: 20, stiffness: 450 }}
+          className="w-2 h-2 rounded-full bg-apple-tint -translate-x-1/2 -translate-y-1/2 shadow-sm"
         />
       </motion.div>
     </>

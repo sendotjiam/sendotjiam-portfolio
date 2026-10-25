@@ -33,18 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="light scroll-smooth">
+    <html lang="en" className="light scroll-smooth" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function() {
@@ -78,7 +68,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="bg-surface dark:bg-[#0b0f17] text-on-surface dark:text-slate-100 font-body-md text-body-md antialiased selection:bg-primary-container selection:text-primary min-h-screen flex flex-col justify-between transition-colors duration-200">
+      <body className="bg-apple-bg text-apple-label font-sans antialiased selection:bg-apple-tint/20 selection:text-current min-h-screen flex flex-col justify-between transition-colors duration-200">
         <CustomCursor />
         {children}
       </body>
