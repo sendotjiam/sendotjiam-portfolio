@@ -37,7 +37,7 @@ export const projects: ProjectItem[] = [
   {
     id: 'wikibus',
     title: 'WikiBus Singapore',
-    category: 'Transit Utility',
+    category: 'Commuter',
     badge: 'Commuter App',
     badgeType: 'default',
     desc: 'Comprehensive public transit navigator for Singapore bus networks. Delivers real-time bus arrivals, dynamic route mapping, and stop inspection built with reactive architectural patterns.',

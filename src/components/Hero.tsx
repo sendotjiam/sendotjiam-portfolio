@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import AppShelf from './AppShelf';
 
 export default function Hero() {
   const [copied, setCopied] = useState<boolean>(false);
@@ -116,11 +115,8 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Signature App Shelf Component */}
-      <AppShelf />
-
       {/* Engineering Pillars Banner */}
-      <div className="w-full pt-4 border-t border-[var(--separator)]">
+      <div className="w-full pt-8 mt-6 border-t border-[var(--separator)]">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
           {corePillars.map((pillar) => (
             <div

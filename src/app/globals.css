@@ -103,13 +103,15 @@
   transform: scale(0.975);
 }
 
-/* App Shelf Scrollbar - Smooth horizontal feel */
+/* App Shelf Carousel - Smooth horizontal feel & hidden scrollbars */
+.apple-shelf-carousel,
 .app-shelf-scroll {
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 
+.apple-shelf-carousel::-webkit-scrollbar,
 .app-shelf-scroll::-webkit-scrollbar {
   display: none;
 }
