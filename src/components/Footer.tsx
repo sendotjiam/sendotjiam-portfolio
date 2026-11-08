@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="w-full border-t border-[var(--separator)] mt-16 py-10 transition-colors duration-200">
@@ -9,20 +11,29 @@ export default function Footer() {
             <span className="font-semibold text-apple-label">
               © {new Date().getFullYear()} Sendo Tjiamis
             </span>
-            <span>•</span>
+            <span className="w-px h-3 bg-[var(--separator)]" aria-hidden="true" />
             <span>Crafted with Apple Design standards</span>
           </div>
 
           <div className="flex items-center gap-1.5 text-apple-tertiary">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" aria-hidden="true"></span>
+            <span className="w-2 h-2 rounded-full bg-[var(--teal)]" aria-hidden="true"></span>
             <span>Open to remote opportunities worldwide</span>
           </div>
         </div>
 
         {/* Right Links */}
-        <div className="flex items-center gap-6 font-medium">
+        <div className="flex flex-wrap items-center justify-center md:justify-end gap-5 font-medium">
+          <Link
+            className="inline-flex items-center gap-1.5 text-apple-secondary hover:text-apple-tint active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
+            href="/zest"
+          >
+            <svg aria-hidden="true" className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+            </svg>
+            <span>Zest for macOS</span>
+          </Link>
           <a
-            className="text-apple-secondary hover:text-apple-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
+            className="text-apple-secondary hover:text-apple-tint active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
             href="https://github.com/sendotjiam"
             target="_blank"
             rel="noopener noreferrer"
@@ -30,7 +41,7 @@ export default function Footer() {
             GitHub
           </a>
           <a
-            className="text-apple-secondary hover:text-apple-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
+            className="text-apple-secondary hover:text-apple-tint active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
             href="https://www.linkedin.com/in/sendo-tjiamis-a03a73192"
             target="_blank"
             rel="noopener noreferrer"
@@ -38,7 +49,7 @@ export default function Footer() {
             LinkedIn
           </a>
           <a
-            className="text-apple-secondary hover:text-apple-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
+            className="text-apple-secondary hover:text-apple-tint active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
             href="https://apps.apple.com/us/app/grab-driver-app-for-partners/id1257641454"
             target="_blank"
             rel="noopener noreferrer"
@@ -46,7 +57,7 @@ export default function Footer() {
             App Store
           </a>
           <a
-            className="text-apple-tint hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
+            className="text-apple-tint hover:underline active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
             href="mailto:sendotjiamis9898@gmail.com"
           >
             Get in touch

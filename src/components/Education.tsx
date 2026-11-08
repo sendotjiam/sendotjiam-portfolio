@@ -3,12 +3,13 @@ import { education } from '@/data/education';
 
 export default function Education() {
   return (
-    <section id="education" className="w-full py-10 border-t border-[var(--separator)] scroll-mt-24">
+    <section id="education" className="min-h-[100dvh] w-full py-16 flex flex-col justify-center border-t border-[var(--separator)] scroll-mt-16">
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
         <div>
-          <h2 className="text-[14px] font-semibold text-apple-secondary">
-            Background
+          <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
+            <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">06</span>
+            <span>Background</span>
           </h2>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
             Education &amp; Fellowships
@@ -60,12 +61,9 @@ export default function Education() {
                     {item.date}
                   </span>
                   {item.gpa && (
-                    <>
-                      <span className="text-apple-secondary text-xs">•</span>
-                      <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                        GPA {item.gpa} (Honors)
-                      </span>
-                    </>
+                    <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[var(--teal-soft)] text-[var(--teal)] border border-[var(--teal-border)]">
+                      GPA {item.gpa} (Honors)
+                    </span>
                   )}
                 </div>
 
@@ -73,7 +71,7 @@ export default function Education() {
                 <ul className="flex flex-col gap-2 pl-1">
                   {item.desc.map((bullet, bulletIdx) => (
                     <li key={bulletIdx} className="flex items-start gap-2.5 text-[14px] text-apple-secondary leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-apple-tint shrink-0 mt-2"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--teal)] shrink-0 mt-2"></span>
                       <span className="text-apple-label/90">{bullet}</span>
                     </li>
                   ))}

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { projects } from '@/data/projects';
 
 export default function Projects() {
@@ -108,12 +109,13 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="w-full py-12 border-t border-[var(--separator)] scroll-mt-24">
+    <section id="projects" className="min-h-[100dvh] w-full py-16 flex flex-col justify-center border-t border-[var(--separator)] scroll-mt-16">
       {/* Section Header with Controls */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
         <div>
-          <h2 className="text-[13px] font-semibold text-apple-secondary uppercase tracking-wider">
-            Selected Work
+          <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
+            <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">03</span>
+            <span>Selected Work</span>
           </h2>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
             Featured Projects
@@ -129,7 +131,7 @@ export default function Projects() {
           <div className="inline-flex items-center p-1 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)]">
             <button
               onClick={() => setViewMode('carousel')}
-              className={`px-2.5 py-1 rounded-lg text-[12px] font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-2.5 py-1 rounded-lg text-[12px] font-semibold transition-colors flex items-center gap-1.5 ${
                 viewMode === 'carousel'
                   ? 'bg-white dark:bg-black text-apple-label shadow-apple-xs'
                   : 'text-apple-secondary hover:text-apple-label'
@@ -144,7 +146,7 @@ export default function Projects() {
             </button>
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-2.5 py-1 rounded-lg text-[12px] font-semibold transition-all flex items-center gap-1.5 ${
+              className={`px-2.5 py-1 rounded-lg text-[12px] font-semibold transition-colors flex items-center gap-1.5 ${
                 viewMode === 'grid'
                   ? 'bg-white dark:bg-black text-apple-label shadow-apple-xs'
                   : 'text-apple-secondary hover:text-apple-label'
@@ -168,7 +170,7 @@ export default function Projects() {
                 onClick={() => scroll('left')}
                 disabled={!canScrollLeft}
                 aria-label="Scroll left"
-                className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--separator)] bg-black/[0.02] dark:bg-white/[0.05] text-apple-label disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/[0.06] dark:hover:bg-white/[0.1] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--separator)] bg-black/[0.02] dark:bg-white/[0.05] text-apple-label disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/[0.06] dark:hover:bg-white/[0.1] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
               >
                 <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M15 18l-6-6 6-6" />
@@ -178,7 +180,7 @@ export default function Projects() {
                 onClick={() => scroll('right')}
                 disabled={!canScrollRight}
                 aria-label="Scroll right"
-                className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--separator)] bg-black/[0.02] dark:bg-white/[0.05] text-apple-label disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/[0.06] dark:hover:bg-white/[0.1] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--separator)] bg-black/[0.02] dark:bg-white/[0.05] text-apple-label disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/[0.06] dark:hover:bg-white/[0.1] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
               >
                 <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18l6-6-6-6" />
@@ -222,19 +224,22 @@ export default function Projects() {
               scrollbarWidth: 'none',
             }}
           >
-            {projects.map((proj) => (
-              <a
+            {projects.map((proj) => {
+              const targetUrl = proj.detailUrl || proj.link || '#';
+              const isInternal = Boolean(proj.detailUrl);
+              return (
+              <Link
                 key={proj.id}
-                href={proj.link || '#'}
-                target={proj.link ? '_blank' : '_self'}
-                rel="noopener noreferrer"
+                href={targetUrl}
+                target={isInternal ? undefined : '_blank'}
+                rel={isInternal ? undefined : 'noopener noreferrer'}
                 onClick={handleLinkClick}
-                className="apple-card group snap-start shrink-0 w-[290px] sm:w-[340px] md:w-[380px] p-5 sm:p-6 rounded-2xl flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint transition-all duration-200 hover:-translate-y-0.5"
+                className="apple-card group snap-start shrink-0 w-[290px] sm:w-[340px] md:w-[380px] p-5 sm:p-6 rounded-2xl flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint transition-transform duration-200 hover:-translate-y-0.5"
               >
                 <div>
                   {/* Top Bar: Icon + Badge */}
                   <div className="flex items-start justify-between gap-3 mb-4">
-                    <div className="w-13 h-13 sm:w-14 sm:h-14 rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 aspect-square rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none">
                       {proj.logo ? (
                         <Image
                           src={proj.logo}
@@ -250,11 +255,16 @@ export default function Projects() {
                       )}
                     </div>
 
-                    {proj.category && (
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/20">
+                    {proj.detailUrl ? (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
+                        <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
+                        Interactive Showcase →
+                      </span>
+                    ) : proj.category ? (
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)]">
                         {proj.category}
                       </span>
-                    )}
+                    ) : null}
                   </div>
 
                   {/* Title & External Link Indicator */}
@@ -298,9 +308,10 @@ export default function Projects() {
                     </span>
                   )}
                 </div>
-              </a>
-            ))}
-          </div>
+              </Link>
+            );
+          })}
+        </div>
 
           {/* Apple-Style Pagination Indicators */}
           <div className="flex items-center justify-center gap-1.5 mt-5">
@@ -309,10 +320,10 @@ export default function Projects() {
                 key={index}
                 onClick={() => scrollToIndex(index)}
                 aria-label={`Go to slide ${index + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
+                className={`h-1.5 w-6 rounded-full transition-[transform,background-color] duration-300 ${
                   activeIndex === index
-                    ? 'w-6 bg-apple-tint'
-                    : 'w-1.5 bg-black/20 dark:bg-white/20 hover:bg-black/40 dark:hover:bg-white/40'
+                    ? 'scale-x-100 bg-[var(--shuiro)]'
+                    : 'scale-x-[0.35] bg-black/20 dark:bg-white/20 hover:bg-black/40 dark:hover:bg-white/40'
                 }`}
               />
             ))}
@@ -321,18 +332,21 @@ export default function Projects() {
       ) : (
         /* 2-Column Responsive Grid View */
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-          {projects.map((proj) => (
-            <a
+          {projects.map((proj) => {
+            const targetUrl = proj.detailUrl || proj.link || '#';
+            const isInternal = Boolean(proj.detailUrl);
+            return (
+            <Link
               key={proj.id}
-              href={proj.link || '#'}
-              target={proj.link ? '_blank' : '_self'}
-              rel="noopener noreferrer"
-              className="apple-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint transition-all duration-200 hover:-translate-y-0.5"
+              href={targetUrl}
+              target={isInternal ? undefined : '_blank'}
+              rel={isInternal ? undefined : 'noopener noreferrer'}
+              className="apple-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint transition-transform duration-200 hover:-translate-y-0.5"
             >
               <div className="flex flex-col gap-3.5">
                 {/* Top: Icon & Badge */}
                 <div className="flex items-start justify-between gap-3">
-                  <div className="w-12 h-12 rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 aspect-square rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none">
                     {proj.logo ? (
                       <Image
                         src={proj.logo}
@@ -348,11 +362,16 @@ export default function Projects() {
                     )}
                   </div>
 
-                  {proj.category && (
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/20">
+                  {proj.detailUrl ? (
+                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
+                      <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
+                      Interactive Showcase →
+                    </span>
+                  ) : proj.category ? (
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)]">
                       {proj.category}
                     </span>
-                  )}
+                  ) : null}
                 </div>
 
                 {/* Title & Description */}
@@ -391,8 +410,9 @@ export default function Projects() {
                   </span>
                 ))}
               </div>
-            </a>
-          ))}
+            </Link>
+            );
+          })}
         </div>
       )}
     </section>

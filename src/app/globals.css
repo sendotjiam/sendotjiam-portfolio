@@ -1,35 +1,90 @@
+/* hallmark:2.0.0 | shape:split-hero-workbench | theme:japanese-artisan-sumi-shuiro (custom) | genre:playful | signature:sendo-06-artisan-macropad */
+/* critique: 12-column portfolio hero pairing Grab/TikTok engineering bio with a 6-key Japanese GMK Sumi & Shu-iro 3D macropad and CNC brass rotary knob */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Apple Design Clean Tokens */
+  /* 60% Foundation: Crisp Pure White & Sumi Ink (Light Mode) */
   --bg: #ffffff;
   --bg-grouped: #f5f5f7;
   --bg-card: #ffffff;
-  --label: #1d1d1f;
-  --label-secondary: #6e6e73;
-  --label-tertiary: #86868b;
-  --separator: rgba(0, 0, 0, 0.08);
+  --label: #18181b;
+  --label-secondary: #52525b;
+  --label-tertiary: #71717a;
+  --separator: rgba(24, 24, 27, 0.08);
   --separator-opaque: #e5e5ea;
-  --tint: #0071e3;
-  --tint-hover: #0077ed;
-  --tint-active: #006edb;
+
+  /* 30% Harmonious Cool Pair: Technical Cobalt Blue + Mineral Teal */
+  --tint: #0066cc;
+  --tint-hover: #005bb5;
+  --tint-active: #004e9e;
+  --tint-soft: rgba(0, 102, 204, 0.08);
+  --tint-border: rgba(0, 102, 204, 0.2);
+
+  --teal: #0d9488;
+  --teal-soft: rgba(13, 148, 136, 0.09);
+  --teal-border: rgba(13, 148, 136, 0.24);
+
+  /* 10% Conflicting Focal Accent: Shu-iro Vermilion Orange + Hardware Brass */
+  --shuiro: #d9381e;
+  --shuiro-soft: rgba(217, 56, 30, 0.09);
+  --shuiro-border: rgba(217, 56, 30, 0.25);
+  --brass: #c89d54;
+
+  /* Zest Liquid Glass HUD Tokens */
+  --zest-hud: #1a1a1f;
+  --zest-guide: #1c1c22;
+  --zest-amber-from: #faaa1a;
+  --zest-amber-to: #e68000;
+}
+
+/* Zest Liquid Glass HUD Surfaces */
+.zest-hud-surface-dark {
+  background-color: rgba(26, 26, 31, 0.96);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #f4f3ef;
+}
+
+.zest-hud-surface-light {
+  background-color: rgba(255, 255, 255, 0.97);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #18181b;
 }
 
 .dark {
-  /* Apple Design Dark Tokens */
-  --bg: #000000;
-  --bg-grouped: #161617;
-  --bg-card: #161617;
-  --label: #f5f5f7;
-  --label-secondary: #86868b;
-  --label-tertiary: #6e6e73;
-  --separator: rgba(255, 255, 255, 0.12);
-  --separator-opaque: #38383a;
-  --tint: #2997ff;
-  --tint-hover: #40a9ff;
-  --tint-active: #1488ff;
+  /* 60% Foundation: Clean Sumi Obsidian (Dark Mode) */
+  --bg: #0a0b0e;
+  --bg-grouped: #13151b;
+  --bg-card: #12141a;
+  --label: #f4f3ef;
+  --label-secondary: #9ca3af;
+  --label-tertiary: #6b7280;
+  --separator: rgba(255, 255, 255, 0.09);
+  --separator-opaque: #272a34;
+
+  /* 30% Harmonious Cool Pair: Luminous Cobalt Blue + Cyber Teal */
+  --tint: #3b9eff;
+  --tint-hover: #56adff;
+  --tint-active: #1f8fff;
+  --tint-soft: rgba(59, 158, 255, 0.12);
+  --tint-border: rgba(59, 158, 255, 0.26);
+
+  --teal: #2dd4bf;
+  --teal-soft: rgba(45, 212, 191, 0.11);
+  --teal-border: rgba(45, 212, 191, 0.26);
+
+  /* 10% Conflicting Focal Accent: Luminous Shu-iro Vermilion Orange + Brass */
+  --shuiro: #ff5a36;
+  --shuiro-soft: rgba(255, 90, 54, 0.14);
+  --shuiro-border: rgba(255, 90, 54, 0.32);
+  --brass: #d4af37;
+
+  /* Zest Liquid Glass HUD Tokens */
+  --zest-hud: #1a1a1f;
+  --zest-guide: #1c1c22;
+  --zest-amber-from: #faaa1a;
+  --zest-amber-to: #e68000;
 }
 
 @layer base {
@@ -37,42 +92,79 @@
     background-color: var(--bg);
     color: var(--label);
     scroll-behavior: smooth;
+    overflow-x: clip;
+    scrollbar-width: none;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
   }
 
   body {
     background-color: var(--bg);
     color: var(--label);
     min-height: 100vh;
+    overflow-x: clip;
   }
 
-  /* Selection highlight using Apple system blue tint */
+  a[href],
+  button,
+  summary,
+  select,
+  label[for],
+  [role='button'],
+  [role='tab'],
+  [role='switch'] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  input:disabled,
+  select:disabled,
+  textarea:disabled {
+    cursor: not-allowed;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  [role='button']:focus-visible {
+    outline: 2px solid var(--tint);
+    outline-offset: 2px;
+    transition: none;
+  }
+
+  /* Selection highlight using clean Cobalt tint */
   ::selection {
-    background-color: rgba(0, 113, 227, 0.22);
+    background-color: var(--tint-soft);
     color: inherit;
   }
 }
 
 /* ==========================================================================
-   Apple Translucent Glass (Floating Header & Nav)
+   Apple Translucent Glass
    ========================================================================== */
 .apple-glass {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.84);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--separator);
 }
 
 .dark .apple-glass {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(10, 11, 14, 0.84);
   backdrop-filter: blur(24px) saturate(190%);
   -webkit-backdrop-filter: blur(24px) saturate(190%);
   border-bottom: 1px solid var(--separator);
 }
 
-/* Card Surface with crisp Apple borders and clean depth */
+/* Card Surface with clean borders and subtle Cobalt elevation */
 .apple-card {
   background-color: var(--bg-card);
   border: 1px solid var(--separator);
@@ -81,8 +173,8 @@
 }
 
 .apple-card:hover {
-  border-color: rgba(0, 0, 0, 0.16);
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+  border-color: var(--tint-border);
+  box-shadow: 0 8px 24px -4px rgba(0, 102, 204, 0.06);
 }
 
 .dark .apple-card {
@@ -90,8 +182,8 @@
 }
 
 .dark .apple-card:hover {
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.6);
+  border-color: var(--tint-border);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.65);
 }
 
 /* Direct Manipulation & Tactile Press Feedback */

@@ -1,7 +1,7 @@
 # PRODUCT.md — Sendo Tjiamis Portfolio
 
 ## Product Overview
-Personal portfolio website for Sendo Tjiamis, Senior iOS Engineer.
+Personal portfolio website for Sendo Tjiamis, iOS Engineer.
 
 ## Audience & Core Users
 - **Primary:** Tech recruiters, Engineering Managers, and iOS Leads evaluating talent for high-impact mobile roles.
@@ -11,12 +11,12 @@ Personal portfolio website for Sendo Tjiamis, Senior iOS Engineer.
 Demonstrate world-class iOS engineering expertise, track record at tier-1 tech companies (Grab, ByteDance/Tokopedia), and production mobile leadership to drive high-quality career inquiries and contact.
 
 ## Key Content & Proof Points
-1. **Current Role:** Senior Software Engineer - iOS at Grab (Driver app, high performance, real-time in-transit lifecycle).
+1. **Current Role:** Software Engineer - iOS at Grab (Driver app, high performance, real-time in-transit lifecycle).
 2. **Past Experience:** 
    - ByteDance (Tokopedia): TikTok Seller Center binding, Server-Driven UI, Modular Arch.
    - Grab (OVO): High-security payment features, biometric auth.
    - PT. Bank MNC International & Kalbe: Early banking and e-health mobile foundations.
-3. **Featured Projects:** Grab Driver iOS, Tokopedia & TikTok Seller, WikiBus Singapore, OVO Digital Wallet, PasteTap for macOS, EduAI Tutor.
+3. **Featured Projects:** Grab Driver iOS, Tokopedia & TikTok Seller, WikiBus Singapore, OVO Digital Wallet, Zest for macOS, EduAI Tutor.
 4. **Core Technical Competencies:** Swift Concurrency, SwiftUI, UIKit (programmatic), Reactive streams (Combine/RxSwift), Modular SPM, Performance Profiling, and modern Agentic Harnesses.
 5. **Key Actions:** 
    - Primary: Contact / "Get in touch" (email)

@@ -13,11 +13,14 @@ const config: Config = {
         apple: {
           bg: 'var(--bg)',
           grouped: 'var(--bg-grouped)',
+          card: 'var(--bg-card)',
           label: 'var(--label)',
           secondary: 'var(--label-secondary)',
           tertiary: 'var(--label-tertiary)',
           separator: 'var(--separator)',
           tint: 'var(--tint)',
+          shuiro: 'var(--shuiro)',
+          brass: 'var(--brass)',
         },
         primary: {
           DEFAULT: '#0071e3',

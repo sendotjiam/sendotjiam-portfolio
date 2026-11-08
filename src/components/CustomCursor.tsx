@@ -34,7 +34,7 @@ export default function CustomCursor() {
       const target = e.target as HTMLElement | null;
       if (target) {
         const interactive = target.closest(
-          'a, button, input, textarea, select, [role="button"], summary, .apple-card, .apple-btn-active'
+          'a, button, input, textarea, select, canvas, [role="button"], summary, .apple-card, .apple-btn-active'
         );
         setIsPointer(Boolean(interactive));
       }
@@ -76,18 +76,16 @@ export default function CustomCursor() {
       >
         <motion.div
           animate={{
-            width: isPointer ? 42 : 26,
-            height: isPointer ? 42 : 26,
-            scale: isClicking ? 0.85 : 1,
+            scale: isClicking ? 0.82 : isPointer ? 1.55 : 1,
             backgroundColor: isPointer
-              ? 'rgba(0, 113, 227, 0.12)'
-              : 'rgba(0, 113, 227, 0.05)',
+              ? 'rgba(217, 56, 30, 0.12)'
+              : 'rgba(217, 56, 30, 0.05)',
             borderColor: isPointer
-              ? 'rgba(0, 113, 227, 0.45)'
-              : 'rgba(0, 113, 227, 0.22)',
+              ? 'rgba(217, 56, 30, 0.48)'
+              : 'rgba(217, 56, 30, 0.24)',
           }}
           transition={{ type: 'spring', damping: 24, stiffness: 350 }}
-          className="rounded-full border backdrop-blur-[2px] -translate-x-1/2 -translate-y-1/2"
+          className="w-7 h-7 rounded-full border backdrop-blur-[2px] -translate-x-1/2 -translate-y-1/2"
         />
       </motion.div>
 
@@ -101,7 +99,7 @@ export default function CustomCursor() {
           opacity: isVisible ? 1 : 0,
         }}
       >
-        <div className="w-1.5 h-1.5 rounded-full bg-apple-tint -translate-x-1/2 -translate-y-1/2 shadow-sm" />
+        <div className="w-1.5 h-1.5 rounded-full bg-[var(--shuiro)] -translate-x-1/2 -translate-y-1/2 shadow-sm" />
       </motion.div>
     </>
   );

@@ -6,24 +6,25 @@ import './globals.css';
 const GA4_MEASUREMENT_ID = 'G-72G97X9CYK';
 
 export const metadata: Metadata = {
-  title: 'Sendo Tjiamis — iOS Engineer',
-  description: 'Senior iOS Engineer building apps used by millions. Crafting high-performance mobile architectures at Grab. Ex-ByteDance (TikTok) & Tokopedia.',
+  metadataBase: new URL('https://sendotjiam.me'),
+  title: 'Sendo Tjiamis: iOS Engineer',
+  description: 'iOS Engineer building apps used by millions. Crafting high-performance mobile architectures at Grab. Ex-ByteDance (TikTok) & Tokopedia.',
   keywords: ['iOS Engineer', 'Swift', 'SwiftUI', 'UIKit', 'Mobile Developer', 'Grab', 'ByteDance', 'TikTok', 'Tokopedia', 'Sendo Tjiamis'],
   icons: {
     icon: '/assets/favicon.png',
     apple: '/assets/favicon.png',
   },
   openGraph: {
-    title: 'Sendo Tjiamis — iOS Engineer',
-    description: 'Senior iOS Engineer building apps used by millions. Crafting high-performance mobile architectures at Grab.',
+    title: 'Sendo Tjiamis: iOS Engineer',
+    description: 'iOS Engineer building apps used by millions. Crafting high-performance mobile architectures at Grab.',
     url: 'https://sendotjiam.me',
     siteName: 'Sendo Tjiamis Portfolio',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sendo Tjiamis — iOS Engineer',
-    description: 'Senior iOS Engineer building apps used by millions. Crafting high-performance mobile architectures at Grab.',
+    title: 'Sendo Tjiamis: iOS Engineer',
+    description: 'iOS Engineer building apps used by millions. Crafting high-performance mobile architectures at Grab.',
   },
 };
 

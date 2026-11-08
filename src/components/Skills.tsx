@@ -43,12 +43,13 @@ const getCategoryIcon = (iconName: string) => {
 
 export default function Skills() {
   return (
-    <section id="skills" className="w-full py-10 border-t border-[var(--separator)] scroll-mt-24">
+    <section id="skills" className="min-h-[100dvh] w-full py-16 flex flex-col justify-center border-t border-[var(--separator)] scroll-mt-16">
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
         <div>
-          <h2 className="text-[14px] font-semibold text-apple-secondary">
-            Capabilities
+          <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
+            <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">04</span>
+            <span>Capabilities</span>
           </h2>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
             Technical Expertise
@@ -71,8 +72,10 @@ export default function Skills() {
               }`}
             >
               <div>
-                <div className="flex items-center gap-2.5 mb-1.5 text-apple-tint">
-                  {getCategoryIcon(cat.icon)}
+                <div className="flex items-center gap-2.5 mb-2 text-[var(--teal)]">
+                  <span className="w-8 h-8 rounded-lg bg-[var(--teal-soft)] border border-[var(--teal-border)] flex items-center justify-center shrink-0">
+                    {getCategoryIcon(cat.icon)}
+                  </span>
                   <h4 className="text-[17px] font-bold text-apple-label">
                     {cat.title}
                   </h4>

@@ -8,6 +8,7 @@ export interface ProjectItem {
   tech: string[];
   logo?: string;
   link?: string;
+  detailUrl?: string;
   stars?: string;
 }
 
@@ -57,15 +58,16 @@ export const projects: ProjectItem[] = [
     link: 'https://apps.apple.com/id/app/ovo/id1047926101',
   },
   {
-    id: 'pastetap',
-    title: 'PasteTap for macOS',
+    id: 'zest',
+    title: 'Zest for macOS',
     category: 'Developer Utility',
     badge: 'Open Source',
     badgeType: 'highlight',
-    desc: 'Sub-millisecond, 1-tap clipboard HUD for macOS developers. Built with Swift, zero telemetry, and instant numeric keyboard shortcuts.',
-    tech: ['Swift', 'macOS', 'SwiftUI', 'AppKit', 'SPM'],
-    logo: '/assets/project-logo/pastetap-logo.png',
-    link: 'https://github.com/sendotjiam/paste-tap',
+    desc: 'Sub-millisecond, 1-tap clipboard HUD for macOS developers. Built with Swift 6, zero telemetry, and instant numeric keyboard shortcuts.',
+    tech: ['Swift 6', 'macOS', 'SwiftUI', 'AppKit', 'SPM'],
+    logo: '/assets/project-logo/zest-logo.png',
+    link: 'https://github.com/sendotjiam/zest',
+    detailUrl: '/zest',
   },
   {
     id: 'eduai',
