@@ -49,6 +49,10 @@ export default function RootLayout({
                   document.documentElement.classList.remove('dark');
                   document.documentElement.classList.add('light');
                 }
+                const savedSwitch = localStorage.getItem('switchProfile');
+                if (savedSwitch === 'thock' || savedSwitch === 'tactile' || savedSwitch === 'clicky') {
+                  document.documentElement.dataset.switchTheme = savedSwitch;
+                }
               } catch (_) {}
             })();`,
           }}

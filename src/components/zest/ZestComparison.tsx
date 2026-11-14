@@ -56,33 +56,6 @@ export default function ZestComparison() {
     },
   ];
 
-  const engineeringSecrets = [
-    {
-      num: '01',
-      title: 'The Silent Watcher',
-      tech: 'NSPasteboard.changeCount',
-      desc: 'macOS increments an internal 64-bit integer whenever pasteboard contents change. Comparing two integers every 400ms takes < 0.0001ms, consuming 0.001% CPU and zero battery.',
-    },
-    {
-      num: '02',
-      title: 'The Password Shield',
-      tech: 'ConcealedType & TransientType',
-      desc: 'Zest immediately inspects pasteboard metadata for password manager flags before reading content. Passwords from 1Password, Bitwarden, and Apple Keychain are dropped before touching RAM.',
-    },
-    {
-      num: '03',
-      title: 'The Ghost Window',
-      tech: 'NSPanel.StyleMask.nonactivatingPanel',
-      desc: 'Traditional clipboard managers steal active window focus, breaking terminal states and IDE cursors. Zest renders as a non-activating panel: your editor cursor stays blinking and ready.',
-    },
-    {
-      num: '04',
-      title: 'Quartz Synthetic Keystrokes',
-      tech: 'CGEvent Direct Injection',
-      desc: 'Tapping a single digit writes the clip to the pasteboard and fires synthetic ⌘V key-down/up sequences straight into the macOS event tap in sub-milliseconds.',
-    },
-  ];
-
   return (
     <section id="why" className="py-16 sm:py-20 border-t border-[var(--separator)]">
       <div className="max-w-5xl mx-auto">
@@ -105,8 +78,35 @@ export default function ZestComparison() {
           </span>
         </div>
 
-        {/* The Raw Comparison Table */}
-        <div className="apple-card rounded-2xl overflow-hidden border border-[var(--separator)] mb-14 shadow-apple-sm">
+        {/* Mobile Comparison Cards (Eliminates horizontal clipping on mobile screens) */}
+        <div className="sm:hidden flex flex-col gap-3">
+          {comparisonRows.map((row) => (
+            <div
+              key={row.dimension}
+              className="apple-card p-3.5 rounded-xl flex flex-col gap-2"
+            >
+              <div className="font-semibold text-apple-label text-[13px] border-b border-[var(--separator)] pb-1.5 flex items-center justify-between">
+                <span>{row.dimension}</span>
+                <span className="text-[10px] font-sans font-bold text-apple-tint bg-apple-tint/10 px-1.5 py-0.5 rounded border border-apple-tint/20">
+                  Advantaged
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-[12px]">
+                <div className="p-2 rounded-lg bg-black/[0.02] dark:bg-white/[0.02] border border-[var(--separator)] flex flex-col justify-between">
+                  <span className="text-[10px] font-medium text-apple-tertiary block mb-1">Generic Tools</span>
+                  <span className="text-apple-secondary leading-snug">{row.bloated}</span>
+                </div>
+                <div className="p-2 rounded-lg bg-apple-tint/[0.06] border border-apple-tint/20 flex flex-col justify-between">
+                  <span className="text-[10px] font-bold text-apple-tint block mb-1">Zest</span>
+                  <span className="text-apple-label font-medium leading-snug">{row.zest}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop / Tablet Comparison Table */}
+        <div className="hidden sm:block apple-card rounded-2xl overflow-hidden border border-[var(--separator)] shadow-apple-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-[13px] sm:text-[14px]">
               <thead>
@@ -132,41 +132,6 @@ export default function ZestComparison() {
                 ))}
               </tbody>
             </table>
-          </div>
-        </div>
-
-        {/* The 4 Architectural Secrets */}
-        <div>
-          <div className="mb-6">
-            <h3 className="text-xl sm:text-2xl font-bold text-apple-label tracking-tight">
-              The 4 Bare-Metal Engineering Secrets
-            </h3>
-            <p className="text-[13px] sm:text-[14px] text-apple-secondary mt-1">
-              How Zest achieves sub-millisecond execution while remaining entirely invisible to your battery.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-            {engineeringSecrets.map((secret) => (
-              <div key={secret.num} className="apple-card p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-sm font-bold text-apple-tertiary">
-                      {secret.num}
-                    </span>
-                    <span className="font-mono text-[11px] font-semibold px-2 py-0.5 rounded bg-black/5 dark:bg-white/10 text-apple-secondary">
-                      {secret.tech}
-                    </span>
-                  </div>
-                  <h4 className="text-base sm:text-lg font-bold text-apple-label mb-2">
-                    {secret.title}
-                  </h4>
-                  <p className="text-[13px] text-apple-secondary leading-relaxed">
-                    {secret.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>

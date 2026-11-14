@@ -69,7 +69,7 @@ export default function ZestShortcuts() {
                 key={cat}
                 type="button"
                 onClick={() => setActiveCategory(cat)}
-                className={`px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors flex-1 sm:flex-initial focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                className={`min-h-[44px] px-3.5 py-2 rounded-lg text-[12px] font-medium transition-colors flex-1 sm:flex-initial focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                   activeCategory === cat
                     ? 'bg-apple-card shadow-apple-sm text-apple-label'
                     : 'text-apple-secondary hover:text-apple-label'
@@ -91,8 +91,34 @@ export default function ZestShortcuts() {
           </div>
         </div>
 
-        {/* Shortcuts Table Card */}
-        <div className="apple-card rounded-2xl overflow-hidden border border-[var(--separator)] shadow-apple-sm">
+        {/* Mobile Shortcuts List (<sm: eliminates horizontal squish and clipping) */}
+        <div className="sm:hidden flex flex-col divide-y divide-[var(--separator)] apple-card rounded-2xl overflow-hidden border border-[var(--separator)] shadow-apple-sm">
+          {filtered.map((s, index) => (
+            <div key={index} className="p-3.5 flex flex-col gap-1.5">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center gap-1">
+                  {s.keys.map((k) => (
+                    <kbd
+                      key={k}
+                      className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/10 text-apple-label font-mono text-[12px] font-semibold border border-black/10 dark:border-white/10 shadow-apple-sm"
+                    >
+                      {k}
+                    </kbd>
+                  ))}
+                </div>
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-apple-secondary shrink-0">
+                  {s.scope}
+                </span>
+              </div>
+              <p className="text-[12px] text-apple-label leading-relaxed font-sans">
+                {s.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop / Tablet Shortcuts Table (>=sm) */}
+        <div className="hidden sm:block apple-card rounded-2xl overflow-hidden border border-[var(--separator)] shadow-apple-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-[13px] sm:text-[14px]">
               <thead>

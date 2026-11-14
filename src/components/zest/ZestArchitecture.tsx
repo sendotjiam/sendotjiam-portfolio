@@ -6,6 +6,7 @@ const ARCH_STEPS = [
   {
     step: 1,
     title: 'Copy Trigger',
+    shortTitle: 'Trigger',
     actor: 'Developer & Active App',
     badge: '⌘ + C',
     desc: 'You copy code, URLs, or JSON inside VS Code, Terminal, or your browser. The app commits content to NSPasteboard.',
@@ -19,6 +20,7 @@ const ARCH_STEPS = [
   {
     step: 2,
     title: 'The Silent Tick',
+    shortTitle: 'Tick',
     actor: 'macOS Pasteboard Server',
     badge: 'changeCount tick',
     desc: 'Zest inspects NSPasteboard.changeCount on a lightweight timer every 400ms.',
@@ -32,6 +34,7 @@ const ARCH_STEPS = [
   {
     step: 3,
     title: 'Password & Privacy Guard',
+    shortTitle: 'Privacy',
     actor: 'Security Inspector',
     badge: 'ConcealedType check',
     desc: 'Before ingesting clipboard text, Zest examines type identifiers for security flags.',
@@ -45,6 +48,7 @@ const ARCH_STEPS = [
   {
     step: 4,
     title: 'Non-Activating Summon',
+    shortTitle: 'Summon',
     actor: 'Carbon HIToolbox',
     badge: '⌘ + ⇧ + V',
     desc: 'Pressing ⌘⇧V triggers a low-level global hotkey intercept registered directly with Carbon.',
@@ -58,6 +62,7 @@ const ARCH_STEPS = [
   {
     step: 5,
     title: '1-Tap Quartz Injection',
+    shortTitle: 'Inject',
     actor: 'CGEvent Synthetic Tap',
     badge: 'Tap 1-9 to ⌘V',
     desc: 'Tapping a single digit immediately copies the item to pasteboard and fires synthetic keystrokes.',
@@ -98,29 +103,34 @@ export default function ZestArchitecture() {
         {/* Architecture Stepper */}
         <div className="rounded-2xl overflow-hidden border border-[var(--separator)] bg-black/[0.01] dark:bg-white/[0.01]">
           {/* Top Step Selector Pill Bar */}
-          <div className="flex border-b border-[var(--separator)] overflow-x-auto p-2 bg-black/[0.02] dark:bg-white/[0.02] gap-1.5">
-            {ARCH_STEPS.map((s, index) => (
-              <button
-                key={s.step}
-                type="button"
-                onClick={() => setActiveStep(index)}
-                className={`px-3 py-2 rounded-xl text-left transition-colors shrink-0 sm:flex-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint disabled:opacity-50 disabled:cursor-not-allowed ${
-                  activeStep === index
-                    ? 'bg-black/10 dark:bg-white/15 text-apple-label'
-                    : 'text-apple-secondary hover:text-apple-label hover:bg-black/5 dark:hover:bg-white/5'
-                }`}
-              >
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <span className="w-4 h-4 rounded-full bg-apple-tint/10 text-apple-tint text-[10px] font-bold flex items-center justify-center font-mono">
-                    {s.step}
-                  </span>
-                  <span className="text-[12px] font-bold truncate">{s.title}</span>
-                </div>
-                <div className="text-[10px] text-apple-tertiary font-mono hidden sm:block truncate">
-                  {s.badge}
-                </div>
-              </button>
-            ))}
+          <div className="border-b border-[var(--separator)]">
+            <div className="grid grid-cols-5 p-1 sm:p-2 bg-black/[0.02] dark:bg-white/[0.02] gap-1 sm:gap-1.5">
+              {ARCH_STEPS.map((s, index) => (
+                <button
+                  key={s.step}
+                  type="button"
+                  onClick={() => setActiveStep(index)}
+                  className={`min-h-[44px] px-1 sm:px-3.5 py-1.5 sm:py-2.5 rounded-xl text-center sm:text-left transition-colors min-w-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint disabled:opacity-50 disabled:cursor-not-allowed ${
+                    activeStep === index
+                      ? 'bg-black/10 dark:bg-white/15 text-apple-label'
+                      : 'text-apple-secondary hover:text-apple-label hover:bg-black/5 dark:hover:bg-white/5'
+                  }`}
+                >
+                  <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-0.5 sm:gap-1.5 mb-0.5">
+                    <span className="w-4 h-4 rounded-full bg-apple-tint/10 text-apple-tint text-[10px] font-bold flex items-center justify-center font-mono shrink-0">
+                      {s.step}
+                    </span>
+                    <span className="text-[10px] sm:text-[12px] font-bold truncate max-w-full">
+                      <span className="sm:hidden">{s.shortTitle || s.title}</span>
+                      <span className="hidden sm:inline">{s.title}</span>
+                    </span>
+                  </div>
+                  <div className="text-[10px] text-apple-tertiary font-mono hidden sm:block truncate">
+                    {s.badge}
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Active Step Deep-Dive Card */}

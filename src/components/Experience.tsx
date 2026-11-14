@@ -91,7 +91,7 @@ function ExperienceCard({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`View ${exp.company} app on App Store`}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/[0.03] dark:bg-white/[0.06] hover:bg-[var(--tint-soft)] text-[11px] font-semibold text-[var(--tint)] shrink-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--tint)]"
+              className="inline-flex items-center gap-1 min-h-[44px] px-3.5 py-1.5 rounded-full bg-black/[0.03] dark:bg-white/[0.06] hover:bg-[var(--tint-soft)] text-[12px] font-semibold text-[var(--tint)] shrink-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--tint)]"
             >
               <span>App Store</span>
             </a>

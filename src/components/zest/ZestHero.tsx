@@ -43,7 +43,7 @@ export default function ZestHero() {
             </div>
 
             <div className="flex flex-col gap-1">
-              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-apple-label text-balance">
+              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-apple-label text-balance break-words min-w-0">
                 Zest for macOS
               </h1>
               <p className="text-[17px] sm:text-xl text-[var(--tint)] font-semibold tracking-tight text-balance">
@@ -106,37 +106,31 @@ export default function ZestHero() {
           </div>
         </div>
 
-        {/* Right Column (6 cols): Visual Stage Card */}
-        <div className="lg:col-span-6 w-full flex flex-col items-center justify-center">
-          <div className="w-full apple-card p-5 sm:p-6 rounded-2xl border border-[var(--separator)] shadow-apple-md">
-            {/* Top Bar with traffic lights */}
+        {/* Right Column (6 cols): Visual Stage Card (Desktop only; on mobile, ZestSimulator below provides the interactive experience) */}
+        <div className="hidden lg:flex lg:col-span-6 w-full flex-col items-center justify-center">
+          <div className="w-full p-5 sm:p-6 rounded-2xl border border-[var(--separator)] bg-apple-bg-grouped shadow-apple-md">
+            {/* Top Bar with technical session indicator */}
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--separator)] text-[12px]">
-              <div className="flex items-center gap-2">
-                <span aria-hidden="true" className="w-2.5 h-2.5 rounded-full bg-[var(--shuiro)] inline-block" />
-                <span aria-hidden="true" className="w-2.5 h-2.5 rounded-full bg-[var(--brass)] inline-block" />
-                <span aria-hidden="true" className="w-2.5 h-2.5 rounded-full bg-[var(--teal)] inline-block" />
-                <span className="font-sans text-apple-tertiary text-[11px] ml-1">Terminal Session</span>
-              </div>
+              <span className="font-sans font-medium text-apple-secondary text-[12px]">
+                Target Process: Terminal.app
+              </span>
               <code className="text-[11px] font-mono px-2 py-0.5 rounded bg-[var(--teal-soft)] text-[var(--teal)] border border-[var(--teal-border)] font-semibold">
                 .nonactivatingPanel
               </code>
             </div>
 
             {/* Target Editor Line with Blinking Cursor */}
-            <div className="p-3.5 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-[var(--separator)] font-mono text-[13px] mb-4">
+            <div className="p-3.5 rounded-xl bg-apple-card border border-[var(--separator)] font-mono text-[13px] mb-4">
               <span className="text-apple-tertiary select-none font-sans text-[11px] block mb-1">$ echo $DATABASE_URL</span>
               <span className="text-[var(--tint)]">postgres://user:pass@localhost:5432/zest</span>
               <span aria-hidden="true" className="inline-block w-2 h-4 bg-apple-tint animate-pulse ml-0.5 align-middle" />
             </div>
 
-            {/* Micro HUD Snapshot Card (Miniature 1:1 SwiftUI HUD preview) */}
-            <div className="rounded-[14px] bg-apple-bg text-apple-label p-3 border border-[var(--separator)] shadow-apple-sm flex flex-col gap-2 font-sans">
+            {/* Micro HUD Snapshot Block (Single containment layer) */}
+            <div className="rounded-xl bg-apple-card text-apple-label p-3.5 border border-[var(--separator)] shadow-apple-sm flex flex-col gap-2 font-sans">
               <div className="flex items-center justify-between text-[11px] text-apple-tertiary pb-2 border-b border-[var(--separator)]">
-                <div className="flex items-center gap-1.5">
-                  <span aria-hidden="true" className="w-2 h-2 rounded-full bg-emerald-500" />
-                  <span className="font-medium text-apple-label">Zest Floating HUD</span>
-                </div>
-                <span className="font-mono text-[10px] text-[var(--shuiro)] font-semibold px-1.5 py-0.5 rounded bg-[var(--shuiro-soft)] border border-[var(--shuiro-border)]">⌘⇧V Active</span>
+                <span className="font-semibold text-apple-label text-[12px]">Zest Floating HUD</span>
+                <span className="font-mono text-[10px] text-[var(--shuiro)] font-semibold px-2 py-0.5 rounded bg-[var(--shuiro-soft)] border border-[var(--shuiro-border)]">⌘⇧V Active</span>
               </div>
               <div className="flex items-center justify-between gap-2 text-[12px] h-[34px] px-2 rounded-lg bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)]">
                 <div className="flex items-center gap-2 overflow-hidden">

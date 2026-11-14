@@ -47,7 +47,7 @@ export const experiences: ExperienceItem[] = [
     desc: [
       "Shipped high-impact user-facing features for the TikTok Seller Center iOS app in **Swift** and **SwiftUI**, driving merchant **activation and engagement** during the massive migration from Tokopedia.",
       "Built a reusable TikTok Buyer & Seller Binding service by integrating the **TikTok Open Auth SDK**, laying the foundation for Tokopedia and TikTok Shop integration.",
-      "Revamped login and registration flows to instinctively eliminate UI jank and confusing flows, creating a **seamless onboarding experience** that simplified user activation.",
+      "Revamped login and registration architecture to eliminate UI jank, creating a **streamlined onboarding flow** that increased user activation.",
       "Implemented mandatory KYC flow for new sellers using the GoTo Group KYC SDK, improving overall seller quality and compliance.",
       "Leveraged **data literacy** and product sense to build personalized shopping preference features, utilizing **metrics and dashboards** to validate improvements in user retention.",
       "Spearheaded the migration of global UI components from Texture to **UIKit** and **SwiftUI**, adopting modern app architecture and **concurrency patterns** to drastically improve performance and debug **complex code bases**."

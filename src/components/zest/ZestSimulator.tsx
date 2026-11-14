@@ -698,19 +698,22 @@ export default function ZestSimulator() {
         {/* Workbench Container (Simulates Active Desktop/IDE) */}
         <div className="apple-card rounded-2xl overflow-hidden border border-[var(--separator)] shadow-apple-md">
           {/* Top Title Bar */}
-          <div className="h-10 px-4 bg-black/[0.03] dark:bg-white/[0.03] border-b border-[var(--separator)] flex items-center justify-between text-[12px]">
-            <div className="flex items-center gap-2">
-              <span aria-hidden="true" className="w-3 h-3 rounded-full bg-[var(--shuiro)] inline-block" />
-              <span aria-hidden="true" className="w-3 h-3 rounded-full bg-[var(--brass)] inline-block" />
-              <span aria-hidden="true" className="w-3 h-3 rounded-full bg-[var(--teal)] inline-block" />
-              <span className="ml-2 font-sans text-apple-tertiary">Active IDE Window (Target Workspace)</span>
+          <div className="h-10 px-3 sm:px-4 bg-black/[0.03] dark:bg-white/[0.03] border-b border-[var(--separator)] flex items-center justify-between text-[12px] gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 overflow-hidden">
+              <span aria-hidden="true" className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[var(--shuiro)] inline-block shrink-0" />
+              <span aria-hidden="true" className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[var(--brass)] inline-block shrink-0" />
+              <span aria-hidden="true" className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[var(--teal)] inline-block shrink-0" />
+              <span className="ml-1 sm:ml-2 font-sans text-apple-tertiary truncate text-[11px] sm:text-[12px]">
+                <span className="sm:hidden">Target IDE Window</span>
+                <span className="hidden sm:inline">Active IDE Window (Target Workspace)</span>
+              </span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1 sm:gap-3 shrink-0">
               <button
                 type="button"
                 onClick={() => setAudioMuted(!audioMuted)}
-                className="text-apple-secondary hover:text-apple-label text-[11px] font-medium flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
+                className="text-apple-secondary hover:text-apple-label text-[11px] font-medium flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded min-h-[44px] px-1.5 sm:px-2"
                 title={audioMuted ? 'Unmute mechanical sound' : 'Mute mechanical sound'}
               >
                 <span>{audioMuted ? 'Audio Off' : 'Tactile Thock On'}</span>
@@ -727,7 +730,7 @@ export default function ZestSimulator() {
                   setPreviewItem(null);
                   resetTransform();
                 }}
-                className="text-apple-tint hover:underline text-[11px] font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded"
+                className="text-apple-tint hover:underline text-[11px] font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded min-h-[44px] px-1.5 sm:px-2 flex items-center"
               >
                 Reset Demo
               </button>
@@ -737,9 +740,9 @@ export default function ZestSimulator() {
           {/* Workbench Body */}
           <div className="relative min-h-[460px] sm:min-h-[500px] p-5 sm:p-7 font-mono text-[13px] sm:text-[14px] bg-apple-bg-grouped flex flex-col justify-between">
             {/* Target Editor Text */}
-            <div className="overflow-x-auto whitespace-pre leading-relaxed text-apple-label">
-              <div className="text-apple-tertiary select-none font-sans text-[12px]">// Active Document: ConfigurationService.swift</div>
-              <div className="text-apple-tertiary select-none font-sans text-[12px]">// Target caret remains focused without window defocusing:</div>
+            <div className="overflow-x-auto whitespace-pre-wrap sm:whitespace-pre break-words leading-relaxed text-apple-label">
+              <div className="text-apple-tertiary select-none font-sans text-[11px] sm:text-[12px] truncate">// Active Document: ConfigurationService.swift</div>
+              <div className="text-apple-tertiary select-none font-sans text-[11px] sm:text-[12px] truncate">// Target caret remains focused without window defocusing:</div>
               <br />
               <span className="text-[var(--tint)]">{pastedCode}</span>
               <span aria-hidden="true" className="inline-block w-2 h-4 bg-apple-tint animate-pulse ml-0.5 align-middle" />
@@ -763,10 +766,10 @@ export default function ZestSimulator() {
                 <button
                   type="button"
                   onClick={() => setHudOpen(true)}
-                  className="px-3 py-1.5 rounded-lg bg-apple-tint text-white font-medium text-[12px] hover:bg-apple-tint-hover transition-colors shadow-apple-sm flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                  className="min-h-[44px] px-3.5 py-2 rounded-lg bg-apple-tint text-white font-medium text-[12px] hover:bg-apple-tint-hover transition-colors shadow-apple-sm flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
                 >
                   <span>Summon Zest HUD</span>
-                  <kbd className="px-1 py-0.2 rounded bg-white/20 text-[10px]">⌘⇧V</kbd>
+                  <kbd className="px-1.5 py-0.5 rounded bg-white/20 text-[10px]">⌘⇧V</kbd>
                 </button>
               ) : (
                 <span className="text-apple-tertiary text-[11px]">
@@ -777,7 +780,7 @@ export default function ZestSimulator() {
 
             {/* FLOATING ZEST HUD (High-Contrast 1:1 SwiftUI Replica, 390px fixed width) */}
             {hudOpen && (
-              <div className="absolute inset-x-3 top-5 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 w-full sm:w-[390px] z-30 transition-opacity duration-150">
+              <div className="absolute left-3 right-3 top-5 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 w-auto sm:w-[390px] z-30 transition-opacity duration-150">
                 <div
                   className={`relative rounded-[14px] ${
                     isDark ? 'zest-hud-surface-dark' : 'zest-hud-surface-light'
@@ -821,8 +824,8 @@ export default function ZestSimulator() {
                         <button
                           type="button"
                           onClick={() => setSearchQuery('')}
-                          className={`text-[12px] ${
-                            isDark ? 'text-neutral-400 hover:text-white' : 'text-neutral-500 hover:text-neutral-900'
+                          className={`min-w-[32px] min-h-[32px] flex items-center justify-center text-[12px] rounded ${
+                            isDark ? 'text-neutral-400 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'
                           }`}
                           aria-label="Clear search"
                         >
@@ -850,11 +853,11 @@ export default function ZestSimulator() {
                           >
                             {previewItem.type}
                           </span>
-                          <span className={`font-medium ${isDark ? 'text-neutral-300' : 'text-neutral-600'}`}>
+                          <span className={`font-medium ${isDark ? 'text-neutral-300' : 'text-neutral-700'}`}>
                             {previewItem.sourceApp}
                           </span>
                         </div>
-                        <span className={`font-sans text-[10px] ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}>
+                        <span className={`font-sans text-[10px] ${isDark ? 'text-neutral-400' : 'text-neutral-600'}`}>
                           {previewItem.lineCount} lines • {previewItem.charCount} chars
                         </span>
                       </div>
@@ -875,7 +878,7 @@ export default function ZestSimulator() {
                         <button
                           type="button"
                           onClick={() => setPreviewItem(null)}
-                          className={`px-2.5 py-1 rounded-md text-[11px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                          className={`min-h-[36px] px-3 py-1.5 rounded-md text-[11px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                             isDark
                               ? 'text-neutral-300 hover:text-white bg-white/[0.08] hover:bg-white/[0.14]'
                               : 'text-neutral-700 hover:text-neutral-900 bg-black/[0.06] hover:bg-black/[0.10]'
@@ -891,7 +894,7 @@ export default function ZestSimulator() {
                               playThock();
                               setPreviewItem(null);
                             }}
-                            className={`px-3 py-1 rounded-md text-[11px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                            className={`min-h-[36px] px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                               isDark
                                 ? 'text-neutral-200 bg-white/[0.10] hover:bg-white/[0.16]'
                                 : 'text-neutral-800 bg-black/[0.06] hover:bg-black/[0.10]'
@@ -902,7 +905,7 @@ export default function ZestSimulator() {
                           <button
                             type="button"
                             onClick={() => executePaste(previewItem.rawContent)}
-                            className="px-3.5 py-1 rounded-md text-[11px] font-semibold text-white bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] border border-white/30 shadow-apple-sm hover:brightness-105 transition-[filter] flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                            className="min-h-[36px] px-3.5 py-1.5 rounded-md text-[11px] font-semibold text-white bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] border border-white/30 shadow-apple-sm hover:brightness-105 transition-[filter] flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
                           >
                             <span>Paste</span>
                             <span className="text-[10px] font-bold">↵</span>
@@ -920,7 +923,7 @@ export default function ZestSimulator() {
                             key={cat}
                             type="button"
                             onClick={() => setSelectedCategory(cat)}
-                            className={`px-2 py-0.5 rounded-full border transition-colors shrink-0 ${
+                            className={`min-h-[32px] px-2.5 py-1 rounded-full border transition-colors shrink-0 ${
                               selectedCategory === cat
                                 ? 'bg-apple-tint text-white border-white/40 font-semibold'
                                 : isDark
@@ -946,7 +949,7 @@ export default function ZestSimulator() {
                               setActiveTransform(action);
                               setTransformedPreview(action.execute(transformItem.rawContent));
                             }}
-                            className={`px-2.5 py-1 rounded-md border text-[11px] shrink-0 font-medium transition-colors ${
+                            className={`min-h-[34px] px-3 py-1.5 rounded-md border text-[11px] shrink-0 font-medium transition-colors ${
                               activeTransform?.id === action.id
                                 ? 'bg-apple-tint text-white border-white/40 shadow-apple-sm'
                                 : isDark
@@ -977,7 +980,7 @@ export default function ZestSimulator() {
                           onClick={() => {
                             handleDeleteClip(transformItem.id);
                           }}
-                          className="w-7 h-7 rounded-md flex items-center justify-center bg-red-500/15 text-red-500 border border-red-500/30 hover:bg-red-500/25 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                          className="min-w-[36px] min-h-[36px] rounded-md flex items-center justify-center bg-red-500/15 text-red-500 border border-red-500/30 hover:bg-red-500/25 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
                           title="Delete clip from history"
                           aria-label="Delete clip from history"
                         >
@@ -994,7 +997,7 @@ export default function ZestSimulator() {
                               playThock();
                               resetTransform();
                             }}
-                            className={`px-3 py-1 rounded-md text-[11px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                            className={`min-h-[36px] px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                               isDark
                                 ? 'text-neutral-200 bg-white/[0.10] hover:bg-white/[0.16]'
                                 : 'text-neutral-800 bg-black/[0.06] hover:bg-black/[0.10]'
@@ -1005,7 +1008,7 @@ export default function ZestSimulator() {
                           <button
                             type="button"
                             onClick={() => executePaste(transformedPreview ?? transformItem.rawContent)}
-                            className="px-3.5 py-1 rounded-md text-[11px] font-semibold text-white bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] border border-white/30 shadow-apple-sm hover:brightness-105 transition-[filter] flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                            className="min-h-[36px] px-3.5 py-1.5 rounded-md text-[11px] font-semibold text-white bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] border border-white/30 shadow-apple-sm hover:brightness-105 transition-[filter] flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
                           >
                             <span>Paste</span>
                             <span className="text-[10px] font-bold">↵</span>
@@ -1348,7 +1351,7 @@ export default function ZestSimulator() {
 
                   {/* LIQUID GLASS FOOTER BAR (Exact 1:1 SwiftUI Replica) */}
                   <div
-                    className={`h-9 px-3 flex items-center justify-between text-[11px] font-sans border-t ${
+                    className={`min-h-[36px] h-9 px-2.5 sm:px-3 flex items-center justify-between text-[11px] font-sans border-t gap-2 overflow-hidden shrink-0 ${
                       isDark
                         ? 'bg-black/50 border-white/[0.10] text-neutral-300'
                         : 'bg-black/[0.03] border-black/10 text-neutral-700'
@@ -1362,7 +1365,7 @@ export default function ZestSimulator() {
                           setPreviewItem(null);
                           resetTransform();
                         }}
-                        className={`flex items-center gap-1 px-2.5 py-1 rounded-full font-semibold text-[10.5px] transition-colors border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`flex items-center gap-1 min-h-[30px] px-2.5 py-1 rounded-full font-semibold text-[11px] transition-colors border whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                           isDark
                             ? 'bg-white/[0.10] hover:bg-white/[0.16] text-neutral-200 border-white/[0.14]'
                             : 'bg-black/[0.06] hover:bg-black/[0.10] text-neutral-800 border-black/10'
@@ -1374,23 +1377,26 @@ export default function ZestSimulator() {
                         <span>Back</span>
                       </button>
                     ) : (
-                      <div className="flex items-center gap-2">
-                        <span className={isDark ? 'text-neutral-300' : 'text-neutral-700'}>
-                          Tap 1-9, 0 to paste directly
+                      <div className="flex items-center gap-1.5 whitespace-nowrap overflow-hidden text-ellipsis min-w-0">
+                        <span className={`truncate ${isDark ? 'text-neutral-300' : 'text-neutral-700'}`}>
+                          <span className="hidden sm:inline">Tap 1-9, 0 to paste directly</span>
+                          <span className="sm:hidden font-medium">1-9, 0 to paste</span>
                         </span>
-                        <span className="opacity-40">•</span>
+                        <span className="opacity-40 select-none">•</span>
                         <button
                           type="button"
                           onClick={() => setClips([])}
-                          className={isDark ? 'text-neutral-400 hover:text-red-400 transition-colors' : 'text-neutral-500 hover:text-red-600 transition-colors'}
+                          className={`min-h-[30px] px-1 inline-flex items-center transition-colors whitespace-nowrap shrink-0 ${
+                            isDark ? 'text-neutral-400 hover:text-red-400' : 'text-neutral-600 hover:text-red-600'
+                          }`}
                         >
-                          Clear All
+                          Clear
                         </button>
                       </div>
                     )}
 
-                    {/* Right Utility Group: 5 Uniform 22x22 Circle Buttons */}
-                    <div className="flex items-center gap-1.5">
+                    {/* Right Utility Group: 5 Uniform Circle Buttons */}
+                    <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
                       {/* 1. Theme Toggle */}
                       <button
                         type="button"
@@ -1402,7 +1408,7 @@ export default function ZestSimulator() {
                             return 'auto';
                           });
                         }}
-                        className={`w-[22px] h-[22px] rounded-full flex items-center justify-center border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                           isDark
                             ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-white'
                             : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-neutral-900'
@@ -1419,7 +1425,7 @@ export default function ZestSimulator() {
                       <button
                         type="button"
                         onClick={handleTriggerOCR}
-                        className={`w-[22px] h-[22px] rounded-full flex items-center justify-center border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                           isDark
                             ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-white'
                             : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-neutral-900'
@@ -1437,7 +1443,7 @@ export default function ZestSimulator() {
                       <button
                         type="button"
                         onClick={() => setShowGuideModal(true)}
-                        className={`w-[22px] h-[22px] rounded-full flex items-center justify-center border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                           isDark
                             ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-white'
                             : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-neutral-900'
@@ -1457,7 +1463,7 @@ export default function ZestSimulator() {
                           setShowPrefToast(true);
                           setTimeout(() => setShowPrefToast(false), 2500);
                         }}
-                        className={`w-[22px] h-[22px] rounded-full flex items-center justify-center border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                           isDark
                             ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-white'
                             : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-neutral-900'
@@ -1474,7 +1480,7 @@ export default function ZestSimulator() {
                       <button
                         type="button"
                         onClick={() => setHudOpen(false)}
-                        className={`w-[22px] h-[22px] rounded-full flex items-center justify-center border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                           isDark
                             ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-red-400'
                             : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-red-600'
@@ -1540,12 +1546,12 @@ export default function ZestSimulator() {
                     <button
                       type="button"
                       onClick={() => setShowGuideModal(false)}
-                      className={`p-1 rounded-md ${
-                        isDark ? 'text-neutral-400 hover:text-white' : 'text-neutral-500 hover:text-neutral-900'
+                      className={`min-w-[44px] min-h-[44px] flex items-center justify-center p-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        isDark ? 'text-neutral-400 hover:text-white' : 'text-neutral-600 hover:text-neutral-900'
                       }`}
                       aria-label="Close guide"
                     >
-                      <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg aria-hidden="true" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
@@ -1666,7 +1672,7 @@ export default function ZestSimulator() {
                     <button
                       type="button"
                       onClick={() => setShowGuideModal(false)}
-                      className="px-4 py-1.5 rounded-lg bg-apple-tint text-white font-medium text-[12px] hover:bg-apple-tint-hover"
+                      className="min-h-[44px] px-5 py-2 rounded-xl bg-apple-tint text-white font-medium text-[13px] hover:bg-apple-tint-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
                     >
                       Done
                     </button>

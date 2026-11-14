@@ -84,7 +84,7 @@ export default function ZestDownload() {
                   <button
                     type="button"
                     onClick={() => copyToClipboard(gatekeeperCmd, 'gatekeeper')}
-                    className="text-apple-tint hover:underline font-mono text-[11px]"
+                    className="text-apple-tint hover:underline font-mono text-[11px] min-h-[44px] inline-flex items-center px-1"
                   >
                     {copiedCmd === 'gatekeeper' ? 'Copied ✓' : 'Copy command'}
                   </button>
@@ -117,7 +117,7 @@ export default function ZestDownload() {
                 <button
                   type="button"
                   onClick={() => copyToClipboard(buildCmd, 'build')}
-                  className="mt-2.5 px-2.5 py-1 rounded bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-apple-label text-[11px] transition-colors flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                  className="mt-2.5 min-h-[44px] px-3.5 py-2 rounded-lg bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-apple-label text-[12px] font-medium transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
                 >
                   {copiedCmd === 'build' ? 'Copied to Clipboard ✓' : 'Copy command'}
                 </button>

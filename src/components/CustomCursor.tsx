@@ -78,11 +78,11 @@ export default function CustomCursor() {
           animate={{
             scale: isClicking ? 0.82 : isPointer ? 1.55 : 1,
             backgroundColor: isPointer
-              ? 'rgba(217, 56, 30, 0.12)'
-              : 'rgba(217, 56, 30, 0.05)',
+              ? 'color-mix(in srgb, var(--shuiro) 12%, transparent)'
+              : 'color-mix(in srgb, var(--shuiro) 5%, transparent)',
             borderColor: isPointer
-              ? 'rgba(217, 56, 30, 0.48)'
-              : 'rgba(217, 56, 30, 0.24)',
+              ? 'color-mix(in srgb, var(--shuiro) 48%, transparent)'
+              : 'color-mix(in srgb, var(--shuiro) 24%, transparent)',
           }}
           transition={{ type: 'spring', damping: 24, stiffness: 350 }}
           className="w-7 h-7 rounded-full border backdrop-blur-[2px] -translate-x-1/2 -translate-y-1/2"

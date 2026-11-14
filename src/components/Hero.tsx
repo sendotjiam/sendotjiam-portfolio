@@ -1,24 +1,180 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+
+type LoaderStage = 'initializing' | 'assembling' | 'settling' | 'ready';
 
 const Macropad3D = dynamic(() => import('@/components/Macropad3D'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-[300px] sm:h-[360px] flex flex-col items-center justify-center gap-3 motion-safe:animate-pulse">
+    <div className="w-full h-[300px] sm:h-[360px] flex flex-col items-center justify-center gap-3">
+      {/* Visible for reduced-motion or post-watchdog chunk loads; hidden by stageRef opacity-0 during normal initializing */}
       <div className="w-7 h-7 rounded-full border-2 border-[var(--shuiro)]/30 border-t-[var(--shuiro)] motion-safe:animate-spin" />
       <span className="text-[12px] font-medium text-apple-secondary">
         Initializing Macropad…
       </span>
+      {/* SSR & Noscript Quick Navigation Fallback */}
+      <noscript>
+        <nav aria-label="Hero section navigation" className="flex flex-wrap justify-center gap-2 mt-2">
+          <a href="#about" className="px-3 py-1 rounded-full bg-apple-card border border-[var(--separator)] text-[12px] font-medium text-apple-label">About</a>
+          <a href="#experience" className="px-3 py-1 rounded-full bg-apple-card border border-[var(--separator)] text-[12px] font-medium text-apple-label">Experience</a>
+          <a href="#projects" className="px-3 py-1 rounded-full bg-apple-card border border-[var(--separator)] text-[12px] font-medium text-apple-label">Projects</a>
+          <a href="#skills" className="px-3 py-1 rounded-full bg-apple-card border border-[var(--separator)] text-[12px] font-medium text-apple-label">Skills</a>
+          <a href="#languages" className="px-3 py-1 rounded-full bg-apple-card border border-[var(--separator)] text-[12px] font-medium text-apple-label">Languages</a>
+          <a href="#education" className="px-3 py-1 rounded-full bg-apple-card border border-[var(--separator)] text-[12px] font-medium text-apple-label">Education</a>
+        </nav>
+      </noscript>
     </div>
   ),
 });
 
 export default function Hero() {
   const [copied, setCopied] = useState<boolean>(false);
+  const [loaderStage, setLoaderStage] = useState<LoaderStage>('initializing');
+  const [stageOffset, setStageOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Untransformed layout anchor in the right Hero column
+  const slotRef = useRef<HTMLDivElement>(null);
+  // Transformed stage wrapper that centers during assembly and FLIP-glides to (0, 0)
+  const stageRef = useRef<HTMLDivElement>(null);
+  const settleTimerRef = useRef<number | null>(null);
+  const watchdogRef = useRef<number | null>(null);
+  const initialHashRef = useRef<string>('');
+
   const email = 'sendotjiamis9898@gmail.com';
+
+  // Measure the untransformed slotRef relative to viewport center
+  const measureSlotOffset = useCallback(() => {
+    const slotEl = slotRef.current;
+    if (!slotEl || typeof window === 'undefined') return;
+    const rect = slotEl.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+
+    const canvasHeight = window.innerWidth >= 640 ? 360 : 300;
+    const slotCenterX = rect.left + rect.width / 2;
+    const slotCenterY = rect.top + canvasHeight / 2;
+
+    const targetCenterX = window.innerWidth / 2;
+    const targetCenterY = window.innerHeight / 2 - 16;
+
+    setStageOffset({
+      x: Math.round(targetCenterX - slotCenterX),
+      y: Math.round(targetCenterY - slotCenterY),
+    });
+  }, []);
+
+  // Initial scroll alignment, scrollbar-compensated overflowY lock, resize tracking, and chunk watchdog
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setLoaderStage('ready');
+      return;
+    }
+
+    initialHashRef.current = window.location.hash;
+
+    // Compensate classic scrollbar width before locking overflowY to prevent horizontal shift on unlock
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+    document.documentElement.style.overflowY = 'hidden';
+    document.body.style.overflowY = 'hidden';
+
+    if (window.scrollY > 0) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+    }
+
+    measureSlotOffset();
+    window.addEventListener('resize', measureSlotOffset);
+
+    // Phase 1 watchdog: 3500ms limit for dynamic Three.js chunk download & Frame 1 init
+    watchdogRef.current = window.setTimeout(() => {
+      setLoaderStage('ready');
+    }, 3500);
+
+    return () => {
+      window.removeEventListener('resize', measureSlotOffset);
+      if (watchdogRef.current) {
+        window.clearTimeout(watchdogRef.current);
+      }
+      if (settleTimerRef.current) {
+        window.clearTimeout(settleTimerRef.current);
+      }
+      document.documentElement.style.overflowY = '';
+      document.body.style.overflowY = '';
+      document.body.style.paddingRight = '';
+    };
+  }, [measureSlotOffset]);
+
+  // Keep overflowY & paddingRight locked through 'initializing', 'assembling', and 'settling'; unlock on 'ready'
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (loaderStage === 'ready') {
+      document.documentElement.style.overflowY = '';
+      document.body.style.overflowY = '';
+      document.body.style.paddingRight = '';
+
+      // Restore deep-link hash navigation (e.g. /#projects) once the blocking loader finishes
+      const hash = initialHashRef.current;
+      if (hash && hash !== '#about') {
+        const targetEl = document.querySelector(hash);
+        if (targetEl) {
+          requestAnimationFrame(() => {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+      }
+    }
+  }, [loaderStage]);
+
+  const handleAssemblyComplete = useCallback(() => {
+    if (watchdogRef.current) {
+      window.clearTimeout(watchdogRef.current);
+      watchdogRef.current = null;
+    }
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setLoaderStage('ready');
+      return;
+    }
+    setLoaderStage((prev) => {
+      if (prev === 'ready' || prev === 'settling') return prev;
+      return 'settling';
+    });
+    if (settleTimerRef.current) {
+      window.clearTimeout(settleTimerRef.current);
+    }
+    settleTimerRef.current = window.setTimeout(() => {
+      setLoaderStage('ready');
+    }, 560);
+  }, []);
+
+  const handleSceneReady = useCallback(() => {
+    if (watchdogRef.current) {
+      window.clearTimeout(watchdogRef.current);
+      watchdogRef.current = null;
+    }
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setLoaderStage('ready');
+      return;
+    }
+    measureSlotOffset();
+    setLoaderStage((prev) => (prev === 'initializing' ? 'assembling' : prev));
+
+    // Phase 2 watchdog: if assembly stalls, trigger clean FLIP 'settling' glide rather than teleporting
+    watchdogRef.current = window.setTimeout(() => {
+      handleAssemblyComplete();
+    }, 2500);
+  }, [measureSlotOffset, handleAssemblyComplete]);
 
   const copyEmail = async () => {
     try {
@@ -40,6 +196,62 @@ export default function Hero() {
 
   return (
     <section id="about" className="min-h-[100dvh] py-16 sm:py-20 flex flex-col justify-center gap-10 w-full">
+      {/* Full-Viewport Blocking Curtain & Minimal SENDO-06 Technical HUD (z-[60]) */}
+      {loaderStage !== 'ready' && (
+        <div
+          role="status"
+          aria-live="polite"
+          aria-label="Loading SENDO-06 3D Mechanical Macropad"
+          className={`fixed inset-0 z-[60] bg-apple-bg flex flex-col items-center justify-center transition-opacity duration-500 ease-out ${
+            loaderStage === 'settling'
+              ? 'opacity-0 pointer-events-none'
+              : 'opacity-100 pointer-events-auto'
+          }`}
+        >
+          {/* Subtle Center-Stage Blueprint Alignment Frame while WebGL chunk initializes */}
+          <div
+            aria-hidden="true"
+            className={`w-[280px] sm:w-[360px] h-[180px] sm:h-[220px] -mt-8 rounded-2xl border border-dashed border-[var(--separator-opaque)] flex items-center justify-center transition-opacity duration-200 ${
+              loaderStage === 'initializing' ? 'opacity-70' : 'opacity-0'
+            }`}
+          >
+            <div className="grid grid-cols-3 gap-2 w-[210px] sm:w-[260px] opacity-40">
+              {['01', '02', '03', '04', '05', '06'].map((num) => (
+                <div
+                  key={num}
+                  className="h-10 rounded-lg border border-[var(--separator-opaque)] flex items-center justify-center font-mono text-[10px] text-apple-secondary"
+                >
+                  {num}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Lower-Center Technical Spec Readout Dock (Viewport-clamped for short screens <= 480px) */}
+          <div className="fixed top-[min(calc(50%+168px),calc(100dvh-64px))] sm:top-[min(calc(50%+196px),calc(100dvh-68px))] inset-x-0 flex flex-col items-center gap-2.5 px-4">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-apple-card border border-[var(--separator)] shadow-apple-sm">
+              <span
+                className="w-2 h-2 rounded-full bg-[var(--shuiro)] motion-safe:animate-pulse"
+                aria-hidden="true"
+              />
+              <span className="font-mono text-[11px] sm:text-[12px] font-semibold tracking-wider text-apple-label">
+                {loaderStage === 'initializing'
+                  ? 'SENDO-06 // INITIALIZING MECHANICS'
+                  : 'SENDO-06 // ASSEMBLING KEYCAPS [01–06]'}
+              </span>
+            </div>
+
+            <div className="w-44 h-[2px] rounded-full bg-[var(--separator-opaque)] overflow-hidden">
+              <div
+                className={`h-full bg-[var(--shuiro)] transition-all duration-700 ease-out ${
+                  loaderStage === 'initializing' ? 'w-1/3' : 'w-full'
+                }`}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 2-Column Split: Identity & Bio (6 cols) + 2-Row Proportional 3D Macropad (6 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
         {/* Left Column: Portrait Lockup, Status, Bio, CTAs (6 cols) */}
@@ -73,7 +285,7 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col gap-1">
-              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-apple-label text-balance">
+              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-apple-label text-balance break-words min-w-0">
                 Sendo Tjiamis
               </h1>
               <p className="text-[17px] sm:text-xl text-[var(--tint)] font-semibold tracking-tight text-balance">
@@ -114,7 +326,7 @@ export default function Hero() {
             <button
               type="button"
               onClick={copyEmail}
-              className="inline-flex items-center gap-2 h-11 px-4 rounded-full bg-apple-card hover:bg-black/[0.04] dark:hover:bg-white/[0.06] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-apple-label text-[13px] font-medium border border-[var(--separator)] transition-colors apple-btn-active cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint focus-visible:ring-offset-2 whitespace-nowrap shadow-apple-sm"
+              className="inline-flex items-center justify-center gap-2 h-11 px-4 min-w-[172px] rounded-full bg-apple-card hover:bg-black/[0.04] dark:hover:bg-white/[0.06] active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed text-apple-label text-[13px] font-medium border border-[var(--separator)] transition-colors apple-btn-active cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint focus-visible:ring-offset-2 whitespace-nowrap shadow-apple-sm"
             >
               {copied ? (
                 <>
@@ -128,7 +340,7 @@ export default function Hero() {
                     <path d="M20 6 9 17l-5-5" />
                   </svg>
                   <span className="text-[var(--teal)] font-semibold whitespace-nowrap">
-                    Copied to clipboard
+                    Copied!
                   </span>
                 </>
               ) : (
@@ -180,9 +392,42 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right Column: Bespoke 2-Row Proportional 3D Mechanical Macropad (6 cols) */}
-        <div className="lg:col-span-6 w-full flex flex-col items-center justify-center">
-          <Macropad3D />
+        {/* Right Column: Untransformed Anchor Slot (slotRef) + FLIP Stage Mover (stageRef) */}
+        <div
+          ref={slotRef}
+          className="lg:col-span-6 w-full flex flex-col items-center justify-center"
+        >
+          <div
+            ref={stageRef}
+            style={
+              loaderStage === 'initializing' || loaderStage === 'assembling'
+                ? {
+                    transform: `translate3d(${stageOffset.x}px, ${stageOffset.y}px, 0) scale(1.06)`,
+                    transition: 'opacity 180ms ease-out',
+                  }
+                : loaderStage === 'settling'
+                  ? {
+                      transform: 'translate3d(0px, 0px, 0) scale(1)',
+                      transition:
+                        'transform 550ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease-out',
+                    }
+                  : undefined
+            }
+            className={`w-full flex flex-col items-center justify-center ${
+              loaderStage === 'ready'
+                ? 'relative z-auto opacity-100 pointer-events-auto'
+                : loaderStage === 'initializing'
+                  ? 'relative z-[70] opacity-0 pointer-events-none will-change-transform'
+                  : 'relative z-[70] opacity-100 pointer-events-none will-change-transform'
+            }`}
+          >
+            <Macropad3D
+              onSceneReady={handleSceneReady}
+              onAssemblyComplete={handleAssemblyComplete}
+              controlsVisible={loaderStage === 'settling' || loaderStage === 'ready'}
+              interactive={loaderStage === 'ready'}
+            />
+          </div>
         </div>
       </div>
 

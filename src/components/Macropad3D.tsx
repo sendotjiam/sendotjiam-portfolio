@@ -127,6 +127,10 @@ export const SWITCH_PROFILES: {
 interface Macropad3DProps {
   activeSection?: MacropadKeyId;
   onSelectKey?: (key: ArtisanKeySpec) => void;
+  onSceneReady?: () => void;
+  onAssemblyComplete?: () => void;
+  controlsVisible?: boolean;
+  interactive?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -482,8 +486,10 @@ function createNameplateTexture(isDark: boolean, profile: SwitchProfileId): THRE
   ctx.lineWidth = 8;
   ctx.strokeRect(14, 14, 1572, 272);
 
-  // Left Vermilion Seal Square (Sendo Tjiamis Monogram)
-  ctx.fillStyle = '#d9381e';
+  // Left Seal Square (Sendo Tjiamis Monogram - Synced with Switch Profile Theme)
+  const profileSpec = SWITCH_PROFILES.find((p) => p.id === profile) || SWITCH_PROFILES[0];
+  const accentHex = '#' + profileSpec.ledHex.toString(16).padStart(6, '0');
+  ctx.fillStyle = accentHex;
   ctx.beginPath();
   ctx.roundRect(42, 46, 136, 136, 18);
   ctx.fill();
@@ -544,7 +550,13 @@ function createGroundShadowTexture(): THREE.CanvasTexture {
 // Component Implementation (2-Row Proportional 3D Macropad with Deep Key Press)
 // ---------------------------------------------------------------------------
 
-export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
+export default function Macropad3D({
+  onSelectKey,
+  onSceneReady,
+  onAssemblyComplete,
+  controlsVisible = true,
+  interactive = true,
+}: Macropad3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -558,6 +570,21 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
   const audioCtxRef = useRef<AudioContext | null>(null);
   const tapKeyRef = useRef<((id: MacropadKeyId, triggerAction?: boolean) => void) | null>(null);
   const rotateKnobRef = useRef<(() => void) | null>(null);
+  const onSceneReadyRef = useRef<(() => void) | undefined>(onSceneReady);
+  const onAssemblyCompleteRef = useRef<(() => void) | undefined>(onAssemblyComplete);
+  const interactiveRef = useRef<boolean>(interactive);
+
+  useEffect(() => {
+    onSceneReadyRef.current = onSceneReady;
+  }, [onSceneReady]);
+
+  useEffect(() => {
+    onAssemblyCompleteRef.current = onAssemblyComplete;
+  }, [onAssemblyComplete]);
+
+  useEffect(() => {
+    interactiveRef.current = interactive;
+  }, [interactive]);
 
   useEffect(() => {
     soundEnabledRef.current = soundEnabled;
@@ -705,6 +732,13 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
 
     const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     const isDark = () => document.documentElement.classList.contains('dark');
+    const initialSwitchAttr = document.documentElement.dataset.switchTheme as
+      | SwitchProfileId
+      | undefined;
+    const initialSwitchSpec =
+      SWITCH_PROFILES.find((p) => p.id === initialSwitchAttr) || SWITCH_PROFILES[0];
+    switchProfileRef.current = initialSwitchSpec.id;
+    setSwitchProfile(initialSwitchSpec.id);
 
     // 1. Isometric Orthographic Studio Scene (Lower 48-degree studio angle to showcase vertical key travel)
     const scene = new THREE.Scene();
@@ -723,7 +757,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.02;
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
 
     const mainEnv = buildStudioEnvironment(renderer);
     scene.environment = mainEnv;
@@ -753,7 +787,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     rimLight.position.set(-6.0, 5.5, -4.8);
     scene.add(rimLight);
 
-    const accentPointLight = new THREE.PointLight(0xd9381e, 0.9, 8.5, 2.0);
+    const accentPointLight = new THREE.PointLight(initialSwitchSpec.ledHex, 0.9, 8.5, 2.0);
     accentPointLight.position.set(0.0, 1.5, 1.4);
     scene.add(accentPointLight);
 
@@ -809,8 +843,8 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     });
 
     const ledBarMat = new THREE.MeshStandardMaterial({
-      color: 0xd9381e,
-      emissive: 0xd9381e,
+      color: initialSwitchSpec.ledHex,
+      emissive: initialSwitchSpec.ledHex,
       emissiveIntensity: 0.95,
       roughness: 0.2,
     });
@@ -964,9 +998,12 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       knobGroup.add(ridge);
     }
 
-    // Torii Vermilion Indicator Marker on top of the Rotary Knob
+    // Rotary Knob Indicator Marker
     const markerGeo = new THREE.BoxGeometry(0.06, 0.025, 0.22);
-    const markerMat = new THREE.MeshBasicMaterial({ color: 0xd9381e, toneMapped: false });
+    const markerMat = new THREE.MeshBasicMaterial({
+      color: initialSwitchSpec.ledHex,
+      toneMapped: false,
+    });
     disposables.push(markerGeo, markerMat);
     const markerMesh = new THREE.Mesh(markerGeo, markerMat);
     markerMesh.position.set(0, 0.425, -0.14);
@@ -993,12 +1030,21 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       hovered: boolean;
       pointerDown: boolean;
       tapHoldUntil: number;
+      assemblyHoldMs: number;
+      assemblyState: 'waiting' | 'dropping' | 'rebounding' | 'done';
+      assemblyStartMs: number;
+      assemblyScale: number;
+      initialTiltX: number;
+      initialTiltZ: number;
     }
 
     const keyEntities = new Map<MacropadKeyId, KeyEntity>();
     const hitTargets: THREE.Object3D[] = [knobBodyMesh, knobTopMesh];
+    const skipAssembly = reduceMotionQuery.matches;
+    const ASSEMBLY_DROP_Y = 1.18;
+    const KNOB_DROP_Y = 0.95;
 
-    ARTISAN_KEYS.forEach((spec) => {
+    ARTISAN_KEYS.forEach((spec, idx) => {
       // Static switch housing & LED ring mounted on the switch plate inside each well
       const wellSwitchMesh = new THREE.Mesh(sharedHousingGeo, cavityMat);
       wellSwitchMesh.position.set(spec.x, 0.04, spec.z);
@@ -1009,7 +1055,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       wellRingShape.holes.push(createRoundedRectShape(spec.width - 0.16, keyDepth - 0.16, 0.08));
       const wellGlowGeo = new THREE.ShapeGeometry(wellRingShape, 12);
       const wellGlowMat = new THREE.MeshBasicMaterial({
-        color: 0xd9381e,
+        color: initialSwitchSpec.ledHex,
         transparent: true,
         opacity: 0.0,
         toneMapped: false,
@@ -1073,15 +1119,16 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
           emissiveIntensity: 0.0,
         });
 
-        sakuraLight = new THREE.PointLight(0x14b8a6, 0.55, 1.8, 2.0);
-        sakuraLight.position.set(0, 0.2, 0);
-        keyGroup.add(sakuraLight);
+        // Attach to chassisGroup so NUM_POINT_LIGHTS stays constant from Frame 1 onwards
+        sakuraLight = new THREE.PointLight(0x14b8a6, skipAssembly ? 0.55 : 0, 1.8, 2.0);
+        sakuraLight.position.set(spec.x, 0.09 + 0.2, spec.z);
+        chassisGroup.add(sakuraLight);
       } else {
         const baseHex =
           spec.material === 'sumi'
             ? 0x1b1c22
             : spec.material === 'shuiro'
-              ? 0xd9381e
+              ? initialSwitchSpec.ledHex
               : isDark()
                 ? 0xf5f5f7
                 : 0xffffff;
@@ -1093,7 +1140,9 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
           clearcoat: 0.22,
           clearcoatRoughness: 0.22,
           envMapIntensity: 0.98,
-          emissive: new THREE.Color(spec.material === 'shuiro' ? 0xff5a36 : 0xd9381e),
+          emissive: new THREE.Color(
+            spec.material === 'shuiro' ? initialSwitchSpec.ledHex : 0xd9381e
+          ),
           emissiveIntensity: 0.0,
         });
       }
@@ -1123,6 +1172,12 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       disposables.push(bodyMat);
       hitTargets.push(...hitMeshes);
 
+      const startY = skipAssembly ? 0 : ASSEMBLY_DROP_Y;
+      const startScale = skipAssembly ? 1 : 0.92;
+      keyGroup.position.y = 0.09 + startY;
+      keyGroup.scale.setScalar(startScale);
+      keyGroup.visible = skipAssembly;
+
       keyEntities.set(spec.id, {
         spec,
         group: keyGroup,
@@ -1130,7 +1185,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
         bodyMat,
         wellGlowMat,
         sakuraLight,
-        positionY: 0,
+        positionY: startY,
         velocityY: 0,
         targetY: 0,
         hoverMix: 0,
@@ -1138,6 +1193,12 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
         hovered: false,
         pointerDown: false,
         tapHoldUntil: 0,
+        assemblyHoldMs: 0,
+        assemblyState: skipAssembly ? 'done' : 'waiting',
+        assemblyStartMs: 130 + idx * 95,
+        assemblyScale: startScale,
+        initialTiltX: (idx % 2 === 0 ? 1 : -1) * 0.14,
+        initialTiltZ: (idx < 3 ? -1 : 1) * 0.08,
       });
     });
 
@@ -1147,19 +1208,50 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     const REST_BASE_Y = 0.09;
 
     const chassisPhysics = {
-      lift: 0,
-      liftVel: 0,
-      pitch: 0,
+      lift: skipAssembly ? 0 : -0.42,
+      liftVel: skipAssembly ? 0 : 1.8,
+      pitch: skipAssembly ? 0 : 0.14,
       pitchVel: 0,
-      roll: 0,
+      roll: skipAssembly ? 0 : -0.05,
       rollVel: 0,
     };
 
     const knobPhysics = {
-      angle: 0,
+      angle: skipAssembly ? 0 : Math.PI * 0.75,
       targetAngle: 0,
       vel: 0,
       hovered: false,
+      yOffset: skipAssembly ? 0 : KNOB_DROP_Y,
+      yVel: 0,
+      scale: skipAssembly ? 1 : 0.92,
+      assemblyState: (skipAssembly ? 'done' : 'waiting') as
+        | 'waiting'
+        | 'dropping'
+        | 'rebounding'
+        | 'done',
+      assemblyStartMs: 60,
+    };
+
+    if (!skipAssembly) {
+      knobGroup.position.y = 0.22 + knobPhysics.yOffset;
+      knobGroup.rotation.y = knobPhysics.angle;
+      knobGroup.scale.setScalar(knobPhysics.scale);
+      knobGroup.visible = false;
+    }
+
+    let sceneReadyFired = false;
+    let assemblyCompleteFired = false;
+    let simTimeMs = 0;
+
+    const RIG_BASE_ROT_X = 0.11;
+    const RIG_BASE_ROT_Y = -0.05;
+    const RIG_BASE_ROT_Z = -0.008;
+
+    const cursorParallax = {
+      targetX: 0,
+      targetY: 0,
+      currentX: 0,
+      currentY: 0,
     };
 
     const pointerState = {
@@ -1176,15 +1268,66 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     }
 
     function stepPhysics(dt: number, nowMs: number) {
-      keyEntities.forEach((entity) => {
-        const isPressed = entity.pointerDown || nowMs < entity.tapHoldUntil;
-        entity.targetY = isPressed ? PRESS_TRAVEL_Y : entity.hovered ? 0.028 : 0;
+      const stepMs = dt * 1000;
+      simTimeMs += stepMs;
 
-        // Snappy mechanical switch spring with clear bottom-out and rebound
-        const force = (entity.targetY - entity.positionY) * 680;
-        const damp = -entity.velocityY * 26;
-        entity.velocityY += (force + damp) * dt;
-        entity.positionY += entity.velocityY * dt;
+      keyEntities.forEach((entity) => {
+        if (entity.assemblyState === 'waiting') {
+          if (simTimeMs >= entity.assemblyStartMs) {
+            entity.assemblyState = 'dropping';
+            entity.group.visible = true;
+            entity.velocityY = -2.2;
+            entity.targetY = PRESS_TRAVEL_Y;
+          } else {
+            return;
+          }
+        }
+
+        const isPressed = entity.pointerDown || nowMs < entity.tapHoldUntil;
+        if (entity.assemblyState === 'dropping') {
+          entity.targetY = PRESS_TRAVEL_Y;
+          entity.assemblyScale = Math.min(1, entity.assemblyScale + dt * 6.4);
+        } else if (entity.assemblyState === 'rebounding') {
+          entity.assemblyScale = 1;
+          if (entity.assemblyHoldMs > 0) {
+            entity.assemblyHoldMs = Math.max(0, entity.assemblyHoldMs - stepMs);
+            entity.targetY = PRESS_TRAVEL_Y;
+          } else {
+            entity.targetY = 0;
+          }
+        } else {
+          entity.targetY = isPressed ? PRESS_TRAVEL_Y : entity.hovered ? 0.028 : 0;
+          entity.assemblyScale = 1;
+        }
+
+        if (entity.assemblyState === 'dropping' && entity.positionY > 0) {
+          // Phase A: Pure gravity free-fall above switch stem (206.6ms -> overlapping cascade)
+          entity.velocityY += -34 * dt;
+          entity.positionY += entity.velocityY * dt;
+        } else {
+          // Phase B/C: Snappy mechanical switch spring once stem is engaged
+          const force = (entity.targetY - entity.positionY) * 680;
+          const damp = -entity.velocityY * 26;
+          entity.velocityY += (force + damp) * dt;
+          entity.positionY += entity.velocityY * dt;
+        }
+
+        if (
+          entity.assemblyState === 'dropping' &&
+          entity.positionY <= PRESS_TRAVEL_Y + 0.06
+        ) {
+          entity.assemblyState = 'rebounding';
+          entity.assemblyHoldMs = 85;
+          entity.pressMix = 1.0;
+          applyChassisImpulse(entity.spec.x, entity.spec.z, 1.15);
+        } else if (
+          entity.assemblyState === 'rebounding' &&
+          entity.assemblyHoldMs <= 0 &&
+          Math.abs(entity.positionY) <= 0.008 &&
+          Math.abs(entity.velocityY) <= 0.04
+        ) {
+          entity.assemblyState = 'done';
+        }
 
         // Clamp bottom-out against brass switch plate
         if (entity.positionY < PRESS_TRAVEL_Y - 0.04) {
@@ -1193,20 +1336,27 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
         }
 
         const pressRatio = Math.max(0, Math.min(1, -entity.positionY / Math.abs(PRESS_TRAVEL_Y)));
+        const airFactor =
+          entity.assemblyState === 'dropping'
+            ? Math.max(0, Math.min(1, entity.positionY / ASSEMBLY_DROP_Y))
+            : 0;
         entity.group.position.y = REST_BASE_Y + entity.positionY;
         // Shift slightly down-screen (+z) and compress height so orthographic camera clearly shows the key sunk into the well
         entity.group.position.z = entity.spec.z + pressRatio * 0.085;
-        entity.group.rotation.x = -pressRatio * 0.05;
+        entity.group.rotation.x = -pressRatio * 0.05 + airFactor * entity.initialTiltX;
+        entity.group.rotation.z = airFactor * entity.initialTiltZ;
+        const s = entity.assemblyScale;
         entity.group.scale.set(
-          1 - pressRatio * 0.025,
-          1 - pressRatio * 0.18,
-          1 - pressRatio * 0.025
+          s * (1 - pressRatio * 0.025),
+          s * (1 - pressRatio * 0.18),
+          s * (1 - pressRatio * 0.025)
         );
 
-        const targetHover = entity.hovered || isPressed ? 1 : 0;
+        const isHoldingBottom = isPressed || entity.assemblyHoldMs > 0;
+        const targetHover = entity.hovered || isHoldingBottom ? 1 : 0;
         entity.hoverMix += (targetHover - entity.hoverMix) * Math.min(1, dt * 16);
 
-        const targetPress = isPressed ? 1 : pressRatio;
+        const targetPress = isHoldingBottom ? 1 : pressRatio;
         entity.pressMix += (targetPress - entity.pressMix) * Math.min(1, dt * 26);
 
         // Perimeter well LED ring flash + subtle keycap rim illumination
@@ -1214,6 +1364,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
         entity.bodyMat.emissiveIntensity = entity.pressMix * 0.15;
 
         if (entity.sakuraLight) {
+          entity.sakuraLight.position.y = REST_BASE_Y + entity.positionY + 0.2;
           entity.sakuraLight.intensity = 0.55 + entity.hoverMix * 0.55 + entity.pressMix * 1.1;
         }
       });
@@ -1222,20 +1373,68 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       if (reduceMotionQuery.matches) {
         knobPhysics.angle = knobPhysics.targetAngle;
         knobPhysics.vel = 0;
+        knobPhysics.yOffset = 0;
+        knobPhysics.yVel = 0;
+        knobPhysics.scale = 1;
+        knobPhysics.assemblyState = 'done';
+        knobGroup.visible = true;
       } else {
-        const kForce = (knobPhysics.targetAngle - knobPhysics.angle) * 320;
-        const kDamp = -knobPhysics.vel * 22;
-        knobPhysics.vel += (kForce + kDamp) * dt;
-        knobPhysics.angle += knobPhysics.vel * dt;
+        if (knobPhysics.assemblyState === 'waiting') {
+          if (simTimeMs >= knobPhysics.assemblyStartMs) {
+            knobPhysics.assemblyState = 'dropping';
+            knobPhysics.yVel = -1.8;
+            knobGroup.visible = true;
+          }
+        }
+        if (knobPhysics.assemblyState !== 'waiting') {
+          knobPhysics.scale = Math.min(1, knobPhysics.scale + dt * 6.4);
+          if (knobPhysics.assemblyState !== 'done') {
+            knobPhysics.yVel += -28 * dt;
+            knobPhysics.yOffset += knobPhysics.yVel * dt;
+
+            if (knobPhysics.yOffset <= 0) {
+              knobPhysics.yOffset = 0;
+              if (knobPhysics.assemblyState === 'dropping') {
+                knobPhysics.assemblyState = 'rebounding';
+                applyChassisImpulse(knobX, deckZ, 0.85);
+              }
+              if (knobPhysics.yVel < -0.25) {
+                knobPhysics.yVel = -knobPhysics.yVel * 0.38;
+              } else {
+                knobPhysics.yVel = 0;
+              }
+            }
+          }
+
+          const kForce = (knobPhysics.targetAngle - knobPhysics.angle) * 320;
+          const kDamp = -knobPhysics.vel * 22;
+          knobPhysics.vel += (kForce + kDamp) * dt;
+          knobPhysics.angle += knobPhysics.vel * dt;
+
+          if (
+            knobPhysics.assemblyState === 'rebounding' &&
+            knobPhysics.yOffset <= 0.004 &&
+            Math.abs(knobPhysics.yVel) <= 0.02 &&
+            Math.abs(knobPhysics.angle - knobPhysics.targetAngle) <= 0.01 &&
+            Math.abs(knobPhysics.vel) <= 0.02
+          ) {
+            knobPhysics.yOffset = 0;
+            knobPhysics.yVel = 0;
+            knobPhysics.assemblyState = 'done';
+          }
+        }
       }
       knobGroup.rotation.y = knobPhysics.angle;
-      knobGroup.position.y = 0.22 + (knobPhysics.hovered ? 0.015 : 0);
+      knobGroup.position.y = 0.22 + knobPhysics.yOffset + (knobPhysics.hovered ? 0.015 : 0);
+      knobGroup.scale.setScalar(knobPhysics.scale);
 
       // Subtle press recoil on chassis
       if (reduceMotionQuery.matches) {
         chassisPhysics.lift = 0;
         chassisPhysics.pitch = 0;
         chassisPhysics.roll = 0;
+        cursorParallax.currentX = 0;
+        cursorParallax.currentY = 0;
       } else {
         chassisPhysics.liftVel += (-chassisPhysics.lift * 280 - chassisPhysics.liftVel * 22) * dt;
         chassisPhysics.lift += chassisPhysics.liftVel * dt;
@@ -1245,6 +1444,10 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
 
         chassisPhysics.rollVel += (-chassisPhysics.roll * 240 - chassisPhysics.rollVel * 20) * dt;
         chassisPhysics.roll += chassisPhysics.rollVel * dt;
+
+        const parallaxFollow = Math.min(1, dt * 8);
+        cursorParallax.currentX += (cursorParallax.targetX - cursorParallax.currentX) * parallaxFollow;
+        cursorParallax.currentY += (cursorParallax.targetY - cursorParallax.currentY) * parallaxFollow;
       }
     }
 
@@ -1263,15 +1466,40 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
 
     function tick(now: number) {
       rafId = 0;
-      const dt = Math.min((now - lastTime) / 1000, 0.05);
-      lastTime = now;
+      if (sceneReadyFired) {
+        const dt = Math.min((now - lastTime) / 1000, 0.05);
+        lastTime = now;
 
-      physicsAccum = Math.min(physicsAccum + dt, 0.08);
-      const step = 1 / 240;
-      while (physicsAccum >= step) {
-        stepPhysics(step, now);
-        physicsAccum -= step;
+        physicsAccum = Math.min(physicsAccum + dt, 0.08);
+        const step = 1 / 240;
+        while (physicsAccum >= step) {
+          stepPhysics(step, now);
+          physicsAccum -= step;
+        }
+      } else if (!skipAssembly) {
+        // Warmup pass: compile all MeshPhysicalMaterial shaders, allocate transmission FBO, and upload CanvasTextures
+        keyEntities.forEach((e) => {
+          e.group.visible = true;
+          e.group.scale.setScalar(0.0001);
+        });
+        knobGroup.visible = true;
+        knobGroup.scale.setScalar(0.0001);
+        renderer.compile(scene, camera);
+        renderer.render(scene, camera);
+        keyEntities.forEach((e) => {
+          e.group.visible = false;
+          e.group.scale.setScalar(e.assemblyScale);
+        });
+        knobGroup.visible = false;
+        knobGroup.scale.setScalar(knobPhysics.scale);
       }
+
+      rigGroup.rotation.x = RIG_BASE_ROT_X + cursorParallax.currentY * 0.065;
+      rigGroup.rotation.y = RIG_BASE_ROT_Y + cursorParallax.currentX * 0.095;
+      rigGroup.rotation.z = RIG_BASE_ROT_Z - cursorParallax.currentX * 0.015;
+      rigGroup.position.x = cursorParallax.currentX * 0.08;
+      rigGroup.position.y = -cursorParallax.currentY * 0.05;
+      shadowPlane.position.x = 0.08 + cursorParallax.currentX * 0.08;
 
       recoilGroup.position.y = chassisPhysics.lift;
       recoilGroup.rotation.x = chassisPhysics.pitch;
@@ -1280,11 +1508,31 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
 
       renderer.render(scene, camera);
 
+      if (!sceneReadyFired) {
+        sceneReadyFired = true;
+        lastTime = performance.now();
+        physicsAccum = 0;
+        onSceneReadyRef.current?.();
+        if (skipAssembly) {
+          assemblyCompleteFired = true;
+          onAssemblyCompleteRef.current?.();
+        } else {
+          wakeLoop();
+        }
+        return;
+      }
+
+      let allKeysAssembled = knobPhysics.assemblyState === 'done';
       let active = false;
       keyEntities.forEach((e) => {
+        if (e.assemblyState !== 'done') {
+          allKeysAssembled = false;
+          active = true;
+        }
         if (
           e.pointerDown ||
           now < e.tapHoldUntil ||
+          e.assemblyHoldMs > 0 ||
           Math.abs(e.positionY - e.targetY) > 0.0005 ||
           Math.abs(e.velocityY) > 0.002 ||
           e.pressMix > 0.01
@@ -1293,13 +1541,26 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
         }
       });
 
+      if (!assemblyCompleteFired && allKeysAssembled) {
+        assemblyCompleteFired = true;
+        onAssemblyCompleteRef.current?.();
+      }
+
       const chassisMoving =
         Math.abs(chassisPhysics.lift) > 0.0004 ||
+        Math.abs(chassisPhysics.liftVel) > 0.002 ||
         Math.abs(chassisPhysics.pitch) > 0.0004 ||
+        Math.abs(chassisPhysics.pitchVel) > 0.002 ||
         Math.abs(chassisPhysics.roll) > 0.0004 ||
-        Math.abs(knobPhysics.angle - knobPhysics.targetAngle) > 0.001;
+        Math.abs(chassisPhysics.rollVel) > 0.002 ||
+        Math.abs(knobPhysics.yOffset) > 0.0005 ||
+        Math.abs(knobPhysics.yVel) > 0.002 ||
+        Math.abs(knobPhysics.angle - knobPhysics.targetAngle) > 0.001 ||
+        Math.abs(knobPhysics.vel) > 0.002 ||
+        Math.abs(cursorParallax.currentX - cursorParallax.targetX) > 0.0008 ||
+        Math.abs(cursorParallax.currentY - cursorParallax.targetY) > 0.0008;
 
-      if (active || chassisMoving) {
+      if (active || chassisMoving || !assemblyCompleteFired) {
         wakeLoop();
       } else {
         container?.setAttribute('data-rendering', 'idle');
@@ -1308,6 +1569,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
 
     // 12. Programmatic Key Tap & Rotary Turn Imperative Hooks
     tapKeyRef.current = (id: MacropadKeyId, triggerAction = false) => {
+      if (!assemblyCompleteFired || !interactiveRef.current) return;
       const entity = keyEntities.get(id);
       if (!entity) return;
       entity.tapHoldUntil = performance.now() + 260;
@@ -1330,6 +1592,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     };
 
     rotateKnobRef.current = () => {
+      if (!assemblyCompleteFired || !interactiveRef.current) return;
       knobPhysics.targetAngle -= Math.PI / 3;
       applyChassisImpulse(knobX, deckZ, 0.7);
       playMechanicalSound('detent', 1.0);
@@ -1338,13 +1601,24 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       const nextSpec = SWITCH_PROFILES[(currentIdx + 1) % SWITCH_PROFILES.length];
       switchProfileRef.current = nextSpec.id;
       setSwitchProfile(nextSpec.id);
+      document.documentElement.dataset.switchTheme = nextSpec.id;
+      try {
+        localStorage.setItem('switchProfile', nextSpec.id);
+      } catch {
+        // Ignore storage errors
+      }
 
       ledBarMat.color.setHex(nextSpec.ledHex);
       ledBarMat.emissive.setHex(nextSpec.ledHex);
       accentPointLight.color.setHex(nextSpec.ledHex);
+      markerMat.color.setHex(nextSpec.ledHex);
 
       keyEntities.forEach((entity) => {
         entity.wellGlowMat.color.setHex(nextSpec.ledHex);
+        if (entity.spec.material === 'shuiro') {
+          entity.bodyMat.color.setHex(nextSpec.ledHex);
+          entity.bodyMat.emissive.setHex(nextSpec.ledHex);
+        }
       });
 
       const nextPlateTex = createNameplateTexture(isDark(), nextSpec.id);
@@ -1376,6 +1650,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     }
 
     const onPointerMove = (e: PointerEvent) => {
+      if (!assemblyCompleteFired || !interactiveRef.current) return;
       const hit = raycastScene(e);
       const prevKnobHover = knobPhysics.hovered;
       knobPhysics.hovered = Boolean(hit.isKnob);
@@ -1394,6 +1669,7 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     };
 
     const onPointerDown = (e: PointerEvent) => {
+      if (!assemblyCompleteFired || !interactiveRef.current) return;
       if (e.button !== 0) return;
       pointerState.downX = e.clientX;
       pointerState.downY = e.clientY;
@@ -1461,13 +1737,32 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       wakeLoop();
     };
 
+    const onWindowPointerMove = (e: PointerEvent) => {
+      if (!assemblyCompleteFired || !interactiveRef.current || reduceMotionQuery.matches) return;
+      if (e.pointerType && e.pointerType !== 'mouse') return;
+      const vw = Math.max(window.innerWidth, 1);
+      const vh = Math.max(window.innerHeight, 1);
+      cursorParallax.targetX = Math.max(-1, Math.min(1, (e.clientX / vw) * 2 - 1));
+      cursorParallax.targetY = Math.max(-1, Math.min(1, (e.clientY / vh) * 2 - 1));
+      wakeLoop();
+    };
+
+    const onDocumentMouseLeave = () => {
+      cursorParallax.targetX = 0;
+      cursorParallax.targetY = 0;
+      wakeLoop();
+    };
+
     canvas.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointermove', onWindowPointerMove, { passive: true });
+    document.addEventListener('mouseleave', onDocumentMouseLeave);
     canvas.addEventListener('pointerdown', onPointerDown);
     window.addEventListener('pointerup', onPointerUp);
     canvas.addEventListener('pointerleave', onPointerLeave);
 
     // Physical keyboard hotkeys 1-6 and R for Rotary Knob
     const onKeyDown = (e: KeyboardEvent) => {
+      if (!assemblyCompleteFired || !interactiveRef.current) return;
       if (
         e.target instanceof HTMLInputElement ||
         e.target instanceof HTMLTextAreaElement ||
@@ -1527,8 +1822,8 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       const h = Math.max(container.clientHeight, 240);
       const aspect = w / h;
       // Fit the 6.14-wide x 3.96-deep 2-row macro bar across any aspect ratio without clipping
-      const minHalfW = 3.56;
-      const minHalfH = 2.48;
+      const minHalfW = 3.62;
+      const minHalfH = 2.66;
       const viewHalfH = Math.max(minHalfH, minHalfW / aspect);
       camera.left = -viewHalfH * aspect;
       camera.right = viewHalfH * aspect;
@@ -1543,12 +1838,6 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
     const resizeObserver = new ResizeObserver(handleResize);
     resizeObserver.observe(container);
 
-    // Initial entrance greeting tap on 'about'
-    const entranceTimer = window.setTimeout(() => {
-      tapKeyRef.current?.('about', false);
-    }, 320);
-    pendingTimers.push(entranceTimer);
-
     wakeLoop();
 
     return () => {
@@ -1557,6 +1846,8 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       resizeObserver.disconnect();
       themeObserver.disconnect();
       canvas.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointermove', onWindowPointerMove);
+      document.removeEventListener('mouseleave', onDocumentMouseLeave);
       canvas.removeEventListener('pointerdown', onPointerDown);
       window.removeEventListener('pointerup', onPointerUp);
       canvas.removeEventListener('pointerleave', onPointerLeave);
@@ -1588,19 +1879,28 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
       </div>
 
       {/* Minimal Floating Hardware Controls (Switch Profile + Sound + Theme) */}
-      <div className="flex items-center justify-center gap-2 -mt-1">
+      <div
+        aria-hidden={!controlsVisible}
+        className={`flex items-center justify-center gap-2.5 -mt-1 flex-wrap transition-opacity duration-300 ${
+          controlsVisible ? 'opacity-100' : 'opacity-0'
+        } ${interactive ? 'pointer-events-auto' : 'pointer-events-none'}`}
+      >
         <button
           type="button"
+          disabled={!interactive}
+          tabIndex={interactive ? 0 : -1}
           onClick={cycleSwitchProfile}
           title="Turn CNC Brass Rotary Knob (Shortcut: R)"
-          className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-[12px] font-medium text-apple-label border border-[var(--separator)] transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 min-h-[44px] h-11 px-4 rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-[13px] font-medium text-apple-label border border-[var(--separator)] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
         >
-          <span className="w-2 h-2 rounded-full bg-[var(--brass)]" aria-hidden="true" />
+          <span className="w-2 h-2 rounded-full bg-[var(--shuiro)] transition-colors" aria-hidden="true" />
           <span>Switch: {currentSwitch.name}</span>
         </button>
 
         <button
           type="button"
+          disabled={!interactive}
+          tabIndex={interactive ? 0 : -1}
           onClick={() => {
             const next = !soundEnabled;
             setSoundEnabled(next);
@@ -1609,15 +1909,15 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
           }}
           aria-pressed={soundEnabled}
           aria-label={soundEnabled ? 'Mute mechanical switch sound' : 'Enable mechanical switch sound'}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-apple-label border border-[var(--separator)] transition-colors cursor-pointer"
+          className="inline-flex items-center justify-center min-w-[44px] min-h-[44px] w-11 h-11 rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-apple-label border border-[var(--separator)] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
         >
           {soundEnabled ? (
-            <svg aria-hidden="true" className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+            <svg aria-hidden="true" className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
               <path d="M11 5L6 9H2v6h4l5 4V5z" />
               <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
             </svg>
           ) : (
-            <svg aria-hidden="true" className="w-3.5 h-3.5 fill-none stroke-current stroke-2 text-apple-secondary" viewBox="0 0 24 24">
+            <svg aria-hidden="true" className="w-4 h-4 fill-none stroke-current stroke-2 text-apple-secondary" viewBox="0 0 24 24">
               <path d="M11 5L6 9H2v6h4l5 4V5z" />
               <line x1="22" y1="9" x2="16" y2="15" />
               <line x1="16" y1="9" x2="22" y2="15" />
@@ -1627,17 +1927,19 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
 
         <button
           type="button"
+          disabled={!interactive}
+          tabIndex={interactive ? 0 : -1}
           onClick={toggleTheme}
           aria-label={isDarkTheme ? 'Switch to light mode' : 'Switch to dark mode'}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-apple-label border border-[var(--separator)] transition-colors cursor-pointer"
+          className="inline-flex items-center justify-center min-w-[44px] min-h-[44px] w-11 h-11 rounded-full bg-black/[0.04] dark:bg-white/[0.06] hover:bg-black/[0.08] dark:hover:bg-white/[0.12] text-apple-label border border-[var(--separator)] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
         >
           {isDarkTheme ? (
-            <svg aria-hidden="true" className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+            <svg aria-hidden="true" className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="4" />
               <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
             </svg>
           ) : (
-            <svg aria-hidden="true" className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+            <svg aria-hidden="true" className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
               <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
             </svg>
           )}
@@ -1650,6 +1952,8 @@ export default function Macropad3D({ onSelectKey }: Macropad3DProps) {
           <button
             key={k.id}
             type="button"
+            disabled={!interactive}
+            tabIndex={interactive ? 0 : -1}
             onClick={() => tapKeyRef.current?.(k.id, true)}
             className="focus-visible:not-sr-only focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:z-50 focus-visible:px-3 focus-visible:py-1.5 focus-visible:rounded-lg focus-visible:bg-apple-tint focus-visible:text-white"
           >

@@ -1,0 +1,111 @@
+/* Hallmark · v2.0.0 · theme:japanese-artisan-sumi-shuiro · tokens */
+:root {
+  /* 60% Foundation: Crisp Pure White & Sumi Ink (Light Mode) */
+  --bg: #ffffff;
+  --bg-grouped: #f5f5f7;
+  --bg-card: #ffffff;
+  --label: #18181b;
+  --label-secondary: #52525b;
+  --label-tertiary: #71717a;
+  --separator: rgba(24, 24, 27, 0.08);
+  --separator-opaque: #e5e5ea;
+
+  /* 30% Harmonious Cool Pair: Technical Cobalt Blue + Mineral Teal (WCAG AA 4.7:1) */
+  --tint: #0066cc;
+  --tint-hover: #005bb5;
+  --tint-active: #004e9e;
+  --tint-soft: rgba(0, 102, 204, 0.08);
+  --tint-border: rgba(0, 102, 204, 0.2);
+
+  --teal: #0f766e;
+  --teal-soft: rgba(15, 118, 110, 0.09);
+  --teal-border: rgba(15, 118, 110, 0.24);
+
+  /* 10% Conflicting Focal Accent: Shu-iro Vermilion Orange + Hardware Brass */
+  --shuiro: #d9381e;
+  --shuiro-soft: rgba(217, 56, 30, 0.09);
+  --shuiro-border: rgba(217, 56, 30, 0.25);
+  --brass: #c89d54;
+
+  /* Surface & Shadow Tokens */
+  --glass-bg: rgba(255, 255, 255, 0.84);
+  --hud-bg: rgba(255, 255, 255, 0.97);
+  --hud-border: rgba(0, 0, 0, 0.12);
+  --hud-color: #18181b;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  --card-shadow-hover: 0 8px 24px -4px rgba(0, 102, 204, 0.06);
+
+  /* Zest Liquid Glass HUD Tokens */
+  --zest-hud: #1a1a1f;
+  --zest-guide: #1c1c22;
+  --zest-amber-from: #faaa1a;
+  --zest-amber-to: #e68000;
+}
+
+.dark, html[data-theme="dark"], :root[data-theme="dark"] {
+  /* 60% Foundation: Clean Sumi Obsidian (Dark Mode) */
+  --bg: #0a0b0e;
+  --bg-grouped: #13151b;
+  --bg-card: #12141a;
+  --label: #f4f3ef;
+  --label-secondary: #9ca3af;
+  --label-tertiary: #9ca3af;
+  --separator: rgba(255, 255, 255, 0.09);
+  --separator-opaque: #272a34;
+
+  /* 30% Harmonious Cool Pair: Luminous Cobalt Blue + Cyber Teal */
+  --tint: #3b9eff;
+  --tint-hover: #56adff;
+  --tint-active: #1f8fff;
+  --tint-soft: rgba(59, 158, 255, 0.12);
+  --tint-border: rgba(59, 158, 255, 0.26);
+
+  --teal: #2dd4bf;
+  --teal-soft: rgba(45, 212, 191, 0.11);
+  --teal-border: rgba(45, 212, 191, 0.26);
+
+  /* 10% Conflicting Focal Accent: Luminous Shu-iro Vermilion Orange + Brass */
+  --shuiro: #ff5a36;
+  --shuiro-soft: rgba(255, 90, 54, 0.14);
+  --shuiro-border: rgba(255, 90, 54, 0.32);
+  --brass: #d4af37;
+
+  /* Surface & Shadow Tokens */
+  --glass-bg: rgba(10, 11, 14, 0.84);
+  --hud-bg: rgba(26, 26, 31, 0.96);
+  --hud-border: rgba(255, 255, 255, 0.14);
+  --hud-color: #f4f3ef;
+  --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --card-shadow-hover: 0 12px 32px -4px rgba(0, 0, 0, 0.65);
+
+  /* Zest Liquid Glass HUD Tokens */
+  --zest-hud: #1a1a1f;
+  --zest-guide: #1c1c22;
+  --zest-amber-from: #faaa1a;
+  --zest-amber-to: #e68000;
+}
+
+/* Switch-Profile Page Accent Themes (Synced with SENDO-06 Rotary Knob & Switch Button) */
+html[data-switch-theme="tactile"] {
+  --shuiro: #0066cc;
+  --shuiro-soft: rgba(0, 102, 204, 0.09);
+  --shuiro-border: rgba(0, 102, 204, 0.25);
+}
+
+html.dark[data-switch-theme="tactile"] {
+  --shuiro: #3b9eff;
+  --shuiro-soft: rgba(59, 158, 255, 0.14);
+  --shuiro-border: rgba(59, 158, 255, 0.32);
+}
+
+html[data-switch-theme="clicky"] {
+  --shuiro: #0d9488;
+  --shuiro-soft: rgba(13, 148, 136, 0.09);
+  --shuiro-border: rgba(13, 148, 136, 0.25);
+}
+
+html.dark[data-switch-theme="clicky"] {
+  --shuiro: #2dd4bf;
+  --shuiro-soft: rgba(45, 212, 191, 0.14);
+  --shuiro-border: rgba(45, 212, 191, 0.32);
+}

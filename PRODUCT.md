@@ -24,3 +24,25 @@ Demonstrate world-class iOS engineering expertise, track record at tier-1 tech c
 
 ## Design Thesis
 An iOS engineer's portfolio that feels like a first-party Apple experience: quiet chrome, refined typography, and the shipped mobile apps as the hero.
+
+## Strategic Roadmap: Company vs Personal Products Evolution
+
+### Phase 1: Current Unified Baseline (Active)
+- **Status:** Unified Projects section.
+- **Rules:**
+  - Company apps (Grab Driver, Tokopedia, OVO) and finished indie tools (Zest) remain integrated in the main showcase.
+  - **Zero-Noise Policy for WIP:** Personal projects in development (WikiTransport, Friday / PowerBrain, PatrickIsLearning, Domino) remain completely hidden until their MVP and dedicated showcase pages are complete.
+  - Finished products feature dedicated landing routes (e.g., [`/zest`](/zest) with interactive macOS simulator).
+
+### Phase 2: Split Transition (Trigger: 2–3 Shipped Personal MVPs)
+- **Trigger:** Activates once 2 or more additional indie projects reach MVP (e.g., Zest + WikiTransport + Friday).
+- **Target Architecture:** Split the homepage presentation into two focused tiers:
+  1. **Enterprise Track Record / Production Systems:** Highlighted alongside or within Career Experience (Grab, ByteDance/Tokopedia, OVO), focusing on scale, throughput, socket resilience, and team leadership.
+  2. **Indie Studio & Tools:** Dedicated section showcasing standalone 0-to-1 products built from scratch (Zest, WikiTransport, Friday, PatrickIsLearning, Domino).
+- **Route Convention:** Flat top-level slugs (`/zest`, `/wikitransport`, `/friday`, `/patrickislearning`, `/domino`).
+- **Showcase Page Specification:** Follow the proven blueprint established in `src/components/zest/`:
+  - **Hero:** Value proposition, one-line punchline, and platform badges.
+  - **Tactile Simulator / Interactive Demo:** Live browser interactive simulator demonstrating the product in action.
+  - **Architecture & Technical Spec:** Deep-dive into architectural choices (e.g., Swift 6, local SQLite/SPM, zero telemetry).
+  - **Download / CTA:** Direct releases, GitHub repo, or web demo links.
+

@@ -131,14 +131,14 @@ export default function Projects() {
           <div className="inline-flex items-center p-1 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)]">
             <button
               onClick={() => setViewMode('carousel')}
-              className={`px-2.5 py-1 rounded-lg text-[12px] font-semibold transition-colors flex items-center gap-1.5 ${
+              className={`min-h-[44px] px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                 viewMode === 'carousel'
                   ? 'bg-white dark:bg-black text-apple-label shadow-apple-xs'
                   : 'text-apple-secondary hover:text-apple-label'
               }`}
               aria-label="Carousel View"
             >
-              <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="2" y="5" width="20" height="14" rx="2" />
                 <path d="M2 10h20" />
               </svg>
@@ -146,14 +146,14 @@ export default function Projects() {
             </button>
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-2.5 py-1 rounded-lg text-[12px] font-semibold transition-colors flex items-center gap-1.5 ${
+              className={`min-h-[44px] px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
                 viewMode === 'grid'
                   ? 'bg-white dark:bg-black text-apple-label shadow-apple-xs'
                   : 'text-apple-secondary hover:text-apple-label'
               }`}
               aria-label="Grid View"
             >
-              <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="3" y="3" width="7" height="7" rx="1" />
                 <rect x="14" y="3" width="7" height="7" rx="1" />
                 <rect x="14" y="14" width="7" height="7" rx="1" />
@@ -170,7 +170,7 @@ export default function Projects() {
                 onClick={() => scroll('left')}
                 disabled={!canScrollLeft}
                 aria-label="Scroll left"
-                className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--separator)] bg-black/[0.02] dark:bg-white/[0.05] text-apple-label disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/[0.06] dark:hover:bg-white/[0.1] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                className="w-11 h-11 rounded-full flex items-center justify-center border border-[var(--separator)] bg-black/[0.02] dark:bg-white/[0.05] text-apple-label disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/[0.06] dark:hover:bg-white/[0.1] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
               >
                 <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M15 18l-6-6 6-6" />
@@ -180,7 +180,7 @@ export default function Projects() {
                 onClick={() => scroll('right')}
                 disabled={!canScrollRight}
                 aria-label="Scroll right"
-                className="w-8 h-8 rounded-full flex items-center justify-center border border-[var(--separator)] bg-black/[0.02] dark:bg-white/[0.05] text-apple-label disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/[0.06] dark:hover:bg-white/[0.1] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                className="w-11 h-11 rounded-full flex items-center justify-center border border-[var(--separator)] bg-black/[0.02] dark:bg-white/[0.05] text-apple-label disabled:opacity-30 disabled:cursor-not-allowed hover:bg-black/[0.06] dark:hover:bg-white/[0.1] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
               >
                 <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M9 18l6-6-6-6" />
@@ -256,9 +256,9 @@ export default function Projects() {
                     </div>
 
                     {proj.detailUrl ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
                         <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
-                        Interactive Showcase →
+                        <span>Interactive Showcase</span>
                       </span>
                     ) : proj.category ? (
                       <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)]">
@@ -314,18 +314,22 @@ export default function Projects() {
         </div>
 
           {/* Apple-Style Pagination Indicators */}
-          <div className="flex items-center justify-center gap-1.5 mt-5">
+          <div className="flex items-center justify-center gap-1 mt-5">
             {projects.map((_, index) => (
               <button
                 key={index}
                 onClick={() => scrollToIndex(index)}
                 aria-label={`Go to slide ${index + 1}`}
-                className={`h-1.5 w-6 rounded-full transition-[transform,background-color] duration-300 ${
-                  activeIndex === index
-                    ? 'scale-x-100 bg-[var(--shuiro)]'
-                    : 'scale-x-[0.35] bg-black/20 dark:bg-white/20 hover:bg-black/40 dark:hover:bg-white/40'
-                }`}
-              />
+                className="min-h-[44px] min-w-[32px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-full cursor-pointer"
+              >
+                <span
+                  className={`h-1.5 w-6 rounded-full transition-[transform,background-color] duration-300 block ${
+                    activeIndex === index
+                      ? 'scale-x-100 bg-[var(--shuiro)]'
+                      : 'scale-x-[0.35] bg-black/20 dark:bg-white/20 hover:bg-black/40 dark:hover:bg-white/40'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>
@@ -363,9 +367,9 @@ export default function Projects() {
                   </div>
 
                   {proj.detailUrl ? (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
                       <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
-                      Interactive Showcase →
+                      <span>Interactive Showcase</span>
                     </span>
                   ) : proj.category ? (
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)]">
