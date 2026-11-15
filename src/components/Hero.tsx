@@ -31,10 +31,12 @@ const Macropad3D = dynamic(() => import('@/components/Macropad3D'), {
   ),
 });
 
+let hasHydratedInitialLoad = false;
+
 export default function Hero() {
   const [copied, setCopied] = useState<boolean>(false);
   const [loaderStage, setLoaderStage] = useState<LoaderStage>(() =>
-    hasMacropadAssembled() ? 'ready' : 'initializing'
+    hasHydratedInitialLoad && hasMacropadAssembled() ? 'ready' : 'initializing'
   );
   const [stageOffset, setStageOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
@@ -71,6 +73,8 @@ export default function Hero() {
   // Initial scroll alignment, scrollbar-compensated overflowY lock, resize tracking, and chunk watchdog
   useEffect(() => {
     if (typeof window === 'undefined') return;
+
+    hasHydratedInitialLoad = true;
 
     if (
       window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
