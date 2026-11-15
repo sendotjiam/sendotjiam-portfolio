@@ -84,12 +84,12 @@ export default function IosSkillsNav() {
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 apple-glass transition-colors duration-200">
-      <div className="h-14 max-w-5xl mx-auto px-3.5 sm:px-8 flex items-center justify-between gap-1.5 sm:gap-3">
+      <div className="h-14 max-w-5xl mx-auto px-3.5 sm:px-8 flex items-center justify-between gap-2 sm:gap-3">
         {/* Left: Back to Portfolio + Brand */}
-        <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           <Link
             href="/"
-            className="group flex items-center gap-1 text-[13px] font-medium text-apple-secondary hover:text-apple-label transition-colors min-h-[44px] py-1 px-1.5 sm:px-3 rounded-full hover:bg-black/5 dark:hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active shrink-0"
+            className="group flex items-center gap-1 text-[13px] font-medium text-apple-secondary hover:text-apple-label transition-colors min-h-[40px] py-1 px-1.5 sm:px-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active shrink-0"
             title="Return to Sendo's Portfolio"
           >
             <svg
@@ -111,7 +111,7 @@ export default function IosSkillsNav() {
 
           <Link
             href="#hero"
-            className="flex items-center gap-2 min-h-[44px] py-1 px-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint min-w-0"
+            className="flex items-center gap-2 min-h-[40px] py-1 px-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint shrink-0"
           >
             <div className="w-7 h-7 rounded-[7px] overflow-hidden border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm">
               <Image
@@ -123,7 +123,7 @@ export default function IosSkillsNav() {
                 priority
               />
             </div>
-            <div className="flex items-baseline gap-1.5 min-w-0">
+            <div className="flex items-baseline gap-1.5 shrink-0">
               <span className="text-[13px] sm:text-[14px] font-bold tracking-tight text-apple-label whitespace-nowrap">
                 iOS Agent Skills
               </span>
@@ -151,7 +151,7 @@ export default function IosSkillsNav() {
         </nav>
 
         {/* Right: Actions (Theme Toggle + GitHub Repo) */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
           {/* Keypad Switch Theme Toggle */}
           {mounted && (
             <button
@@ -159,10 +159,10 @@ export default function IosSkillsNav() {
               onClick={cycleSwitchProfile}
               aria-label={`Keypad switch profile: ${currentSwitch.name}. Click to switch theme.`}
               title={`Keypad switch profile: ${currentSwitch.name} (Click to switch)`}
-              className="min-h-[44px] px-2 sm:px-3 rounded-full text-[12px] font-medium text-apple-secondary hover:text-apple-label bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active border border-black/5 dark:border-white/10"
+              className="w-8 h-8 sm:w-auto min-h-[34px] sm:min-h-[36px] sm:px-3 sm:py-1 rounded-full text-[12px] font-medium text-apple-secondary hover:text-apple-label bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 transition-colors flex items-center justify-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active border border-black/5 dark:border-white/10"
             >
               <span
-                className={`w-2 h-2 rounded-full ${currentSwitch.dotColor} shrink-0 animate-pulse`}
+                className={`w-2.5 h-2.5 rounded-full ${currentSwitch.dotColor} shrink-0 animate-pulse`}
                 aria-hidden="true"
               />
               <span className="hidden sm:inline font-mono">{currentSwitch.name}</span>
@@ -175,7 +175,7 @@ export default function IosSkillsNav() {
               type="button"
               onClick={toggleTheme}
               aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-              className="min-w-[40px] sm:min-w-[44px] min-h-[44px] p-2 rounded-full text-apple-secondary hover:text-apple-label hover:bg-black/5 dark:hover:bg-white/5 transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active"
+              className="w-8 h-8 sm:w-9 sm:h-9 min-h-[34px] sm:min-h-[36px] rounded-full text-apple-secondary hover:text-apple-label hover:bg-black/5 dark:hover:bg-white/5 transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active"
             >
               {isDark ? (
                 <svg
@@ -211,12 +211,12 @@ export default function IosSkillsNav() {
             </button>
           )}
 
-          {/* GitHub Star/Repo Link (Desktop & Tablet) */}
+          {/* GitHub Star/Repo Link (Desktop & Tablet only) */}
           <a
             href="https://github.com/sendotjiam/ios-agent-skills"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-1.5 text-[12px] font-semibold text-apple-label bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 transition-colors min-h-[44px] px-3 py-1 rounded-full border border-black/10 dark:border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active"
+            className="hidden sm:flex items-center gap-1.5 text-[12px] font-semibold text-apple-label bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 transition-colors min-h-[36px] px-3 py-1 rounded-full border border-black/10 dark:border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active"
             title="View on GitHub"
           >
             <svg
@@ -235,7 +235,7 @@ export default function IosSkillsNav() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle mobile navigation menu"
             aria-expanded={mobileMenuOpen}
-            className="md:hidden min-w-[40px] min-h-[44px] p-2 rounded-lg text-apple-secondary hover:text-apple-label hover:bg-black/5 dark:hover:bg-white/5 transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+            className="md:hidden w-8 h-8 sm:w-9 sm:h-9 min-h-[34px] sm:min-h-[36px] rounded-lg text-apple-secondary hover:text-apple-label hover:bg-black/5 dark:hover:bg-white/5 transition-colors flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
           >
             <svg
               className="w-5 h-5"

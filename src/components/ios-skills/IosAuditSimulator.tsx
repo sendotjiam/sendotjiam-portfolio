@@ -544,14 +544,14 @@ export default function IosAuditSimulator() {
           {/* Left Column (7 cols): Swift Code Diff with Toggle */}
           <div className="lg:col-span-7 flex flex-col justify-between min-w-0">
             <div>
-              <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-1.5 xs:gap-2 mb-2">
                 <span className="text-[12px] font-semibold text-apple-tertiary truncate">
                   {appliedFix ? 'Remediated Code (Fixed)' : 'Violating Source Code'}
                 </span>
                 <button
                   type="button"
                   onClick={() => setAppliedFix(!appliedFix)}
-                  className="text-[12px] font-semibold text-apple-tint hover:underline flex items-center gap-1 shrink-0"
+                  className="text-[12px] font-semibold text-apple-tint hover:underline flex items-center gap-1 shrink-0 self-start xs:self-auto"
                 >
                   {appliedFix ? '← Show Original Code' : '✦ Preview Automated Fix →'}
                 </button>
@@ -559,9 +559,13 @@ export default function IosAuditSimulator() {
 
               {/* Code Display Area */}
               <div className="rounded-xl overflow-hidden bg-[var(--terminal-card)] p-3 sm:p-4 text-white font-mono text-[12px] sm:text-[12.5px] leading-relaxed border border-black/20 shadow-inner">
-                <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/10 text-[11px] text-zinc-400">
-                  <span className="truncate max-w-[180px] sm:max-w-none">{preset.file}</span>
-                  <span className={`shrink-0 ${appliedFix ? 'text-emerald-400' : 'text-amber-400'}`}>
+                <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-1.5 pb-2 mb-3 border-b border-white/10 text-[11px] text-zinc-400">
+                  <span className="truncate font-mono min-w-0">{preset.file}</span>
+                  <span className={`shrink-0 whitespace-nowrap px-2 py-0.5 rounded font-sans font-semibold text-[10px] sm:text-[11px] self-start xs:self-auto ${
+                    appliedFix
+                      ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                      : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                  }`}>
                     {appliedFix ? '100% Clean' : 'Audit Violation'}
                   </span>
                 </div>

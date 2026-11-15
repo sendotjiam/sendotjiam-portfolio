@@ -245,26 +245,25 @@ export default function IosSkillsGrid() {
               className="apple-card p-5 sm:p-6 rounded-2xl flex flex-col justify-between border border-black/10 dark:border-white/10 transition-[box-shadow,border-color] duration-200 hover:shadow-apple-md"
             >
               <div>
-                {/* Top Header: Name & Badge */}
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <div>
-                    <h3 className="text-[16px] font-bold text-apple-label font-mono tracking-tight">
-                      {skill.name}
-                    </h3>
-                    <span className="text-[12px] text-apple-tertiary">{skill.category}</span>
+                {/* Top Header: Category, Badge & Skill Name */}
+                <div className="mb-3">
+                  <div className="flex items-center justify-between gap-2 mb-1.5">
+                    <span className="text-[12px] text-apple-tertiary font-medium">{skill.category}</span>
+                    <span
+                      className={`text-[11px] font-bold px-2 py-0.5 rounded-md shrink-0 whitespace-nowrap ${
+                        skill.badgeType === 'highlight'
+                          ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
+                          : skill.badgeType === 'accent'
+                          ? 'bg-apple-tint/10 text-apple-tint border border-apple-tint/20'
+                          : 'bg-black/5 dark:bg-white/10 text-apple-secondary border border-black/5 dark:border-white/10'
+                      }`}
+                    >
+                      {skill.badge}
+                    </span>
                   </div>
-
-                  <span
-                    className={`text-[11px] font-bold px-2 py-0.5 rounded-md shrink-0 ${
-                      skill.badgeType === 'highlight'
-                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
-                        : skill.badgeType === 'accent'
-                        ? 'bg-apple-tint/10 text-apple-tint border border-apple-tint/20'
-                        : 'bg-black/5 dark:bg-white/10 text-apple-secondary border border-black/5 dark:border-white/10'
-                    }`}
-                  >
-                    {skill.badge}
-                  </span>
+                  <h3 className="text-[14.5px] xs:text-[15.5px] sm:text-[16px] font-bold text-apple-label font-mono tracking-tight">
+                    {skill.name}
+                  </h3>
                 </div>
 
                 {/* Summary */}
@@ -273,11 +272,11 @@ export default function IosSkillsGrid() {
                 </p>
 
                 {/* Guideline Tag */}
-                <div className="mb-4 text-[12px] flex items-center gap-1.5 text-apple-tint">
-                  <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <div className="mb-4 text-[12px] flex items-start gap-1.5 text-apple-tint leading-snug">
+                  <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="truncate font-medium">{skill.guideline}</span>
+                  <span className="font-medium break-words">{skill.guideline}</span>
                 </div>
 
                 {/* Expandable Issues Caught */}
@@ -297,18 +296,18 @@ export default function IosSkillsGrid() {
               </div>
 
               {/* Bottom Actions */}
-              <div className="pt-3 border-t border-[var(--separator)] flex flex-wrap items-center justify-between gap-2 text-[12px]">
+              <div className="pt-3 border-t border-[var(--separator)] flex flex-col xs:flex-row xs:items-center justify-between gap-2 text-[12px]">
                 <button
                   type="button"
                   onClick={() => setExpandedSkill(isExpanded ? null : skill.id)}
-                  className="text-apple-secondary hover:text-apple-label font-medium transition-colors min-h-[36px] flex items-center"
+                  className="text-apple-secondary hover:text-apple-label font-medium transition-colors min-h-[32px] flex items-center self-start xs:self-auto"
                 >
                   {isExpanded ? 'Hide Patterns ↑' : 'View Detected Patterns ↓'}
                 </button>
 
-                <div className="flex items-center gap-1.5 font-mono text-[11px] px-2 py-1 rounded bg-black/5 dark:bg-white/10 text-apple-label shrink-0">
+                <div className="flex items-center gap-1.5 font-mono text-[11px] px-2 py-1 rounded bg-black/5 dark:bg-white/10 text-apple-label shrink-0 whitespace-nowrap self-start xs:self-auto">
                   <span className="text-apple-tertiary select-none">$</span>
-                  <span>{skill.command}</span>
+                  <span className="whitespace-nowrap">{skill.command}</span>
                 </div>
               </div>
             </div>
