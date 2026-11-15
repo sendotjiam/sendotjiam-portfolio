@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 export default function Footer() {
   const pathname = usePathname();
   const isZest = pathname?.startsWith('/zest');
+  const isIosSkills = pathname?.startsWith('/ios-agent-skills');
 
   return (
     <footer className="w-full border-t border-[var(--separator)] mt-16 py-10 transition-colors duration-200">
@@ -31,12 +32,12 @@ export default function Footer() {
 
         {/* Right Links */}
         <div className="flex flex-col items-center md:items-end gap-3 w-full md:w-auto">
-          {/* Mobile 2x2 Grid */}
+          {/* Mobile Quick Links */}
           <nav
             aria-label="Footer Quick Links"
-            className="grid grid-cols-2 gap-x-6 gap-y-1 sm:hidden w-full max-w-[300px] text-center text-[13px] font-medium"
+            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 sm:hidden w-full text-center text-[13px] font-medium"
           >
-            {isZest ? (
+            {isZest || isIosSkills ? (
               <Link
                 href="/"
                 className="inline-flex items-center justify-center gap-1.5 min-h-[44px] py-2 px-2 text-apple-secondary hover:text-apple-label active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-lg"
@@ -46,7 +47,22 @@ export default function Footer() {
                 </svg>
                 <span>Portfolio</span>
               </Link>
-            ) : (
+            ) : null}
+
+            {!isIosSkills && (
+              <Link
+                href="/ios-agent-skills"
+                className="inline-flex items-center justify-center gap-1.5 min-h-[44px] py-2 px-2 text-apple-secondary hover:text-apple-label active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-lg"
+              >
+                <svg aria-hidden="true" className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="4 17 10 11 4 5" />
+                  <line x1="12" y1="19" x2="20" y2="19" />
+                </svg>
+                <span>iOS Skills</span>
+              </Link>
+            )}
+
+            {!isZest && (
               <Link
                 href="/zest"
                 className="inline-flex items-center justify-center gap-1.5 min-h-[44px] py-2 px-2 text-apple-secondary hover:text-apple-label active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-lg"
@@ -91,7 +107,7 @@ export default function Footer() {
             aria-label="Footer Desktop Links"
             className="hidden sm:flex items-center gap-3 md:gap-4 text-[13px] font-medium"
           >
-            {isZest ? (
+            {isZest || isIosSkills ? (
               <Link
                 href="/"
                 className="inline-flex items-center gap-1.5 min-h-[44px] py-2 px-2 text-apple-secondary hover:text-apple-label active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-lg"
@@ -101,7 +117,22 @@ export default function Footer() {
                 </svg>
                 <span>Portfolio</span>
               </Link>
-            ) : (
+            ) : null}
+
+            {!isIosSkills && (
+              <Link
+                href="/ios-agent-skills"
+                className="inline-flex items-center gap-1.5 min-h-[44px] py-2 px-2 text-apple-secondary hover:text-apple-label active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-lg"
+              >
+                <svg aria-hidden="true" className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="4 17 10 11 4 5" />
+                  <line x1="12" y1="19" x2="20" y2="19" />
+                </svg>
+                <span>iOS Agent Skills</span>
+              </Link>
+            )}
+
+            {!isZest && (
               <Link
                 href="/zest"
                 className="inline-flex items-center gap-1.5 min-h-[44px] py-2 px-2 text-apple-secondary hover:text-apple-label active:opacity-70 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-lg"

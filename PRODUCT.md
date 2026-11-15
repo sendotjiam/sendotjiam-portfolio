@@ -30,16 +30,16 @@ An iOS engineer's portfolio that feels like a first-party Apple experience: quie
 ### Phase 1: Current Unified Baseline (Active)
 - **Status:** Unified Projects section.
 - **Rules:**
-  - Company apps (Grab Driver, Tokopedia, OVO) and finished indie tools (Zest) remain integrated in the main showcase.
+  - Company apps (Grab Driver, Tokopedia, OVO) and finished indie tools (Zest, iOS Agent Skills) remain integrated in the main showcase.
   - **Zero-Noise Policy for WIP:** Personal projects in development (WikiTransport, Friday / PowerBrain, PatrickIsLearning, Domino) remain completely hidden until their MVP and dedicated showcase pages are complete.
-  - Finished products feature dedicated landing routes (e.g., [`/zest`](/zest) with interactive macOS simulator).
+  - Finished products feature dedicated landing routes (e.g., [`/zest`](/zest) with interactive macOS simulator, [`/ios-agent-skills`](/ios-agent-skills) with interactive auditor testbed).
 
-### Phase 2: Split Transition (Trigger: 2–3 Shipped Personal MVPs)
-- **Trigger:** Activates once 2 or more additional indie projects reach MVP (e.g., Zest + WikiTransport + Friday).
-- **Target Architecture:** Split the homepage presentation into two focused tiers:
-  1. **Enterprise Track Record / Production Systems:** Highlighted alongside or within Career Experience (Grab, ByteDance/Tokopedia, OVO), focusing on scale, throughput, socket resilience, and team leadership.
-  2. **Indie Studio & Tools:** Dedicated section showcasing standalone 0-to-1 products built from scratch (Zest, WikiTransport, Friday, PatrickIsLearning, Domino).
-- **Route Convention:** Flat top-level slugs (`/zest`, `/wikitransport`, `/friday`, `/patrickislearning`, `/domino`).
+### Phase 2: Split Transition (Active)
+- **Status:** Interactive Track Segmented Filter (All Work • Company Systems • Indie Studio & Tools).
+- **Architecture:** 
+  1. **Enterprise Track Record / Production Systems (3):** Grab Driver iOS, Tokopedia & TikTok Seller, OVO Digital Wallet — focusing on scale (millions of users), high-throughput payments, socket resilience, and team leadership.
+  2. **Indie Studio & Tools (4):** Zest for macOS, iOS Agent Skills, WikiBus Singapore, EduAI Tutor — focusing on autonomous 0-to-1 craft, Swift 6 Concurrency, developer tooling, and agentic harnesses.
+- **Route Convention:** Dedicated showcase slugs ([`/zest`](/zest), [`/ios-agent-skills`](/ios-agent-skills)) featuring interactive live browser simulators and technical specs.
 - **Showcase Page Specification:** Follow the proven blueprint established in `src/components/zest/`:
   - **Hero:** Value proposition, one-line punchline, and platform badges.
   - **Tactile Simulator / Interactive Demo:** Live browser interactive simulator demonstrating the product in action.

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { hasMacropadAssembled, markMacropadAssembled } from '@/utils/animationSession';
 
 type LoaderStage = 'initializing' | 'assembling' | 'settling' | 'ready';
 
@@ -32,7 +33,9 @@ const Macropad3D = dynamic(() => import('@/components/Macropad3D'), {
 
 export default function Hero() {
   const [copied, setCopied] = useState<boolean>(false);
-  const [loaderStage, setLoaderStage] = useState<LoaderStage>('initializing');
+  const [loaderStage, setLoaderStage] = useState<LoaderStage>(() =>
+    hasMacropadAssembled() ? 'ready' : 'initializing'
+  );
   const [stageOffset, setStageOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   // Untransformed layout anchor in the right Hero column
@@ -69,7 +72,11 @@ export default function Hero() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      hasMacropadAssembled()
+    ) {
+      markMacropadAssembled();
       setLoaderStage('ready');
       return;
     }
@@ -132,6 +139,7 @@ export default function Hero() {
   }, [loaderStage]);
 
   const handleAssemblyComplete = useCallback(() => {
+    markMacropadAssembled();
     if (watchdogRef.current) {
       window.clearTimeout(watchdogRef.current);
       watchdogRef.current = null;
@@ -426,6 +434,7 @@ export default function Hero() {
               onAssemblyComplete={handleAssemblyComplete}
               controlsVisible={loaderStage === 'settling' || loaderStage === 'ready'}
               interactive={loaderStage === 'ready'}
+              skipAssembly={loaderStage === 'ready' || hasMacropadAssembled()}
             />
           </div>
         </div>

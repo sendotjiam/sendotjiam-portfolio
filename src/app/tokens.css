@@ -40,6 +40,13 @@
   --zest-guide: #1c1c22;
   --zest-amber-from: #faaa1a;
   --zest-amber-to: #e68000;
+
+  /* Terminal & Code Surface Tokens */
+  --traffic-red: #ff5f56;
+  --traffic-yellow: #ffbd2e;
+  --traffic-green: #27c93f;
+  --terminal-bg: #141418;
+  --terminal-card: #1e1e24;
 }
 
 .dark, html[data-theme="dark"], :root[data-theme="dark"] {
@@ -83,6 +90,13 @@
   --zest-guide: #1c1c22;
   --zest-amber-from: #faaa1a;
   --zest-amber-to: #e68000;
+
+  /* Terminal & Code Surface Tokens */
+  --traffic-red: #ff5f56;
+  --traffic-yellow: #ffbd2e;
+  --traffic-green: #27c93f;
+  --terminal-bg: #141418;
+  --terminal-card: #1e1e24;
 }
 
 /* Switch-Profile Page Accent Themes (Synced with SENDO-06 Rotary Knob & Switch Button) */

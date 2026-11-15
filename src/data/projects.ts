@@ -2,6 +2,8 @@ export interface ProjectItem {
   id: string;
   title: string;
   category: string;
+  track: 'company' | 'personal';
+  companyName?: string;
   badge?: string;
   badgeType?: 'default' | 'accent' | 'highlight';
   desc: string;
@@ -17,6 +19,8 @@ export const projects: ProjectItem[] = [
     id: 'grab-driver',
     title: 'Grab Driver iOS',
     category: 'Ride Hailing',
+    track: 'company',
+    companyName: 'Grab',
     badge: 'Core Mobility',
     badgeType: 'accent',
     desc: 'The primary operational tool for millions of driver-partners across Southeast Asia. Spearheaded the critical In Transit lifecycle, enhancing booking state reliability, GPS interpolation, and offline error recovery.',
@@ -28,6 +32,8 @@ export const projects: ProjectItem[] = [
     id: 'tokopedia-ios',
     title: 'Tokopedia & TikTok Seller',
     category: 'E-Commerce',
+    track: 'company',
+    companyName: 'ByteDance (Tokopedia)',
     badge: 'Top Grossing',
     badgeType: 'default',
     desc: 'Unified mobile onboarding and seller binding with TikTok Open Auth SDK. Revamped core accounts with dynamic layout orchestration and led Texture-to-UIKit component migration.',
@@ -36,20 +42,11 @@ export const projects: ProjectItem[] = [
     link: 'https://apps.apple.com/id/app/tokopedia/id1001394201',
   },
   {
-    id: 'wikibus',
-    title: 'WikiBus Singapore',
-    category: 'Commuter',
-    badge: 'Commuter App',
-    badgeType: 'default',
-    desc: 'Comprehensive public transit navigator for Singapore bus networks. Delivers real-time bus arrivals, dynamic route mapping, and stop inspection built with reactive architectural patterns.',
-    tech: ['Swift', 'SwiftUI', 'UIKit', 'Coordinator Pattern', 'MVVM', 'Combine', 'Modular SPM'],
-    logo: '/assets/project-logo/wikibus-logo.png',
-    link: 'https://id.linkedin.com/posts/sendo-tjiamis-a03a73192_wiki-bus-activity-7071854626613952512-VNfx',
-  },
-  {
     id: 'ovo-fintech',
     title: 'OVO Digital Wallet',
     category: 'Fintech',
+    track: 'company',
+    companyName: 'Grab (OVO)',
     badge: 'High Throughput',
     badgeType: 'default',
     desc: 'Leading Indonesian fintech app for cashless transactions and bill payments. Engineered high-security payment funnels, biometric authentication, and modular payment SDK integrations.',
@@ -61,6 +58,7 @@ export const projects: ProjectItem[] = [
     id: 'zest',
     title: 'Zest for macOS',
     category: 'Developer Utility',
+    track: 'personal',
     badge: 'Open Source',
     badgeType: 'highlight',
     desc: 'Sub-millisecond, 1-tap clipboard HUD for macOS developers. Built with Swift 6, zero telemetry, and instant numeric keyboard shortcuts.',
@@ -70,10 +68,37 @@ export const projects: ProjectItem[] = [
     detailUrl: '/zest',
   },
   {
+    id: 'ios-agent-skills',
+    title: 'iOS Agent Skills',
+    category: 'Agentic Engineering',
+    track: 'personal',
+    badge: 'Open Source',
+    badgeType: 'highlight',
+    desc: 'Curated suite of 10 production-grade agentic AI skills and zero-dependency auditor CLI for iOS, iPadOS, macOS, and watchOS engineering across Antigravity, Claude Code, and Codex.',
+    tech: ['Swift 6', 'Python 3', 'Xcode', 'MetricKit', 'SARIF', 'CI/CD', 'Agentic Workflows'],
+    logo: '/assets/project-logo/ios-agent-skills-logo.svg',
+    link: 'https://github.com/sendotjiam/ios-agent-skills',
+    detailUrl: '/ios-agent-skills',
+    stars: '10 Audits',
+  },
+  {
+    id: 'wikibus',
+    title: 'WikiBus Singapore',
+    category: 'Commuter App',
+    track: 'personal',
+    badge: 'Indie Project',
+    badgeType: 'default',
+    desc: 'Comprehensive public transit navigator for Singapore bus networks. Delivers real-time bus arrivals, dynamic route mapping, and stop inspection built with reactive architectural patterns.',
+    tech: ['Swift', 'SwiftUI', 'UIKit', 'Coordinator Pattern', 'MVVM', 'Combine', 'Modular SPM'],
+    logo: '/assets/project-logo/wikibus-logo.png',
+    link: 'https://id.linkedin.com/posts/sendo-tjiamis-a03a73192_wiki-bus-activity-7071854626613952512-VNfx',
+  },
+  {
     id: 'eduai',
     title: 'EduAI Tutor',
     category: 'Education',
-    badge: 'Product Slice',
+    track: 'personal',
+    badge: 'AI Learning',
     badgeType: 'default',
     desc: 'Adaptive learning companion generating personalized curricula for English literacy, adjusting challenge tiers dynamically to match student progress.',
     tech: ['Flutter', 'OCR', 'Tesseract'],

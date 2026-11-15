@@ -169,3 +169,6 @@ $RECYCLE.BIN/
 .directory
 .Trash-*
 .nfs*
+
+# Playwright test artifacts
+.playwright-mcp/

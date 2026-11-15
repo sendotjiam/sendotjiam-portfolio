@@ -3,9 +3,12 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { projects } from '@/data/projects';
+import { projects, ProjectItem } from '@/data/projects';
+
+type ProjectTrack = 'all' | 'company' | 'personal';
 
 export default function Projects() {
+  const [activeTrack, setActiveTrack] = useState<ProjectTrack>('all');
   const [viewMode, setViewMode] = useState<'carousel' | 'grid'>('carousel');
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -16,6 +19,11 @@ export default function Projects() {
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
   const movedDistanceRef = useRef(0);
+
+  const filteredProjects: ProjectItem[] =
+    activeTrack === 'all'
+      ? projects
+      : projects.filter((p) => p.track === activeTrack);
 
   // Update scroll navigation arrow states and active slide index
   const updateScrollState = useCallback(() => {
@@ -28,15 +36,15 @@ export default function Projects() {
 
     // Calculate approximate active card index
     const firstChild = el.children[0] as HTMLElement | undefined;
-    if (firstChild) {
+    if (firstChild && filteredProjects.length > 0) {
       const cardWidth = firstChild.offsetWidth + 20; // 20px gap
       const newIndex = Math.min(
-        projects.length - 1,
+        filteredProjects.length - 1,
         Math.max(0, Math.round(scrollLeft / cardWidth))
       );
       setActiveIndex(newIndex);
     }
-  }, []);
+  }, [filteredProjects.length]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -50,7 +58,16 @@ export default function Projects() {
       el.removeEventListener('scroll', updateScrollState);
       window.removeEventListener('resize', updateScrollState);
     };
-  }, [updateScrollState, viewMode]);
+  }, [updateScrollState, viewMode, activeTrack]);
+
+  // Handle track filter change
+  const handleTrackChange = (track: ProjectTrack) => {
+    setActiveTrack(track);
+    setActiveIndex(0);
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  };
 
   // Programmatic scroll step for arrows
   const scroll = (direction: 'left' | 'right') => {
@@ -108,25 +125,96 @@ export default function Projects() {
     }
   };
 
+  const companyCount = projects.filter((p) => p.track === 'company').length;
+  const personalCount = projects.filter((p) => p.track === 'personal').length;
+
   return (
     <section id="projects" className="min-h-[100dvh] w-full py-16 flex flex-col justify-center border-t border-[var(--separator)] scroll-mt-16">
-      {/* Section Header with Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-        <div>
-          <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
-            <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">03</span>
-            <span>Selected Work</span>
-          </h2>
-          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
-            Featured Projects
+      {/* Section Header with Intro */}
+      <div className="mb-6">
+        <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
+          <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">03</span>
+          <span>Selected Work</span>
+        </h2>
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mt-1">
+          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label text-balance">
+            Featured Projects & Products
           </h3>
-          <p className="text-[14px] text-apple-secondary mt-1">
-            Production iOS systems scaled for millions & modern developer tools.
+          <p className="text-[14px] text-apple-secondary">
+            Enterprise scale for millions & autonomous 0-to-1 developer tools.
           </p>
+        </div>
+      </div>
+
+      {/* Track Category Filter Pills (Company Systems vs Indie Studio) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-7 pb-2 border-b border-[var(--separator)]">
+        {/* Track Segmented Control */}
+        <div
+          role="tablist"
+          aria-label="Filter Projects by Track"
+          className="inline-flex flex-wrap items-center p-1 rounded-2xl bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)] max-w-full"
+        >
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTrack === 'all'}
+            onClick={() => handleTrackChange('all')}
+            className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-[13px] font-semibold transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+              activeTrack === 'all'
+                ? 'bg-white dark:bg-black text-apple-label shadow-apple-sm'
+                : 'text-apple-secondary hover:text-apple-label'
+            }`}
+          >
+            <span>All Work</span>
+            <span className="text-[11px] font-mono px-1.5 py-0.2 rounded bg-black/5 dark:bg-white/10 text-apple-tertiary">
+              {projects.length}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTrack === 'company'}
+            onClick={() => handleTrackChange('company')}
+            className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-[13px] font-semibold transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+              activeTrack === 'company'
+                ? 'bg-white dark:bg-black text-apple-label shadow-apple-sm'
+                : 'text-apple-secondary hover:text-apple-label'
+            }`}
+          >
+            <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2" />
+              <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01" />
+            </svg>
+            <span>Company Systems</span>
+            <span className="text-[11px] font-mono px-1.5 py-0.2 rounded bg-black/5 dark:bg-white/10 text-apple-tertiary">
+              {companyCount}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTrack === 'personal'}
+            onClick={() => handleTrackChange('personal')}
+            className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-[13px] font-semibold transition-colors flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+              activeTrack === 'personal'
+                ? 'bg-white dark:bg-black text-apple-label shadow-apple-sm'
+                : 'text-apple-secondary hover:text-apple-label'
+            }`}
+          >
+            <svg aria-hidden="true" className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+            </svg>
+            <span>Indie Studio & Tools</span>
+            <span className="text-[11px] font-mono px-1.5 py-0.2 rounded bg-black/5 dark:bg-white/10 text-apple-tertiary">
+              {personalCount}
+            </span>
+          </button>
         </div>
 
         {/* View Switcher & Carousel Controls */}
-        <div className="flex items-center gap-3 self-start sm:self-end">
+        <div className="flex items-center gap-3 self-start sm:self-auto">
           {/* Segmented Control: Carousel vs Grid */}
           <div className="inline-flex items-center p-1 rounded-xl bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)]">
             <button
@@ -136,7 +224,7 @@ export default function Projects() {
                   ? 'bg-white dark:bg-black text-apple-label shadow-apple-xs'
                   : 'text-apple-secondary hover:text-apple-label'
               }`}
-              aria-label="Carousel View"
+              aria-label="Carousel Shelf View"
             >
               <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <rect x="2" y="5" width="20" height="14" rx="2" />
@@ -204,7 +292,7 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Content: Carousel Mode or Grid Mode */}
+      {/* Content: Carousel Shelf Mode or Grid Mode */}
       {viewMode === 'carousel' ? (
         <div className="relative w-full">
           {/* Scrollable Shelf */}
@@ -224,98 +312,123 @@ export default function Projects() {
               scrollbarWidth: 'none',
             }}
           >
-            {projects.map((proj) => {
+            {filteredProjects.map((proj) => {
               const targetUrl = proj.detailUrl || proj.link || '#';
               const isInternal = Boolean(proj.detailUrl);
               return (
-              <Link
-                key={proj.id}
-                href={targetUrl}
-                target={isInternal ? undefined : '_blank'}
-                rel={isInternal ? undefined : 'noopener noreferrer'}
-                onClick={handleLinkClick}
-                className="apple-card group snap-start shrink-0 w-[290px] sm:w-[340px] md:w-[380px] p-5 sm:p-6 rounded-2xl flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint transition-transform duration-200 hover:-translate-y-0.5"
-              >
-                <div>
-                  {/* Top Bar: Icon + Badge */}
-                  <div className="flex items-start justify-between gap-3 mb-4">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 aspect-square rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none">
-                      {proj.logo ? (
-                        <Image
-                          src={proj.logo}
-                          alt={`${proj.title} icon`}
-                          width={56}
-                          height={56}
-                          className="w-full h-full object-cover"
-                        />
+                <Link
+                  key={proj.id}
+                  href={targetUrl}
+                  target={isInternal ? undefined : '_blank'}
+                  rel={isInternal ? undefined : 'noopener noreferrer'}
+                  onClick={handleLinkClick}
+                  className="apple-card group snap-start shrink-0 w-[290px] sm:w-[340px] md:w-[380px] p-5 sm:p-6 rounded-2xl flex flex-col justify-between focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint transition-transform duration-200 hover:-translate-y-0.5"
+                >
+                  <div>
+                    {/* Top Bar: Icon + Badge */}
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 aspect-square rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none">
+                        {proj.logo ? (
+                          <Image
+                            src={proj.logo}
+                            alt={`${proj.title} icon`}
+                            width={56}
+                            height={56}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-apple-tint font-bold text-lg">
+                            {proj.title.charAt(0)}
+                          </div>
+                        )}
+                      </div>
+
+                      {proj.detailUrl ? (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
+                          <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
+                          <span>Interactive Showcase</span>
+                        </span>
+                      ) : proj.badge ? (
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)]">
+                          {proj.badge}
+                        </span>
+                      ) : null}
+                    </div>
+
+                    {/* Track Indicator Chip */}
+                    <div className="flex items-center gap-2 mb-2">
+                      {proj.track === 'company' ? (
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-apple-secondary bg-black/[0.04] dark:bg-white/[0.06] px-2 py-0.5 rounded-md">
+                          <svg aria-hidden="true" className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <rect x="4" y="2" width="16" height="20" rx="2" />
+                            <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01" />
+                          </svg>
+                          <span>{proj.companyName || 'Enterprise'}</span>
+                        </span>
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-apple-tint font-bold text-lg">
-                          {proj.title.charAt(0)}
-                        </div>
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-apple-tint bg-apple-tint/10 px-2 py-0.5 rounded-md">
+                          <svg aria-hidden="true" className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                          </svg>
+                          <span>Indie Tool & OSS</span>
+                        </span>
+                      )}
+                      {proj.category && (
+                        <span className="text-[11px] text-apple-tertiary">
+                          • {proj.category}
+                        </span>
                       )}
                     </div>
 
-                    {proj.detailUrl ? (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
-                        <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
-                        <span>Interactive Showcase</span>
-                      </span>
-                    ) : proj.category ? (
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)]">
-                        {proj.category}
-                      </span>
-                    ) : null}
+                    {/* Title & External Link Indicator */}
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <h4 className="text-[17px] font-bold text-apple-label group-hover:text-apple-tint transition-colors">
+                        {proj.title}
+                      </h4>
+                      <svg
+                        aria-hidden="true"
+                        className="w-3.5 h-3.5 text-apple-tertiary group-hover:text-apple-tint transition-colors shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                      </svg>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-[13px] sm:text-[14px] text-apple-secondary leading-relaxed line-clamp-3">
+                      {proj.desc}
+                    </p>
                   </div>
 
-                  {/* Title & External Link Indicator */}
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <h4 className="text-[17px] font-bold text-apple-label group-hover:text-apple-tint transition-colors">
-                      {proj.title}
-                    </h4>
-                    <svg
-                      aria-hidden="true"
-                      className="w-3.5 h-3.5 text-apple-tertiary group-hover:text-apple-tint transition-colors shrink-0"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
+                  {/* Bottom Tech Stack Tags */}
+                  <div className="pt-4 mt-4 flex flex-wrap gap-1.5 border-t border-[var(--separator)]">
+                    {proj.tech.slice(0, 4).map((t) => (
+                      <span
+                        key={t}
+                        className="px-2 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.05] text-[11px] font-medium text-apple-secondary"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                    {proj.tech.length > 4 && (
+                      <span className="px-1.5 py-0.5 rounded-md text-[11px] text-apple-tertiary font-medium">
+                        +{proj.tech.length - 4}
+                      </span>
+                    )}
                   </div>
-
-                  {/* Description */}
-                  <p className="text-[13px] sm:text-[14px] text-apple-secondary leading-relaxed line-clamp-3">
-                    {proj.desc}
-                  </p>
-                </div>
-
-                {/* Bottom Tech Stack Tags */}
-                <div className="pt-4 mt-4 flex flex-wrap gap-1.5 border-t border-[var(--separator)]">
-                  {proj.tech.slice(0, 4).map((t) => (
-                    <span
-                      key={t}
-                      className="px-2 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.05] text-[11px] font-medium text-apple-secondary"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                  {proj.tech.length > 4 && (
-                    <span className="px-1.5 py-0.5 rounded-md text-[11px] text-apple-tertiary font-medium">
-                      +{proj.tech.length - 4}
-                    </span>
-                  )}
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+                </Link>
+              );
+            })}
+          </div>
 
           {/* Apple-Style Pagination Indicators */}
           <div className="flex items-center justify-center gap-1 mt-5">
-            {projects.map((_, index) => (
+            {filteredProjects.map((_, index) => (
               <button
                 key={index}
                 onClick={() => scrollToIndex(index)}
@@ -336,85 +449,110 @@ export default function Projects() {
       ) : (
         /* 2-Column Responsive Grid View */
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-          {projects.map((proj) => {
+          {filteredProjects.map((proj) => {
             const targetUrl = proj.detailUrl || proj.link || '#';
             const isInternal = Boolean(proj.detailUrl);
             return (
-            <Link
-              key={proj.id}
-              href={targetUrl}
-              target={isInternal ? undefined : '_blank'}
-              rel={isInternal ? undefined : 'noopener noreferrer'}
-              className="apple-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint transition-transform duration-200 hover:-translate-y-0.5"
-            >
-              <div className="flex flex-col gap-3.5">
-                {/* Top: Icon & Badge */}
-                <div className="flex items-start justify-between gap-3">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 aspect-square rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none">
-                    {proj.logo ? (
-                      <Image
-                        src={proj.logo}
-                        alt={`${proj.title} icon`}
-                        width={48}
-                        height={48}
-                        className="w-full h-full object-cover"
-                      />
+              <Link
+                key={proj.id}
+                href={targetUrl}
+                target={isInternal ? undefined : '_blank'}
+                rel={isInternal ? undefined : 'noopener noreferrer'}
+                className="apple-card group relative flex flex-col justify-between p-6 sm:p-7 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <div className="flex flex-col gap-3.5">
+                  {/* Top: Icon & Badge */}
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 aspect-square rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none">
+                      {proj.logo ? (
+                        <Image
+                          src={proj.logo}
+                          alt={`${proj.title} icon`}
+                          width={48}
+                          height={48}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-apple-tint font-bold text-base">
+                          {proj.title.charAt(0)}
+                        </div>
+                      )}
+                    </div>
+
+                    {proj.detailUrl ? (
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
+                        <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
+                        <span>Interactive Showcase</span>
+                      </span>
+                    ) : proj.badge ? (
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)]">
+                        {proj.badge}
+                      </span>
+                    ) : null}
+                  </div>
+
+                  {/* Track Indicator Chip */}
+                  <div className="flex items-center gap-2">
+                    {proj.track === 'company' ? (
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-apple-secondary bg-black/[0.04] dark:bg-white/[0.06] px-2 py-0.5 rounded-md">
+                        <svg aria-hidden="true" className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="4" y="2" width="16" height="20" rx="2" />
+                          <path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01" />
+                        </svg>
+                        <span>{proj.companyName || 'Enterprise'}</span>
+                      </span>
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-apple-tint font-bold text-base">
-                        {proj.title.charAt(0)}
-                      </div>
+                      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-apple-tint bg-apple-tint/10 px-2 py-0.5 rounded-md">
+                        <svg aria-hidden="true" className="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                        </svg>
+                        <span>Indie Tool & OSS</span>
+                      </span>
+                    )}
+                    {proj.category && (
+                      <span className="text-[11px] text-apple-tertiary">
+                        • {proj.category}
+                      </span>
                     )}
                   </div>
 
-                  {proj.detailUrl ? (
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
-                      <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
-                      <span>Interactive Showcase</span>
-                    </span>
-                  ) : proj.category ? (
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)]">
-                      {proj.category}
-                    </span>
-                  ) : null}
-                </div>
-
-                {/* Title & Description */}
-                <div className="flex flex-col gap-1.5">
-                  <div className="flex items-center gap-1.5">
-                    <h4 className="text-[17px] font-bold text-apple-label group-hover:text-apple-tint transition-colors">
-                      {proj.title}
-                    </h4>
-                    <svg
-                      aria-hidden="true"
-                      className="w-4 h-4 text-apple-tertiary group-hover:text-apple-tint transition-colors shrink-0"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
+                  {/* Title & Description */}
+                  <div className="flex flex-col gap-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <h4 className="text-[17px] font-bold text-apple-label group-hover:text-apple-tint transition-colors">
+                        {proj.title}
+                      </h4>
+                      <svg
+                        aria-hidden="true"
+                        className="w-4 h-4 text-apple-tertiary group-hover:text-apple-tint transition-colors shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                      </svg>
+                    </div>
+                    <p className="text-[14px] text-apple-secondary leading-relaxed">
+                      {proj.desc}
+                    </p>
                   </div>
-                  <p className="text-[14px] text-apple-secondary leading-relaxed">
-                    {proj.desc}
-                  </p>
                 </div>
-              </div>
 
-              {/* Tech Tags */}
-              <div className="pt-4 mt-4 flex flex-wrap gap-1.5 border-t border-[var(--separator)]">
-                {proj.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.05] text-[12px] font-medium text-apple-secondary"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </Link>
+                {/* Tech Tags */}
+                <div className="pt-4 mt-4 flex flex-wrap gap-1.5 border-t border-[var(--separator)]">
+                  {proj.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="px-2.5 py-0.5 rounded-md bg-black/[0.03] dark:bg-white/[0.05] text-[12px] font-medium text-apple-secondary"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </Link>
             );
           })}
         </div>

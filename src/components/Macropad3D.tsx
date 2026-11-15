@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { hasMacropadAssembled, markMacropadAssembled } from '@/utils/animationSession';
 
 export type MacropadKeyId = 'about' | 'experience' | 'projects' | 'skills' | 'education' | 'contact';
 export type SwitchProfileId = 'thock' | 'tactile' | 'clicky';
@@ -131,6 +132,7 @@ interface Macropad3DProps {
   onAssemblyComplete?: () => void;
   controlsVisible?: boolean;
   interactive?: boolean;
+  skipAssembly?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -556,6 +558,7 @@ export default function Macropad3D({
   onAssemblyComplete,
   controlsVisible = true,
   interactive = true,
+  skipAssembly: skipAssemblyProp = false,
 }: Macropad3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -1040,7 +1043,9 @@ export default function Macropad3D({
 
     const keyEntities = new Map<MacropadKeyId, KeyEntity>();
     const hitTargets: THREE.Object3D[] = [knobBodyMesh, knobTopMesh];
-    const skipAssembly = reduceMotionQuery.matches;
+    const skipAssembly = Boolean(
+      skipAssemblyProp || reduceMotionQuery.matches || hasMacropadAssembled()
+    );
     const ASSEMBLY_DROP_Y = 1.18;
     const KNOB_DROP_Y = 0.95;
 
@@ -1515,6 +1520,7 @@ export default function Macropad3D({
         onSceneReadyRef.current?.();
         if (skipAssembly) {
           assemblyCompleteFired = true;
+          markMacropadAssembled();
           onAssemblyCompleteRef.current?.();
         } else {
           wakeLoop();
@@ -1543,6 +1549,7 @@ export default function Macropad3D({
 
       if (!assemblyCompleteFired && allKeysAssembled) {
         assemblyCompleteFired = true;
+        markMacropadAssembled();
         onAssemblyCompleteRef.current?.();
       }
 

@@ -10,6 +10,18 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/ios-agents-skill',
+        destination: '/ios-agent-skills',
+      },
+      {
+        source: '/ios-agent-skill',
+        destination: '/ios-agent-skills',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

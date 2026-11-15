@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import RecentProjectsModal from '@/components/RecentProjectsModal';
 
 const NAV_ITEMS = [
   { label: 'About', href: '#about' },
@@ -17,6 +17,7 @@ export default function Navbar() {
   const [isDark, setIsDark] = useState<boolean>(false);
   const [activeSection, setActiveSection] = useState<string>('about');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [projectsModalOpen, setProjectsModalOpen] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
   const [scrolledPastHero, setScrolledPastHero] = useState<boolean>(false);
 
@@ -43,10 +44,21 @@ export default function Navbar() {
       });
     };
 
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setProjectsModalOpen((prev) => !prev);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('keydown', handleGlobalKeyDown);
     handleScroll();
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleGlobalKeyDown);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -93,41 +105,23 @@ export default function Navbar() {
           </span>
         </a>
 
-        {/* Center Desktop Navigation Capsule */}
-        <nav
-          aria-label="Primary Navigation"
-          className="hidden md:flex items-center p-1 rounded-full bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)]"
-        >
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeSection === item.href.replace('#', '');
-            return (
-              <a
-                key={item.href}
-                href={item.href}
-                className={`px-3.5 py-1 text-[13px] font-medium rounded-full transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
-                  isActive
-                    ? 'bg-white dark:bg-neutral-800 text-[var(--shuiro)] font-semibold shadow-sm'
-                    : 'text-apple-secondary hover:text-apple-label'
-                }`}
-              >
-                {item.label}
-              </a>
-            );
-          })}
-        </nav>
-
         {/* Right Controls */}
-        <div className="flex items-center gap-2">
-          {/* Zest macOS Page Pill */}
-          <Link
-            href="/zest"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] hover:bg-[var(--shuiro)] hover:text-white transition-colors border border-[var(--shuiro-border)]"
+        <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Recent Projects Modal Trigger */}
+          <button
+            type="button"
+            onClick={() => setProjectsModalOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={projectsModalOpen}
+            className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] sm:text-[13px] font-semibold text-apple-label bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.14] border border-[var(--separator)] transition-colors apple-btn-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint min-h-[36px]"
           >
-            <svg aria-hidden="true" className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-            </svg>
-            <span>Zest macOS</span>
-          </Link>
+            <span className="w-2 h-2 rounded-full bg-[var(--teal)] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
+            <span className="sm:hidden">Projects</span>
+            <span className="hidden sm:inline">My Recent Projects</span>
+            <span className="hidden md:inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 text-apple-tertiary border border-black/5 dark:border-white/10">
+              ⌘K
+            </span>
+          </button>
 
           {/* Dark / Light Mode Switcher with 44px hit target */}
           <button
@@ -175,41 +169,50 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden apple-glass border-b border-[var(--separator)] px-6 py-4 animate-in fade-in duration-150">
           <nav className="flex flex-col gap-1" aria-label="Mobile Navigation">
-            {NAV_ITEMS.map((item) => {
-              const isActive = activeSection === item.href.replace('#', '');
-              return (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center min-h-[44px] px-3.5 rounded-xl text-[15px] font-medium transition-colors ${
-                    isActive
-                      ? 'bg-apple-tint/10 text-apple-tint font-semibold'
-                      : 'text-apple-label hover:bg-black/[0.04] dark:hover:bg-white/[0.06]'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
-            <div className="pt-2 mt-2 border-t border-[var(--separator)]">
-              <Link
-                href="/zest"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between min-h-[44px] px-3.5 rounded-xl text-[15px] font-semibold text-[var(--shuiro)] bg-[var(--shuiro-soft)]"
-              >
-                <span className="flex items-center gap-2">
-                  <svg aria-hidden="true" className="w-4 h-4 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-                  </svg>
-                  <span>Zest for macOS</span>
-                </span>
-                <span className="text-[12px] opacity-80">Showcase</span>
-              </Link>
+            {/* Recent Projects Modal Trigger on Mobile */}
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                setProjectsModalOpen(true);
+              }}
+              className="flex items-center justify-between min-h-[44px] px-3.5 mb-2 rounded-xl text-[15px] font-semibold text-apple-label bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)] hover:bg-black/[0.08] dark:hover:bg-white/[0.14] transition-colors"
+            >
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[var(--teal)] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
+                <span>My Recent Projects</span>
+              </span>
+              <span className="text-[12px] text-apple-tertiary font-mono">4 Apps ▾</span>
+            </button>
+
+            <div className="pt-2 border-t border-[var(--separator)] flex flex-col gap-1">
+              {NAV_ITEMS.map((item) => {
+                const isActive = activeSection === item.href.replace('#', '');
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center min-h-[44px] px-3.5 rounded-xl text-[15px] font-medium transition-colors ${
+                      isActive
+                        ? 'bg-apple-tint/10 text-apple-tint font-semibold'
+                        : 'text-apple-label hover:bg-black/[0.04] dark:hover:bg-white/[0.06]'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
             </div>
           </nav>
         </div>
       )}
+
+      {/* Recent Projects Dialog (macOS Spotlight / Sheet) */}
+      <RecentProjectsModal
+        isOpen={projectsModalOpen}
+        onClose={() => setProjectsModalOpen(false)}
+      />
     </header>
   );
 }
