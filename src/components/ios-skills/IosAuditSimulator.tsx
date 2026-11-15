@@ -390,7 +390,7 @@ export default function IosAuditSimulator() {
       </div>
 
       {/* Preset Selector Pill Tabs */}
-      <div className="flex flex-wrap items-center gap-2 mb-6">
+      <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap items-center gap-2 mb-6 pb-1 sm:pb-0 max-w-full">
         {(Object.keys(PRESETS) as AuditPresetKey[]).map((key) => {
           const item = PRESETS[key];
           const isSelected = activeKey === key;
@@ -399,14 +399,14 @@ export default function IosAuditSimulator() {
               key={key}
               type="button"
               onClick={() => handleSwitchPreset(key)}
-              className={`min-h-[44px] px-3.5 py-2 rounded-xl text-[13px] font-semibold flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+              className={`min-h-[44px] px-3.5 py-2 rounded-xl text-[13px] font-semibold flex items-center gap-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint shrink-0 ${
                 isSelected
                   ? 'bg-apple-tint text-white shadow-apple-sm'
                   : 'bg-black/5 dark:bg-white/10 text-apple-secondary hover:text-apple-label hover:bg-black/10 dark:hover:bg-white/15'
               }`}
             >
               <PresetIcon id={item.id} />
-              <span>{item.label}</span>
+              <span className="whitespace-nowrap">{item.label}</span>
               <span
                 className={`text-[10px] font-mono px-1.5 py-0.2 rounded ${
                   isSelected ? 'bg-white/20 text-white' : 'bg-black/5 dark:bg-white/10 text-apple-tertiary'
@@ -422,19 +422,48 @@ export default function IosAuditSimulator() {
       {/* Main Terminal Card */}
       <div className="apple-card rounded-2xl overflow-hidden border border-black/10 dark:border-white/15 shadow-apple-md">
         {/* Terminal Window Header Chrome */}
-        <div className="h-12 bg-black/5 dark:bg-white/5 border-b border-[var(--separator)] px-4 flex items-center justify-between gap-3">
-          {/* Traffic Lights */}
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="w-3 h-3 rounded-full bg-[var(--traffic-red)] inline-block" />
-            <span className="w-3 h-3 rounded-full bg-[var(--traffic-yellow)] inline-block" />
-            <span className="w-3 h-3 rounded-full bg-[var(--traffic-green)] inline-block" />
-            <span className="ml-2 font-mono text-[12px] text-apple-tertiary hidden sm:inline">
+        <div className="bg-black/5 dark:bg-white/5 border-b border-[var(--separator)] px-3.5 sm:px-4 py-2.5 sm:py-0 sm:h-12 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+          {/* Top Row on mobile: Traffic Lights + Filename + Scan Button */}
+          <div className="flex items-center justify-between sm:justify-start gap-2 min-w-0">
+            <div className="flex items-center gap-1.5 shrink-0">
+              <span className="w-3 h-3 rounded-full bg-[var(--traffic-red)] inline-block" />
+              <span className="w-3 h-3 rounded-full bg-[var(--traffic-yellow)] inline-block" />
+              <span className="w-3 h-3 rounded-full bg-[var(--traffic-green)] inline-block" />
+            </div>
+            <span className="font-mono text-[11px] sm:text-[12px] text-apple-tertiary truncate max-w-[170px] sm:max-w-none">
               ios-audit : {preset.file}
             </span>
+
+            {/* Run Audit Action Button (Mobile only) */}
+            <div className="sm:hidden shrink-0">
+              <button
+                type="button"
+                onClick={handleRunAudit}
+                disabled={isScanning}
+                className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-apple-tint text-white hover:bg-apple-tint/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint disabled:opacity-50 min-h-[30px]"
+              >
+                {isScanning ? (
+                  <>
+                    <svg aria-hidden="true" className="w-3 h-3 animate-spin motion-reduce:animate-none" viewBox="0 0 24 24" fill="none">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                    </svg>
+                    <span>Scan…</span>
+                  </>
+                ) : (
+                  <>
+                    <svg aria-hidden="true" className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <span>Scan</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Format Switcher Tabs */}
-          <div className="flex items-center gap-1 bg-black/5 dark:bg-black/30 p-1 rounded-lg">
+          <div className="flex items-center gap-1 bg-black/5 dark:bg-black/30 p-1 rounded-lg overflow-x-auto no-scrollbar max-w-full shrink-0">
             {(
               [
                 { id: 'xcode', label: 'Xcode' },
@@ -447,7 +476,7 @@ export default function IosAuditSimulator() {
                 key={fmt.id}
                 type="button"
                 onClick={() => setOutputFormat(fmt.id)}
-                className={`text-[11px] font-semibold px-2.5 py-1 rounded-md transition-colors ${
+                className={`text-[11px] font-semibold px-2.5 py-1 rounded-md transition-colors shrink-0 ${
                   outputFormat === fmt.id
                     ? 'bg-white dark:bg-white/20 text-apple-label shadow-apple-sm'
                     : 'text-apple-secondary hover:text-apple-label'
@@ -458,37 +487,39 @@ export default function IosAuditSimulator() {
             ))}
           </div>
 
-          {/* Run Audit Action Button */}
-          <button
-            type="button"
-            onClick={handleRunAudit}
-            disabled={isScanning}
-            className="flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1 rounded-lg bg-apple-tint text-white hover:bg-apple-tint/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint disabled:opacity-50"
-          >
-            {isScanning ? (
-              <>
-                <svg aria-hidden="true" className="w-3.5 h-3.5 animate-spin motion-reduce:animate-none" viewBox="0 0 24 24" fill="none">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                </svg>
-                <span>Scanning…</span>
-              </>
-            ) : (
-              <>
-                <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                <span>Scan File</span>
-              </>
-            )}
-          </button>
+          {/* Run Audit Action Button (Desktop sm+) */}
+          <div className="hidden sm:block shrink-0">
+            <button
+              type="button"
+              onClick={handleRunAudit}
+              disabled={isScanning}
+              className="flex items-center gap-1.5 text-[12px] font-semibold px-3 py-1 rounded-lg bg-apple-tint text-white hover:bg-apple-tint/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint disabled:opacity-50"
+            >
+              {isScanning ? (
+                <>
+                  <svg aria-hidden="true" className="w-3.5 h-3.5 animate-spin motion-reduce:animate-none" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                  </svg>
+                  <span>Scanning…</span>
+                </>
+              ) : (
+                <>
+                  <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                  <span>Scan File</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Diagnostic Banner */}
-        <div className="px-5 py-3 bg-black/[0.02] dark:bg-white/[0.02] border-b border-[var(--separator)] flex flex-wrap items-center justify-between gap-3 text-[13px]">
-          <div className="flex items-center gap-2">
+        <div className="px-4 sm:px-5 py-3 bg-black/[0.02] dark:bg-white/[0.02] border-b border-[var(--separator)] flex flex-wrap items-center justify-between gap-2.5 text-[13px]">
+          <div className="flex items-center gap-2 flex-wrap">
             <span
-              className={`px-2 py-0.5 rounded text-[11px] font-bold capitalize ${
+              className={`px-2 py-0.5 rounded text-[11px] font-bold capitalize shrink-0 ${
                 preset.severity === 'error'
                   ? 'bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20'
                   : 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20'
@@ -496,7 +527,7 @@ export default function IosAuditSimulator() {
             >
               {preset.severity}
             </span>
-            <span className="font-bold text-apple-label">{preset.title}</span>
+            <span className="font-bold text-apple-label break-words">{preset.title}</span>
           </div>
 
           <div className="flex items-center gap-3 text-[12px] text-apple-secondary">
@@ -509,32 +540,32 @@ export default function IosAuditSimulator() {
         </div>
 
         {/* Code Diff & Diagnostics Body */}
-        <div className="p-5 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Column (7 cols): Swift Code Diff with Toggle */}
-          <div className="lg:col-span-7 flex flex-col justify-between">
+          <div className="lg:col-span-7 flex flex-col justify-between min-w-0">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[12px] font-semibold text-apple-tertiary">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <span className="text-[12px] font-semibold text-apple-tertiary truncate">
                   {appliedFix ? 'Remediated Code (Fixed)' : 'Violating Source Code'}
                 </span>
                 <button
                   type="button"
                   onClick={() => setAppliedFix(!appliedFix)}
-                  className="text-[12px] font-semibold text-apple-tint hover:underline flex items-center gap-1"
+                  className="text-[12px] font-semibold text-apple-tint hover:underline flex items-center gap-1 shrink-0"
                 >
                   {appliedFix ? '← Show Original Code' : '✦ Preview Automated Fix →'}
                 </button>
               </div>
 
               {/* Code Display Area */}
-              <div className="rounded-xl overflow-hidden bg-[var(--terminal-card)] p-4 text-white font-mono text-[12.5px] leading-relaxed border border-black/20 shadow-inner">
+              <div className="rounded-xl overflow-hidden bg-[var(--terminal-card)] p-3 sm:p-4 text-white font-mono text-[12px] sm:text-[12.5px] leading-relaxed border border-black/20 shadow-inner">
                 <div className="flex items-center justify-between pb-2 mb-3 border-b border-white/10 text-[11px] text-zinc-400">
-                  <span>{preset.file}</span>
-                  <span className={appliedFix ? 'text-emerald-400' : 'text-amber-400'}>
-                    {appliedFix ? '100% Clean • Ready to Commit' : 'Audit Violation'}
+                  <span className="truncate max-w-[180px] sm:max-w-none">{preset.file}</span>
+                  <span className={`shrink-0 ${appliedFix ? 'text-emerald-400' : 'text-amber-400'}`}>
+                    {appliedFix ? '100% Clean' : 'Audit Violation'}
                   </span>
                 </div>
-                <pre className="overflow-x-auto">
+                <pre className="overflow-x-auto text-[11.5px] sm:text-[12.5px]">
                   <code>{appliedFix ? preset.fixedCode : preset.badCode}</code>
                 </pre>
               </div>
@@ -548,7 +579,7 @@ export default function IosAuditSimulator() {
           </div>
 
           {/* Right Column (5 cols): Selected Output Format Display */}
-          <div className="lg:col-span-5 flex flex-col">
+          <div className="lg:col-span-5 flex flex-col min-w-0">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[12px] font-semibold text-apple-tertiary">
                 Output View: <span className="text-apple-tint">{outputFormat.toUpperCase()}</span>
@@ -556,7 +587,7 @@ export default function IosAuditSimulator() {
               <span className="text-[11px] font-mono text-apple-tertiary">22ms execution</span>
             </div>
 
-            <div className="flex-1 rounded-xl bg-[var(--terminal-bg)] p-4 text-zinc-200 font-mono text-[11.5px] leading-relaxed border border-black/20 overflow-x-auto min-h-[260px] flex flex-col justify-between">
+            <div className="flex-1 rounded-xl bg-[var(--terminal-bg)] p-3 sm:p-4 text-zinc-200 font-mono text-[11px] sm:text-[11.5px] leading-relaxed border border-black/20 overflow-x-auto min-h-[220px] sm:min-h-[260px] flex flex-col justify-between">
               {/* Output format render */}
               {outputFormat === 'xcode' && (
                 <div className="space-y-3">

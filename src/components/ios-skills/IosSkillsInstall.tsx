@@ -30,7 +30,7 @@ export default function IosSkillsInstall() {
 
   return (
     <section id="install" className="py-12 sm:py-20 border-t border-[var(--separator)]">
-      <div className="apple-card p-6 sm:p-10 rounded-3xl border border-black/10 dark:border-white/10 shadow-apple-md text-center max-w-4xl mx-auto relative overflow-hidden">
+      <div className="apple-card p-5 sm:p-10 rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/10 shadow-apple-md text-center max-w-4xl mx-auto relative overflow-hidden">
         <div className="relative z-10 max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-apple-label mb-4">
             Get started in seconds
@@ -44,20 +44,20 @@ export default function IosSkillsInstall() {
             {installSnippets.map((item, idx) => (
               <div
                 key={idx}
-                className="p-4 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/10 dark:border-white/10"
+                className="p-3.5 sm:p-4 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/10 dark:border-white/10 min-w-0"
               >
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-[12px] font-bold text-apple-label">{item.label}</span>
+                <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 mb-2">
+                  <span className="text-[12px] font-bold text-apple-label break-words">{item.label}</span>
                   <button
                     type="button"
                     onClick={() => handleCopy(idx, item.command)}
-                    className="text-[11px] font-semibold px-2 py-0.5 rounded bg-apple-tint text-white hover:bg-apple-tint/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                    className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-apple-tint text-white hover:bg-apple-tint/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint shrink-0 min-h-[30px] flex items-center"
                   >
                     {copiedIndex === idx ? 'Copied!' : 'Copy Command'}
                   </button>
                 </div>
 
-                <div className="p-2.5 rounded-lg bg-[var(--terminal-bg)] text-zinc-200 font-mono text-[12px] overflow-x-auto select-all">
+                <div className="p-2.5 rounded-lg bg-[var(--terminal-bg)] text-zinc-200 font-mono text-[11.5px] sm:text-[12px] overflow-x-auto select-all">
                   <span className="text-apple-tertiary mr-2 select-none">$</span>
                   {item.command}
                 </div>

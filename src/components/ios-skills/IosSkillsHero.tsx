@@ -75,13 +75,13 @@ export default function IosSkillsHero() {
 
           {/* Quick CLI Copy Bar */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <div className="flex-1 flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 font-mono text-[13px] text-apple-label overflow-x-auto">
+            <div className="flex-1 flex items-center justify-between gap-2 px-3.5 py-2.5 rounded-xl bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/15 font-mono text-[13px] text-apple-label overflow-x-auto min-w-0">
               <span className="text-apple-tertiary select-none">$</span>
               <span className="truncate">{commandText}</span>
               <button
                 type="button"
                 onClick={copyCommand}
-                className="shrink-0 text-[11px] font-semibold px-2 py-1 rounded bg-apple-tint text-white hover:bg-apple-tint/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                className="shrink-0 text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-apple-tint text-white hover:bg-apple-tint/90 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint min-h-[30px] flex items-center"
                 title="Copy command to clipboard"
               >
                 {copied ? 'Copied!' : 'Copy'}
@@ -90,7 +90,7 @@ export default function IosSkillsHero() {
 
             <a
               href="#simulator"
-              className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-xl bg-apple-tint text-white font-semibold text-[14px] hover:bg-apple-tint/90 transition-colors shadow-apple-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+              className="inline-flex items-center justify-center gap-2 min-h-[44px] px-5 py-2.5 rounded-xl bg-apple-tint text-white font-semibold text-[14px] hover:bg-apple-tint/90 transition-colors shadow-apple-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint shrink-0"
             >
               <span>Launch Simulator</span>
               <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -122,11 +122,11 @@ export default function IosSkillsHero() {
         </div>
 
         {/* Right Column: Hero Visual Feature Box */}
-        <div className="lg:col-span-5">
-          <div className="apple-card p-6 rounded-2xl relative overflow-hidden border border-black/10 dark:border-white/10 shadow-apple-md">
+        <div className="lg:col-span-5 min-w-0">
+          <div className="apple-card p-5 sm:p-6 rounded-2xl relative overflow-hidden border border-black/10 dark:border-white/10 shadow-apple-md">
             {/* Top Bar with Icon and Stats */}
             <div className="flex items-center gap-3.5 mb-5">
-              <div className="w-14 h-14 rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm">
                 <Image
                   src="/assets/project-logo/ios-agent-skills-logo.svg"
                   alt="iOS Agent Skills Retina Icon"
@@ -135,33 +135,33 @@ export default function IosSkillsHero() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div>
-                <h3 className="text-[17px] font-bold text-apple-label">ios-agent-skills</h3>
-                <p className="text-[12px] text-apple-secondary">10 Specialized Audits, 0 Dependencies</p>
+              <div className="min-w-0">
+                <h3 className="text-[16px] sm:text-[17px] font-bold text-apple-label truncate">ios-agent-skills</h3>
+                <p className="text-[12px] text-apple-secondary truncate">10 Specialized Audits, 0 Dependencies</p>
               </div>
             </div>
 
             {/* Metric KPI Tiles */}
-            <div className="grid grid-cols-2 gap-2.5 mb-5">
-              <div className="p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5">
-                <span className="text-[11px] font-medium text-apple-tertiary block">Execution Speed</span>
-                <span className="text-[19px] font-extrabold text-apple-label tracking-tight font-mono">&lt; 25 ms</span>
-                <span className="text-[10px] text-apple-secondary block mt-0.5">AST regex parser</span>
+            <div className="grid grid-cols-2 gap-2 sm:gap-2.5 mb-5">
+              <div className="p-2.5 sm:p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5 min-w-0">
+                <span className="text-[11px] font-medium text-apple-tertiary block truncate">Execution Speed</span>
+                <span className="text-[17px] sm:text-[19px] font-extrabold text-apple-label tracking-tight font-mono block">&lt; 25 ms</span>
+                <span className="text-[10px] text-apple-secondary block mt-0.5 truncate">AST regex parser</span>
               </div>
-              <div className="p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5">
-                <span className="text-[11px] font-medium text-apple-tertiary block">MetricKit Hang Budget</span>
-                <span className="text-[19px] font-extrabold text-apple-label tracking-tight font-mono">&lt; 400 ms</span>
-                <span className="text-[10px] text-apple-tint block mt-0.5">Enforces strict 0-hang</span>
+              <div className="p-2.5 sm:p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5 min-w-0">
+                <span className="text-[11px] font-medium text-apple-tertiary block truncate">MetricKit Budget</span>
+                <span className="text-[17px] sm:text-[19px] font-extrabold text-apple-label tracking-tight font-mono block">&lt; 400 ms</span>
+                <span className="text-[10px] text-apple-tint block mt-0.5 truncate">Enforces strict 0-hang</span>
               </div>
-              <div className="p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5">
-                <span className="text-[11px] font-medium text-apple-tertiary block">Xcode Build Phase</span>
-                <span className="text-[19px] font-extrabold text-apple-label tracking-tight font-mono">Native</span>
-                <span className="text-[10px] text-apple-secondary block mt-0.5">Issue Navigator warnings</span>
+              <div className="p-2.5 sm:p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5 min-w-0">
+                <span className="text-[11px] font-medium text-apple-tertiary block truncate">Xcode Build Phase</span>
+                <span className="text-[17px] sm:text-[19px] font-extrabold text-apple-label tracking-tight font-mono block">Native</span>
+                <span className="text-[10px] text-apple-secondary block mt-0.5 truncate">Issue Navigator warnings</span>
               </div>
-              <div className="p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5">
-                <span className="text-[11px] font-medium text-apple-tertiary block">GitHub CI SARIF</span>
-                <span className="text-[19px] font-extrabold text-apple-label tracking-tight font-mono">v3.0</span>
-                <span className="text-[10px] text-apple-secondary block mt-0.5">CodeQL scanning integration</span>
+              <div className="p-2.5 sm:p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5 min-w-0">
+                <span className="text-[11px] font-medium text-apple-tertiary block truncate">GitHub CI SARIF</span>
+                <span className="text-[17px] sm:text-[19px] font-extrabold text-apple-label tracking-tight font-mono block">v3.0</span>
+                <span className="text-[10px] text-apple-secondary block mt-0.5 truncate">CodeQL scanning</span>
               </div>
             </div>
 

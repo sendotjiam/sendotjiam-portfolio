@@ -217,13 +217,13 @@ export default function IosSkillsGrid() {
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center gap-1.5 self-start md:self-auto">
+        <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap items-center gap-1.5 self-start md:self-auto max-w-full pb-1 sm:pb-0">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setSelectedCategory(cat)}
-              className={`text-[12px] font-semibold px-3 py-1.5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+              className={`text-[12px] font-semibold px-3 py-1.5 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint shrink-0 ${
                 selectedCategory === cat
                   ? 'bg-apple-tint text-white shadow-apple-sm'
                   : 'bg-black/5 dark:bg-white/10 text-apple-secondary hover:text-apple-label'
@@ -297,16 +297,16 @@ export default function IosSkillsGrid() {
               </div>
 
               {/* Bottom Actions */}
-              <div className="pt-3 border-t border-[var(--separator)] flex items-center justify-between text-[12px]">
+              <div className="pt-3 border-t border-[var(--separator)] flex flex-wrap items-center justify-between gap-2 text-[12px]">
                 <button
                   type="button"
                   onClick={() => setExpandedSkill(isExpanded ? null : skill.id)}
-                  className="text-apple-secondary hover:text-apple-label font-medium transition-colors"
+                  className="text-apple-secondary hover:text-apple-label font-medium transition-colors min-h-[36px] flex items-center"
                 >
                   {isExpanded ? 'Hide Patterns ↑' : 'View Detected Patterns ↓'}
                 </button>
 
-                <div className="flex items-center gap-1.5 font-mono text-[11px] px-2 py-1 rounded bg-black/5 dark:bg-white/10 text-apple-label">
+                <div className="flex items-center gap-1.5 font-mono text-[11px] px-2 py-1 rounded bg-black/5 dark:bg-white/10 text-apple-label shrink-0">
                   <span className="text-apple-tertiary select-none">$</span>
                   <span>{skill.command}</span>
                 </div>

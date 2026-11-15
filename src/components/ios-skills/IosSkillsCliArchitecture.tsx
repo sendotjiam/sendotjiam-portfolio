@@ -95,13 +95,13 @@ cancellable = publisher.assign(to: \\.value, on: self)
       </div>
 
       {/* Tabs */}
-      <div className="flex flex-wrap items-center gap-2 mb-6" id="architecture">
+      <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap items-center gap-2 mb-6 pb-1 sm:pb-0 max-w-full" id="architecture">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`text-[13px] font-semibold px-4 py-2 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+            className={`text-[13px] font-semibold px-4 py-2 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint shrink-0 ${
               activeTab === tab.id
                 ? 'bg-apple-tint text-white shadow-apple-sm'
                 : 'bg-black/5 dark:bg-white/10 text-apple-secondary hover:text-apple-label'
@@ -114,8 +114,8 @@ cancellable = publisher.assign(to: \\.value, on: self)
 
       {/* Code Block Container */}
       <div className="apple-card rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 shadow-apple-md">
-        <div className="h-11 bg-black/5 dark:bg-white/5 border-b border-[var(--separator)] px-4 flex items-center justify-between">
-          <span className="text-[12px] font-mono text-apple-tertiary">
+        <div className="h-11 bg-black/5 dark:bg-white/5 border-b border-[var(--separator)] px-3.5 sm:px-4 flex items-center justify-between gap-2">
+          <span className="text-[12px] font-mono text-apple-tertiary truncate mr-2">
             {activeTab === 'cli' && 'Terminal Bash Script'}
             {activeTab === 'xcode' && 'Xcode Run Script Phase'}
             {activeTab === 'ci' && '.github/workflows/ios-audit.yml'}

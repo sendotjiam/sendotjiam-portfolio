@@ -40,7 +40,7 @@ export default function IosAgentSkillsPage() {
   return (
     <>
       <IosSkillsNav />
-      <main id="main-content" className="w-full max-w-5xl mx-auto px-5 sm:px-8 flex-1">
+      <main id="main-content" className="w-full max-w-5xl mx-auto px-4 sm:px-8 flex-1">
         <IosSkillsHero />
         <IosAuditSimulator />
         <IosSkillsGrid />
