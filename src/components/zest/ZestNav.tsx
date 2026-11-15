@@ -13,8 +13,19 @@ const NAV_LINKS = [
   { label: 'Download', href: '#download' },
 ];
 
+const SWITCH_PROFILES: {
+  id: 'thock' | 'tactile' | 'clicky';
+  name: string;
+  dotColor: string;
+}[] = [
+  { id: 'thock', name: 'Linear Thock', dotColor: 'bg-[#d9381e]' },
+  { id: 'tactile', name: 'Holy Panda', dotColor: 'bg-[#0066cc]' },
+  { id: 'clicky', name: 'Kailh Jade', dotColor: 'bg-[#0d9488]' },
+];
+
 export default function ZestNav() {
   const [isDark, setIsDark] = useState<boolean>(false);
+  const [switchProfile, setSwitchProfile] = useState<'thock' | 'tactile' | 'clicky'>('thock');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [mounted, setMounted] = useState<boolean>(false);
 
@@ -22,6 +33,21 @@ export default function ZestNav() {
     setMounted(true);
     const isDarkMode = document.documentElement.classList.contains('dark');
     setIsDark(isDarkMode);
+
+    const initialSwitch = (document.documentElement.dataset.switchTheme ||
+      localStorage.getItem('switchProfile') ||
+      'thock') as 'thock' | 'tactile' | 'clicky';
+    setSwitchProfile(initialSwitch);
+
+    const onSwitchChange = (e: CustomEvent<{ profile: 'thock' | 'tactile' | 'clicky' }>) => {
+      if (e.detail?.profile) {
+        setSwitchProfile(e.detail.profile);
+      }
+    };
+    window.addEventListener('switch-profile-change' as any, onSwitchChange);
+    return () => {
+      window.removeEventListener('switch-profile-change' as any, onSwitchChange);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -37,6 +63,23 @@ export default function ZestNav() {
       localStorage.setItem('theme', 'light');
     }
   };
+
+  const cycleSwitchProfile = () => {
+    const currentIdx = SWITCH_PROFILES.findIndex((p) => p.id === switchProfile);
+    const nextProfile = SWITCH_PROFILES[(currentIdx + 1) % SWITCH_PROFILES.length];
+    setSwitchProfile(nextProfile.id);
+    document.documentElement.dataset.switchTheme = nextProfile.id;
+    try {
+      localStorage.setItem('switchProfile', nextProfile.id);
+      window.dispatchEvent(
+        new CustomEvent('switch-profile-change', {
+          detail: { profile: nextProfile.id, name: nextProfile.name },
+        })
+      );
+    } catch {}
+  };
+
+  const currentSwitch = SWITCH_PROFILES.find((p) => p.id === switchProfile) || SWITCH_PROFILES[0];
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 apple-glass transition-colors duration-200">
@@ -120,6 +163,23 @@ export default function ZestNav() {
             </svg>
             <span>GitHub</span>
           </a>
+
+          {/* Keypad Switch Theme Toggle */}
+          {mounted && (
+            <button
+              type="button"
+              onClick={cycleSwitchProfile}
+              aria-label={`Keypad switch profile: ${currentSwitch.name}. Click to switch theme.`}
+              title={`Keypad switch profile: ${currentSwitch.name} (Click to switch)`}
+              className="min-h-[36px] px-2.5 sm:px-3 rounded-full text-[12px] font-medium text-apple-secondary hover:text-apple-label bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 transition-colors flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint apple-btn-active border border-black/5 dark:border-white/10"
+            >
+              <span
+                className={`w-2 h-2 rounded-full ${currentSwitch.dotColor} shrink-0 animate-pulse`}
+                aria-hidden="true"
+              />
+              <span className="hidden sm:inline font-mono">{currentSwitch.name}</span>
+            </button>
+          )}
 
           {/* Theme switcher */}
           <button

@@ -1614,6 +1614,13 @@ export default function Macropad3D({
       } catch {
         // Ignore storage errors
       }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(
+          new CustomEvent('switch-profile-change', {
+            detail: { profile: nextSpec.id, name: nextSpec.name },
+          })
+        );
+      }
 
       ledBarMat.color.setHex(nextSpec.ledHex);
       ledBarMat.emissive.setHex(nextSpec.ledHex);

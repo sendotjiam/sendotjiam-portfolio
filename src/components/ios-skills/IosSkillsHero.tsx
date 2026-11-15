@@ -34,8 +34,11 @@ export default function IosSkillsHero() {
         <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px] font-medium bg-black/5 dark:bg-white/10 text-apple-secondary border border-black/10 dark:border-white/10">
           Swift 6.0+
         </span>
-        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[12px] font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-          100% Eval Pass Rate
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12px] font-medium bg-apple-tint/10 text-apple-tint border border-apple-tint/20">
+          <svg aria-hidden="true" className="w-3.5 h-3.5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span>100% Eval Pass Rate</span>
         </span>
       </div>
 
@@ -143,7 +146,7 @@ export default function IosSkillsHero() {
               <div className="p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5">
                 <span className="text-[11px] font-medium text-apple-tertiary block">Execution Speed</span>
                 <span className="text-[19px] font-extrabold text-apple-label tracking-tight font-mono">&lt; 25 ms</span>
-                <span className="text-[10px] text-emerald-600 dark:text-emerald-400 block mt-0.5">AST regex parser</span>
+                <span className="text-[10px] text-apple-secondary block mt-0.5">AST regex parser</span>
               </div>
               <div className="p-3 rounded-xl bg-black/[0.03] dark:bg-white/[0.05] border border-black/5 dark:border-white/5">
                 <span className="text-[11px] font-medium text-apple-tertiary block">MetricKit Hang Budget</span>

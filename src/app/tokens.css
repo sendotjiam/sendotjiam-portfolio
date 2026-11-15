@@ -100,26 +100,70 @@
 }
 
 /* Switch-Profile Page Accent Themes (Synced with SENDO-06 Rotary Knob & Switch Button) */
+html[data-switch-theme="thock"],
+:root:not([data-switch-theme]) {
+  --shuiro: #d9381e;
+  --shuiro-soft: rgba(217, 56, 30, 0.09);
+  --shuiro-border: rgba(217, 56, 30, 0.25);
+  --tint: #d9381e;
+  --tint-hover: #b82e17;
+  --tint-active: #9e2411;
+  --tint-soft: rgba(217, 56, 30, 0.09);
+  --tint-border: rgba(217, 56, 30, 0.25);
+}
+
+html.dark[data-switch-theme="thock"],
+.dark:not([data-switch-theme]) {
+  --shuiro: #ff5a36;
+  --shuiro-soft: rgba(255, 90, 54, 0.14);
+  --shuiro-border: rgba(255, 90, 54, 0.32);
+  --tint: #ff5a36;
+  --tint-hover: #ff7252;
+  --tint-active: #e6421e;
+  --tint-soft: rgba(255, 90, 54, 0.14);
+  --tint-border: rgba(255, 90, 54, 0.32);
+}
+
 html[data-switch-theme="tactile"] {
   --shuiro: #0066cc;
   --shuiro-soft: rgba(0, 102, 204, 0.09);
   --shuiro-border: rgba(0, 102, 204, 0.25);
+  --tint: #0066cc;
+  --tint-hover: #005bb5;
+  --tint-active: #004e9e;
+  --tint-soft: rgba(0, 102, 204, 0.08);
+  --tint-border: rgba(0, 102, 204, 0.2);
 }
 
 html.dark[data-switch-theme="tactile"] {
   --shuiro: #3b9eff;
   --shuiro-soft: rgba(59, 158, 255, 0.14);
   --shuiro-border: rgba(59, 158, 255, 0.32);
+  --tint: #3b9eff;
+  --tint-hover: #56adff;
+  --tint-active: #1f8fff;
+  --tint-soft: rgba(59, 158, 255, 0.12);
+  --tint-border: rgba(59, 158, 255, 0.26);
 }
 
 html[data-switch-theme="clicky"] {
   --shuiro: #0d9488;
   --shuiro-soft: rgba(13, 148, 136, 0.09);
   --shuiro-border: rgba(13, 148, 136, 0.25);
+  --tint: #0d9488;
+  --tint-hover: #0f766e;
+  --tint-active: #115e59;
+  --tint-soft: rgba(13, 148, 136, 0.09);
+  --tint-border: rgba(13, 148, 136, 0.25);
 }
 
 html.dark[data-switch-theme="clicky"] {
   --shuiro: #2dd4bf;
   --shuiro-soft: rgba(45, 212, 191, 0.14);
   --shuiro-border: rgba(45, 212, 191, 0.32);
+  --tint: #2dd4bf;
+  --tint-hover: #5eead4;
+  --tint-active: #14b8a6;
+  --tint-soft: rgba(45, 212, 191, 0.14);
+  --tint-border: rgba(45, 212, 191, 0.32);
 }

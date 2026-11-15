@@ -52,6 +52,8 @@ export default function RootLayout({
                 const savedSwitch = localStorage.getItem('switchProfile');
                 if (savedSwitch === 'thock' || savedSwitch === 'tactile' || savedSwitch === 'clicky') {
                   document.documentElement.dataset.switchTheme = savedSwitch;
+                } else {
+                  document.documentElement.dataset.switchTheme = 'thock';
                 }
               } catch (_) {}
             })();`,
