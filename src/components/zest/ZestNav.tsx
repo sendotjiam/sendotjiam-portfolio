@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const NAV_LINKS = [
+  { label: 'Demo', href: '#demo' },
   { label: 'Simulator', href: '#simulator' },
   { label: 'Why Zest', href: '#why' },
   { label: 'Features', href: '#features' },

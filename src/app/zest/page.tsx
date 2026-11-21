@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import ZestNav from '@/components/zest/ZestNav';
 import ZestHero from '@/components/zest/ZestHero';
+import ZestPromoVideo from '@/components/zest/ZestPromoVideo';
 import ZestSimulator from '@/components/zest/ZestSimulator';
 import ZestComparison from '@/components/zest/ZestComparison';
 import ZestFeatures from '@/components/zest/ZestFeatures';
@@ -44,6 +45,7 @@ export default function ZestPage() {
       <ZestNav />
       <main id="main-content" className="w-full max-w-5xl mx-auto px-5 sm:px-8 flex-1">
         <ZestHero />
+        <ZestPromoVideo />
         <ZestSimulator />
         <ZestComparison />
         <ZestFeatures />
