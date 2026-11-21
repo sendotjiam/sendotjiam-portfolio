@@ -1,104 +1,111 @@
-import { skillCategories } from '@/data/skills';
-
-const getCategoryIcon = (iconName: string) => {
-  switch (iconName) {
-    case 'code':
-      return (
-        <svg aria-hidden="true" className="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-          <polyline points="16 18 22 12 16 6" />
-          <polyline points="8 6 2 12 8 18" />
-        </svg>
-      );
-    case 'layers':
-      return (
-        <svg aria-hidden="true" className="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-          <polygon points="12 2 2 7 12 12 22 7 12 2" />
-          <polyline points="2 17 12 22 22 17" />
-          <polyline points="2 12 12 17 22 12" />
-        </svg>
-      );
-    case 'architecture':
-      return (
-        <svg aria-hidden="true" className="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-          <rect width="8" height="8" x="3" y="3" rx="2" />
-          <path d="M7 11v4a2 2 0 0 0 2 2h4" />
-          <rect width="8" height="8" x="13" y="13" rx="2" />
-        </svg>
-      );
-    case 'construction':
-      return (
-        <svg aria-hidden="true" className="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-        </svg>
-      );
-    case 'smart_toy':
-    default:
-      return (
-        <svg aria-hidden="true" className="w-5 h-5 stroke-current stroke-2 fill-none" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-        </svg>
-      );
-  }
-};
+import { skillDomains } from '@/data/skills';
 
 export default function Skills() {
   return (
-    <section id="skills" className="min-h-[100dvh] w-full py-16 flex flex-col justify-center border-t border-[var(--separator)] scroll-mt-16">
+    <section
+      id="skills"
+      className="min-h-[100dvh] w-full py-16 flex flex-col justify-center border-t border-[var(--separator)] scroll-mt-16"
+    >
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
         <div>
-          <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
-            <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">04</span>
-            <span>Capabilities</span>
+          <h2 className="text-[13px] font-semibold text-apple-secondary">
+            Capabilities
           </h2>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
-            Technical Expertise
+            Systems Architecture &amp; Engineering
           </h3>
         </div>
         <span className="text-[13px] font-medium text-apple-secondary">
-          iOS Systems &amp; Concurrency
+          iOS Systems &amp; Applied AI
         </span>
       </div>
 
-      {/* Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
-        {skillCategories.map((cat, idx) => {
-          const isFullWidth = idx === 4; // AI Engineering card spans across both columns nicely
-          return (
-            <div
-              key={cat.title}
-              className={`apple-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between gap-3.5 ${
-                isFullWidth ? 'md:col-span-2' : ''
-              }`}
-            >
-              <div>
-                <div className="flex items-center gap-2.5 mb-2 text-[var(--teal)]">
-                  <span className="w-8 h-8 rounded-lg bg-[var(--teal-soft)] border border-[var(--teal-border)] flex items-center justify-center shrink-0">
-                    {getCategoryIcon(cat.icon)}
-                  </span>
-                  <h4 className="text-[17px] font-bold text-apple-label">
-                    {cat.title}
-                  </h4>
+      {/* Systems Architecture Matrix (Xcode-inspired Inspector Layout) */}
+      <div className="w-full rounded-2xl border border-[var(--separator)] bg-apple-card shadow-apple-sm overflow-hidden divide-y divide-[var(--separator)]">
+        {/* Matrix Header Bar */}
+        <div className="px-5 py-3 bg-black/[0.02] dark:bg-white/[0.02] flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-apple-secondary">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[var(--teal)]" aria-hidden="true" />
+            <span className="font-semibold text-apple-label">SUBSYSTEM_INSPECTOR</span>
+            <span className="text-apple-tertiary">/</span>
+            <span>5 SPECIALIZED DOMAINS</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span>TARGET: iOS 16–18+</span>
+            <span className="text-apple-tertiary">·</span>
+            <span>PARADIGM: SWIFT 6 DATA RACE SAFETY</span>
+          </div>
+        </div>
+
+        {/* Domain Rows */}
+        <div className="divide-y divide-[var(--separator)]">
+          {skillDomains.map((domain, index) => {
+            const isHighlighted = domain.id === 'runtime';
+            return (
+              <div
+                key={domain.id}
+                className={`p-5 sm:p-6 transition-colors duration-150 ${
+                  isHighlighted ? 'bg-[var(--teal-soft)]/20' : 'hover:bg-black/[0.015] dark:hover:bg-white/[0.015]'
+                }`}
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                  {/* Left Column: Domain Tag, Title & Description (7 cols) */}
+                  <div className="lg:col-span-7 flex flex-col gap-2">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-[11px] font-mono font-semibold tracking-wider text-[var(--shuiro)]">
+                        {domain.tag}
+                      </span>
+                      <span className="text-apple-tertiary text-[11px]">•</span>
+                      <span className="text-[12px] font-medium text-apple-secondary">
+                        {domain.subtitle}
+                      </span>
+                    </div>
+
+                    <h4 className="text-[18px] sm:text-[19px] font-bold text-apple-label tracking-tight">
+                      {domain.title}
+                    </h4>
+
+                    <p className="text-[13.5px] sm:text-[14px] text-apple-secondary leading-relaxed">
+                      {domain.description}
+                    </p>
+
+                    {/* Production Focus Line */}
+                    <div className="mt-1 flex items-center gap-2 text-[12px] text-apple-secondary">
+                      <span className="font-semibold text-apple-label">Focus:</span>
+                      <span className="font-mono text-[11.5px] text-[var(--teal)]">
+                        {domain.productionFocus}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right Column: Core Competency Pills (5 cols) */}
+                  <div className="lg:col-span-5 flex flex-wrap gap-1.5 pt-1 lg:pt-0 lg:justify-end">
+                    {domain.coreCompetencies.map((skill) => (
+                      <span
+                        key={skill}
+                        className="px-2.5 py-1 rounded-md text-[12px] font-medium bg-black/[0.03] dark:bg-white/[0.05] border border-[var(--separator)] text-apple-label transition-colors hover:border-[var(--teal-border)]"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-
-                <p className="text-[14px] text-apple-secondary leading-relaxed">
-                  {cat.description}
-                </p>
               </div>
+            );
+          })}
+        </div>
 
-              <div className="flex flex-wrap gap-2 pt-2 border-t border-[var(--separator)]">
-                {cat.skills.map((s) => (
-                  <span
-                    key={s}
-                    className="px-3 py-1 rounded-lg bg-black/[0.03] dark:bg-white/[0.05] text-[13px] font-medium text-apple-label"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-          );
-        })}
+        {/* Matrix Footer / Summary Dateline */}
+        <div className="px-5 py-3.5 bg-black/[0.02] dark:bg-white/[0.02] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[12px] text-apple-secondary">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-apple-label">Architecture Core:</span>
+            <span>Modular SPM, TCA &amp; Clean Architecture with zero external runtime bloat</span>
+          </div>
+          <span className="font-mono text-[11px] text-apple-tertiary">
+            AUDITED: STRICT TYPING &amp; A11Y AA
+          </span>
+        </div>
       </div>
     </section>
   );

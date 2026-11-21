@@ -130,20 +130,19 @@ export default function Projects() {
 
   return (
     <section id="projects" className="min-h-[100dvh] w-full py-16 flex flex-col justify-center border-t border-[var(--separator)] scroll-mt-16">
-      {/* Section Header with Intro */}
-      <div className="mb-6">
-        <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
-          <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">03</span>
-          <span>Selected Work</span>
-        </h2>
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mt-1">
-          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label text-balance">
-            Featured Projects & Products
+      {/* Section Header */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
+        <div>
+          <h2 className="text-[13px] font-semibold text-apple-secondary">
+            Selected Work
+          </h2>
+          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
+            Featured Projects &amp; Products
           </h3>
-          <p className="text-[14px] text-apple-secondary">
-            Enterprise scale for millions & autonomous 0-to-1 developer tools.
-          </p>
         </div>
+        <span className="text-[13px] font-medium text-apple-secondary">
+          Enterprise Systems &amp; Applied AI Tools
+        </span>
       </div>
 
       {/* Track Category Filter Pills (Company Systems vs Indie Studio) */}
@@ -345,7 +344,7 @@ export default function Projects() {
 
                       {proj.detailUrl ? (
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
-                          <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-apple-tint" aria-hidden="true" />
                           <span>Interactive Showcase</span>
                         </span>
                       ) : proj.badge ? (
@@ -481,7 +480,7 @@ export default function Projects() {
 
                     {proj.detailUrl ? (
                       <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-apple-tint/10 text-apple-tint border border-apple-tint/25">
-                        <span className="w-1.5 h-1.5 rounded-full bg-apple-tint animate-pulse" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-apple-tint" aria-hidden="true" />
                         <span>Interactive Showcase</span>
                       </span>
                     ) : proj.badge ? (

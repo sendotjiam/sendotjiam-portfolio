@@ -156,7 +156,7 @@ export default function Navbar() {
             aria-expanded={projectsModalOpen}
             className="inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full text-[12px] sm:text-[13px] font-semibold text-apple-label bg-black/[0.04] dark:bg-white/[0.08] hover:bg-black/[0.08] dark:hover:bg-white/[0.14] border border-[var(--separator)] transition-colors apple-btn-active focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint min-h-[36px]"
           >
-            <span className="w-2 h-2 rounded-full bg-[var(--teal)] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
+            <span className="w-2 h-2 rounded-full bg-[var(--teal)] shrink-0" aria-hidden="true" />
             <span className="sm:hidden">Projects</span>
             <span className="hidden sm:inline">My Recent Projects</span>
             <span className="hidden md:inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 text-apple-tertiary border border-black/5 dark:border-white/10">
@@ -237,7 +237,7 @@ export default function Navbar() {
               className="flex items-center justify-between min-h-[44px] px-3.5 mb-2 rounded-xl text-[15px] font-semibold text-apple-label bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)] hover:bg-black/[0.08] dark:hover:bg-white/[0.14] transition-colors"
             >
               <span className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[var(--teal)] animate-pulse motion-reduce:animate-none" aria-hidden="true" />
+                <span className="w-2 h-2 rounded-full bg-[var(--teal)] shrink-0" aria-hidden="true" />
                 <span>My Recent Projects</span>
               </span>
               <span className="text-[12px] text-apple-tertiary font-mono">4 Apps ▾</span>

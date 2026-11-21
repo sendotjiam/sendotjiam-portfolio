@@ -113,7 +113,7 @@ export default function RecentProjectsModal({ isOpen, onClose }: RecentProjectsM
             type="button"
             onClick={onClose}
             aria-label="Close dialog (Escape)"
-            className="min-w-[40px] min-h-[40px] flex items-center justify-center rounded-full text-apple-secondary hover:text-apple-label hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+            className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full text-apple-secondary hover:text-apple-label hover:bg-black/5 dark:hover:bg-white/10 active:scale-95 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
           >
             <span className="hidden sm:inline-flex text-[10px] font-mono font-medium text-apple-tertiary mr-1.5 px-1.5 py-0.5 rounded border border-[var(--separator)]">
               ESC
@@ -187,7 +187,8 @@ export default function RecentProjectsModal({ isOpen, onClose }: RecentProjectsM
                           }}
                         >
                           <span
-                            className="w-1.5 h-1.5 rounded-full animate-pulse"
+                            aria-hidden="true"
+                            className="w-1.5 h-1.5 rounded-full"
                             style={{ backgroundColor: accentColor }}
                           />
                           <span>Showcase</span>

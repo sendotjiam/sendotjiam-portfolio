@@ -165,11 +165,10 @@ export default function Experience() {
       className="min-h-[100dvh] w-full py-16 flex flex-col justify-center border-t border-[var(--separator)] scroll-mt-16"
     >
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
         <div>
-          <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
-            <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">02</span>
-            <span>Career</span>
+          <h2 className="text-[13px] font-semibold text-apple-secondary">
+            Career
           </h2>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
             Experience

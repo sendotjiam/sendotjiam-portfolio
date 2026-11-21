@@ -268,11 +268,13 @@ export default function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
         {/* Left Column: Portrait Lockup, Status, Bio, CTAs (6 cols) */}
         <div className="lg:col-span-6 flex flex-col items-start gap-5">
-          {/* Availability Pill (Mineral Teal Harmonious Accent) */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--teal-soft)] border border-[var(--teal-border)]">
-            <span className="w-2 h-2 rounded-full bg-[var(--teal)]" aria-hidden="true" />
-            <span className="text-[12px] font-medium text-apple-label">
-              Building iOS at <strong className="font-semibold text-[var(--teal)]">Grab</strong>, open to remote worldwide
+          {/* Engineering Dateline & Current Role */}
+          <div className="flex items-center gap-2 text-[12.5px] text-apple-secondary">
+            <span className="w-2 h-2 rounded-full bg-[var(--teal)] shrink-0" aria-hidden="true" />
+            <span>
+              Building iOS &amp; AI Applications at <strong className="font-semibold text-apple-label">Grab</strong>
+              <span className="text-apple-tertiary mx-1.5">/</span>
+              <span>Open to remote worldwide</span>
             </span>
           </div>
 
@@ -301,14 +303,14 @@ export default function Hero() {
                 Sendo Tjiamis
               </h1>
               <p className="text-[17px] sm:text-xl text-[var(--tint)] font-semibold tracking-tight text-balance">
-                iOS Engineer building apps used by millions.
+                iOS &amp; AI Application Engineer building systems used by millions.
               </p>
             </div>
           </div>
 
           {/* Biography */}
           <p className="text-[15px] sm:text-[16px] text-apple-secondary leading-relaxed font-normal">
-            iOS Engineer with 3+ years crafting high-performance mobile architectures across Southeast Asia. Specializing in Swift, SwiftUI, and programmatic UIKit at scale. Currently engineering critical driver and passenger experiences at{' '}
+            iOS &amp; AI Application Engineer with 3+ years crafting high-performance mobile architectures and applied AI developer tooling across Southeast Asia. Specializing in Swift, agentic AI harnesses, and programmatic UIKit at scale. Currently engineering critical driver experiences at{' '}
             <strong className="font-semibold text-apple-label">Grab</strong>, previously at{' '}
             <strong className="font-semibold text-apple-label">ByteDance (TikTok)</strong> and{' '}
             <strong className="font-semibold text-apple-label">Tokopedia</strong>.

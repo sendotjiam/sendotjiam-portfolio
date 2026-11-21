@@ -123,10 +123,10 @@ export default function IosSkillsHero() {
 
         {/* Right Column: Hero Visual Feature Box */}
         <div className="lg:col-span-5 min-w-0">
-          <div className="apple-card p-5 sm:p-6 rounded-2xl relative overflow-hidden border border-black/10 dark:border-white/10 shadow-apple-md">
+          <div className="apple-card p-5 sm:p-6 rounded-2xl relative overflow-hidden shadow-apple-md">
             {/* Top Bar with Icon and Stats */}
             <div className="flex items-center gap-3.5 mb-5">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl overflow-hidden border border-[var(--separator)] shrink-0 shadow-apple-sm">
                 <Image
                   src="/assets/project-logo/ios-agent-skills-logo.svg"
                   alt="iOS Agent Skills Retina Icon"
