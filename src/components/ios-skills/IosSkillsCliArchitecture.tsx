@@ -113,7 +113,7 @@ cancellable = publisher.assign(to: \\.value, on: self)
       </div>
 
       {/* Code Block Container */}
-      <div className="apple-card rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 shadow-apple-md">
+      <div className="apple-card rounded-2xl overflow-hidden shadow-apple-md">
         <div className="h-11 bg-black/5 dark:bg-white/5 border-b border-[var(--separator)] px-3.5 sm:px-4 flex items-center justify-between gap-2">
           <span className="text-[12px] font-mono text-apple-tertiary truncate mr-2">
             {activeTab === 'cli' && 'Terminal Bash Script'}

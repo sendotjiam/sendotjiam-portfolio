@@ -55,7 +55,7 @@ export default function ZestHero() {
           {/* Description */}
           <p className="text-[15px] sm:text-[16px] text-apple-secondary leading-relaxed font-normal">
             Stop wrestling with 3-step search dialogs. Press{' '}
-            <kbd className="px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 text-apple-label font-mono text-[13px] border border-black/10 dark:border-white/10">
+            <kbd className="px-1.5 py-0.5 rounded bg-black/5 dark:bg-white/10 text-apple-label font-mono text-[13px] border border-[var(--separator)]">
               ⌘⇧V
             </kbd>
             , tap a single digit (<kbd className="px-1 py-0.5 rounded bg-black/5 dark:bg-white/10 font-mono text-[13px]">1-9</kbd>), and your snippet pastes instantly into your code without stealing active editor focus.

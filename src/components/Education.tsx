@@ -7,9 +7,8 @@ export default function Education() {
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
         <div>
-          <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
-            <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">06</span>
-            <span>Background</span>
+          <h2 className="text-[13px] font-semibold text-apple-secondary">
+            Background
           </h2>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
             Education &amp; Fellowships

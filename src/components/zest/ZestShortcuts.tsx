@@ -100,7 +100,7 @@ export default function ZestShortcuts() {
                   {s.keys.map((k) => (
                     <kbd
                       key={k}
-                      className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/10 text-apple-label font-mono text-[12px] font-semibold border border-black/10 dark:border-white/10 shadow-apple-sm"
+                      className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/10 text-apple-label font-mono text-[12px] font-semibold border border-[var(--separator)] shadow-apple-sm"
                     >
                       {k}
                     </kbd>
@@ -136,7 +136,7 @@ export default function ZestShortcuts() {
                         {s.keys.map((k) => (
                           <kbd
                             key={k}
-                            className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/10 text-apple-label font-mono text-[12px] font-semibold border border-black/10 dark:border-white/10 shadow-apple-sm"
+                            className="px-2 py-0.5 rounded-md bg-black/5 dark:bg-white/10 text-apple-label font-mono text-[12px] font-semibold border border-[var(--separator)] shadow-apple-sm"
                           >
                             {k}
                           </kbd>

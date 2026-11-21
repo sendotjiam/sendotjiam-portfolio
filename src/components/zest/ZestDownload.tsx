@@ -151,7 +151,7 @@ export default function ZestDownload() {
             href="https://github.com/sendotjiam/zest/blob/main/PRIVACY.md"
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 px-4 py-2 rounded-xl text-apple-secondary hover:text-apple-label bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 font-medium text-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+            className="shrink-0 px-4 py-2 rounded-xl text-apple-secondary hover:text-apple-label bg-black/5 dark:bg-white/5 border border-[var(--separator)] font-medium text-[12px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
           >
             Read Privacy Policy (Zero Telemetry)
           </a>

@@ -103,14 +103,14 @@ export default function ZestNav() {
             >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            <span className="hidden sm:inline">Portfolio</span>
+            <span className="hidden sm:inline whitespace-nowrap">Portfolio</span>
           </Link>
 
           <span className="text-apple-tertiary select-none" aria-hidden="true">/</span>
 
           <a
             href="#top"
-            className="flex items-center gap-2 group py-1 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-full apple-btn-active"
+            className="flex items-center gap-2 group py-1 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint rounded-full apple-btn-active shrink-0"
           >
             <div className="w-7 h-7 rounded-[22%] overflow-hidden bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 shrink-0 shadow-apple-sm relative transition-transform duration-200 group-hover:scale-105">
               <Image
@@ -122,9 +122,9 @@ export default function ZestNav() {
                 priority
               />
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold text-[15px] tracking-tight text-apple-label">Zest</span>
-              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-apple-tertiary border border-black/5 dark:border-white/10">v1.2</span>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <span className="font-bold text-[15px] tracking-tight text-apple-label whitespace-nowrap">Zest</span>
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-black/5 dark:bg-white/10 text-apple-tertiary border border-black/5 dark:border-white/10 shrink-0">v1.2</span>
             </div>
           </a>
         </div>
@@ -138,7 +138,7 @@ export default function ZestNav() {
             <a
               key={link.href}
               href={link.href}
-              className="px-3 py-1 rounded-full text-[13px] font-medium text-apple-secondary hover:text-apple-label transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+              className="px-3 py-1 rounded-full text-[13px] font-medium text-apple-secondary hover:text-apple-label transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint whitespace-nowrap"
             >
               {link.label}
             </a>
@@ -151,7 +151,7 @@ export default function ZestNav() {
             href="https://github.com/sendotjiam/zest"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-apple-label border border-black/10 dark:border-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint shadow-apple-sm apple-btn-active min-h-[36px]"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-apple-label border border-[var(--separator)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint shadow-apple-sm apple-btn-active min-h-[36px]"
           >
             <svg
               aria-hidden="true"

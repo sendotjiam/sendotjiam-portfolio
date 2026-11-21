@@ -30,10 +30,10 @@ export default function IosSkillsInstall() {
 
   return (
     <section id="install" className="py-12 sm:py-20 border-t border-[var(--separator)]">
-      <div className="apple-card p-5 sm:p-10 rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/10 shadow-apple-md text-center max-w-4xl mx-auto relative overflow-hidden">
+      <div className="apple-card p-5 sm:p-10 rounded-2xl sm:rounded-3xl shadow-apple-md text-center max-w-4xl mx-auto relative overflow-hidden">
         <div className="relative z-10 max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-apple-label mb-4">
-            Get started in seconds
+            Installation &amp; Xcode CI Integration
           </h2>
           <p className="text-[15px] sm:text-[16px] text-apple-secondary leading-relaxed mb-8">
             Install the 10 skills across your favorite AI coding assistants, or integrate the auditor CLI directly into your Xcode build process and GitHub CI.
@@ -44,7 +44,7 @@ export default function IosSkillsInstall() {
             {installSnippets.map((item, idx) => (
               <div
                 key={idx}
-                className="p-3.5 sm:p-4 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-black/10 dark:border-white/10 min-w-0"
+                className="p-3.5 sm:p-4 rounded-xl bg-black/[0.03] dark:bg-white/[0.04] border border-[var(--separator)] min-w-0"
               >
                 <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 mb-2">
                   <span className="text-[12px] font-bold text-apple-label break-words">{item.label}</span>

@@ -9,9 +9,8 @@ export default function Languages() {
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-8">
         <div>
-          <h2 className="text-[14px] font-semibold text-apple-secondary flex items-center gap-1.5">
-            <span className="font-mono text-[12px] font-bold text-[var(--shuiro)]">05</span>
-            <span>Languages &amp; Code</span>
+          <h2 className="text-[13px] font-semibold text-apple-secondary">
+            Languages &amp; Code
           </h2>
           <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-apple-label mt-1 text-balance">
             Linguistic &amp; Technical Fluency
@@ -27,20 +26,18 @@ export default function Languages() {
         {/* Left Bento: Spoken Languages (5 cols on lg) */}
         <div className="lg:col-span-5 apple-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2.5 mb-2 text-[var(--teal)]">
-              <span className="w-8 h-8 rounded-lg bg-[var(--teal-soft)] border border-[var(--teal-border)] flex items-center justify-center shrink-0">
-                <svg
-                  aria-hidden="true"
-                  className="w-4 h-4 stroke-current stroke-2 fill-none"
-                  viewBox="0 0 24 24"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-                  <path d="M2 12h20" />
-                </svg>
-              </span>
+            <div className="flex items-center gap-2 mb-2 text-[var(--teal)]">
+              <svg
+                aria-hidden="true"
+                className="w-4 h-4 stroke-current stroke-2 fill-none"
+                viewBox="0 0 24 24"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                <path d="M2 12h20" />
+              </svg>
               <h4 className="text-[17px] font-bold text-apple-label">
                 Spoken Languages
               </h4>
@@ -75,7 +72,7 @@ export default function Languages() {
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[var(--shuiro-soft)] text-[var(--shuiro)] border border-[var(--shuiro-border)] shrink-0">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--shuiro)] motion-safe:animate-pulse" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--shuiro)]" />
                       {lang.proficiency}
                     </span>
                   )}
@@ -99,19 +96,17 @@ export default function Languages() {
         {/* Right Bento: Programming Languages (7 cols on lg) */}
         <div className="lg:col-span-7 apple-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between gap-6">
           <div>
-            <div className="flex items-center gap-2.5 mb-2 text-[var(--tint)]">
-              <span className="w-8 h-8 rounded-lg bg-[var(--tint-soft)] border border-[var(--tint-border)] flex items-center justify-center shrink-0">
-                <svg
-                  aria-hidden="true"
-                  className="w-4 h-4 stroke-current stroke-2 fill-none"
-                  viewBox="0 0 24 24"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="16 18 22 12 16 6" />
-                  <polyline points="8 6 2 12 8 18" />
-                </svg>
-              </span>
+            <div className="flex items-center gap-2 mb-2 text-[var(--tint)]">
+              <svg
+                aria-hidden="true"
+                className="w-4 h-4 stroke-current stroke-2 fill-none"
+                viewBox="0 0 24 24"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
               <h4 className="text-[17px] font-bold text-apple-label">
                 Programming Languages
               </h4>

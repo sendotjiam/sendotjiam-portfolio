@@ -420,7 +420,7 @@ export default function IosAuditSimulator() {
       </div>
 
       {/* Main Terminal Card */}
-      <div className="apple-card rounded-2xl overflow-hidden border border-black/10 dark:border-white/15 shadow-apple-md">
+      <div className="apple-card rounded-2xl overflow-hidden shadow-apple-md">
         {/* Terminal Window Header Chrome */}
         <div className="bg-black/5 dark:bg-white/5 border-b border-[var(--separator)] px-3.5 sm:px-4 py-2.5 sm:py-0 sm:h-12 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
           {/* Top Row on mobile: Traffic Lights + Filename + Scan Button */}

@@ -242,7 +242,7 @@ export default function IosSkillsGrid() {
           return (
             <div
               key={skill.id}
-              className="apple-card p-5 sm:p-6 rounded-2xl flex flex-col justify-between border border-black/10 dark:border-white/10 transition-[box-shadow,border-color] duration-200 hover:shadow-apple-md"
+              className="apple-card p-5 sm:p-6 rounded-2xl flex flex-col justify-between"
             >
               <div>
                 {/* Top Header: Category, Badge & Skill Name */}
@@ -316,7 +316,7 @@ export default function IosSkillsGrid() {
       </div>
 
       {/* Engineering Advisory & Community Contribution Notice */}
-      <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-black/10 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[13px]">
+      <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-black/[0.02] dark:bg-white/[0.03] border border-[var(--separator)] flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[13px]">
         <div className="flex items-start gap-3.5">
           <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0 mt-0.5">
             <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
