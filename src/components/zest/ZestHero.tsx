@@ -126,23 +126,33 @@ export default function ZestHero() {
               <span aria-hidden="true" className="inline-block w-2 h-4 bg-apple-tint animate-pulse ml-0.5 align-middle" />
             </div>
 
-            {/* Micro HUD Snapshot Block (Single containment layer) */}
-            <div className="rounded-xl bg-apple-card text-apple-label p-3.5 border border-[var(--separator)] shadow-apple-sm flex flex-col gap-2 font-sans">
-              <div className="flex items-center justify-between text-[11px] text-apple-tertiary pb-2 border-b border-[var(--separator)]">
+            {/* Micro HUD Snapshot Block (Warm Citrus Glass & Telemetry) */}
+            <div className="relative overflow-hidden rounded-xl bg-apple-card text-apple-label p-3.5 border border-[#ff8a00]/35 shadow-apple-sm flex flex-col gap-2 font-sans">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 w-56 h-20 rounded-full bg-[#ff8a00]/15 blur-xl"
+              />
+              <div className="relative flex items-center justify-between text-[11px] text-apple-tertiary pb-2 border-b border-[var(--separator)]">
                 <span className="font-semibold text-apple-label text-[12px]">Zest Floating HUD</span>
-                <span className="font-mono text-[10px] text-[var(--shuiro)] font-semibold px-2 py-0.5 rounded bg-[var(--shuiro-soft)] border border-[var(--shuiro-border)]">⌘⇧V Active</span>
+                <span className="inline-flex items-center gap-1 font-mono text-[9.5px] text-white font-bold px-2 py-0.5 rounded-md bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] shadow-apple-sm">
+                  ⚡ ZEST • ⌘⇧V
+                </span>
               </div>
-              <div className="flex items-center justify-between gap-2 text-[12px] h-[34px] px-2 rounded-lg bg-black/[0.04] dark:bg-white/[0.08] border border-[var(--separator)]">
-                <div className="flex items-center gap-2 overflow-hidden">
+              <div className="relative flex items-center justify-between gap-2 text-[12px] h-[34px] px-2.5 rounded-lg bg-gradient-to-r from-[#ff6b00]/[0.14] to-[#f59e0b]/[0.05] border border-[#ff6b00]/40">
+                <span
+                  aria-hidden="true"
+                  className="absolute left-0.5 top-1.5 bottom-1.5 w-[2.5px] rounded-full bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)]"
+                />
+                <div className="flex items-center gap-2 overflow-hidden pl-1">
                   <span className="w-[18px] h-[18px] rounded-[4px] bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] text-white font-bold text-[11px] flex items-center justify-center shrink-0 font-mono border border-white/40 shadow-apple-sm">
                     1
                   </span>
-                  <span className="font-sans font-bold text-[9px] px-1 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 shrink-0">
+                  <span className="font-sans font-bold text-[9px] px-1 py-0.5 rounded bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-500/30 shrink-0">
                     JSON
                   </span>
                   <span className="truncate text-apple-label font-mono text-[11px]">{'{ "status": 200, "user": "sendo" }'}</span>
                 </div>
-                <span className="text-[10.5px] text-amber-600 dark:text-amber-400 font-semibold shrink-0">Tap 1 to Paste ↵</span>
+                <span className="text-[10.5px] text-[#ea580c] dark:text-[#ff7a18] font-semibold shrink-0">Tap 1 to Paste ↵</span>
               </div>
             </div>
           </div>

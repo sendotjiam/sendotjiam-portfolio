@@ -38,8 +38,11 @@
   /* Zest Liquid Glass HUD Tokens */
   --zest-hud: #1a1a1f;
   --zest-guide: #1c1c22;
-  --zest-amber-from: #faaa1a;
-  --zest-amber-to: #e68000;
+  --zest-amber-from: #ff7a18;
+  --zest-amber-to: #ea580c;
+  --zest-tang: #ff6b00;
+  --zest-glow: #ff8a00;
+  --zest-amber: #f59e0b;
 
   /* Terminal & Code Surface Tokens */
   --traffic-red: #ff5f56;
@@ -88,8 +91,11 @@
   /* Zest Liquid Glass HUD Tokens */
   --zest-hud: #1a1a1f;
   --zest-guide: #1c1c22;
-  --zest-amber-from: #faaa1a;
-  --zest-amber-to: #e68000;
+  --zest-amber-from: #ff7a18;
+  --zest-amber-to: #ea580c;
+  --zest-tang: #ff6b00;
+  --zest-glow: #ff8a00;
+  --zest-amber: #f59e0b;
 
   /* Terminal & Code Surface Tokens */
   --traffic-red: #ff5f56;

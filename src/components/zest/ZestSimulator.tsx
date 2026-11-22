@@ -784,22 +784,28 @@ export default function ZestSimulator() {
                 <div
                   className={`relative rounded-[14px] ${
                     isDark ? 'zest-hud-surface-dark' : 'zest-hud-surface-light'
-                  } border shadow-apple-md backdrop-blur-2xl overflow-hidden flex flex-col min-h-[220px] max-h-[410px]`}
+                  } border border-[#ff8a00]/35 shadow-[inset_0_1px_0_rgba(255,169,77,0.28)] shadow-apple-md backdrop-blur-2xl overflow-hidden flex flex-col min-h-[220px] max-h-[410px]`}
                 >
+                  {/* Subtle Top Citrus Ambient Bloom */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2 w-64 h-24 rounded-full bg-[#ff8a00]/[0.16] blur-2xl"
+                  />
+
                   {/* Molded Glass Search Bar */}
-                  <div className="p-2.5 pb-2">
+                  <div className="relative p-2.5 pb-2">
                     <div
-                      className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg border ${
-                        isDark ? 'bg-black/50 border-white/[0.12]' : 'bg-black/[0.05] border-black/10'
+                      className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#ff6b00]/35 focus-within:border-[#ff6b00]/65 focus-within:ring-2 focus-within:ring-[#ff6b00]/15 transition-colors ${
+                        isDark ? 'bg-black/50' : 'bg-black/[0.05]'
                       }`}
                     >
                       <svg
                         aria-hidden="true"
-                        className={`w-3.5 h-3.5 shrink-0 ${isDark ? 'text-neutral-400' : 'text-neutral-500'}`}
+                        className="w-3.5 h-3.5 shrink-0 text-[#ff6b00]"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
-                        strokeWidth="2"
+                        strokeWidth="2.2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       >
@@ -820,7 +826,7 @@ export default function ZestSimulator() {
                             : 'text-neutral-900 placeholder:text-neutral-500'
                         }`}
                       />
-                      {searchQuery && (
+                      {searchQuery ? (
                         <button
                           type="button"
                           onClick={() => setSearchQuery('')}
@@ -833,6 +839,13 @@ export default function ZestSimulator() {
                             <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z" />
                           </svg>
                         </button>
+                      ) : (
+                        <span
+                          aria-hidden="true"
+                          className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-[5px] bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] text-white text-[9px] font-bold tracking-wide shrink-0 font-sans"
+                        >
+                          ⚡ ZEST
+                        </span>
                       )}
                     </div>
                   </div>
@@ -864,10 +877,10 @@ export default function ZestSimulator() {
 
                       {/* Monospace Code Preview Box */}
                       <div
-                        className={`flex-1 max-h-[170px] overflow-y-auto p-2.5 rounded-lg border text-[11px] font-mono leading-relaxed whitespace-pre-wrap select-text ${
+                        className={`flex-1 max-h-[170px] overflow-y-auto p-2.5 rounded-lg border border-[#ff8a00]/25 text-[11px] font-mono leading-relaxed whitespace-pre-wrap select-text ${
                           isDark
-                            ? 'bg-black/60 border-white/[0.10] text-neutral-100'
-                            : 'bg-black/[0.04] border-black/10 text-neutral-900'
+                            ? 'bg-black/60 text-neutral-100'
+                            : 'bg-black/[0.04] text-neutral-900'
                         }`}
                       >
                         {previewItem.rawContent}
@@ -878,7 +891,7 @@ export default function ZestSimulator() {
                         <button
                           type="button"
                           onClick={() => setPreviewItem(null)}
-                          className={`min-h-[36px] px-3 py-1.5 rounded-md text-[11px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                          className={`min-h-[36px] px-3 py-1.5 rounded-md text-[11px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00] ${
                             isDark
                               ? 'text-neutral-300 hover:text-white bg-white/[0.08] hover:bg-white/[0.14]'
                               : 'text-neutral-700 hover:text-neutral-900 bg-black/[0.06] hover:bg-black/[0.10]'
@@ -894,7 +907,7 @@ export default function ZestSimulator() {
                               playThock();
                               setPreviewItem(null);
                             }}
-                            className={`min-h-[36px] px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                            className={`min-h-[36px] px-3 py-1.5 rounded-md text-[11px] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00] ${
                               isDark
                                 ? 'text-neutral-200 bg-white/[0.10] hover:bg-white/[0.16]'
                                 : 'text-neutral-800 bg-black/[0.06] hover:bg-black/[0.10]'
@@ -905,7 +918,7 @@ export default function ZestSimulator() {
                           <button
                             type="button"
                             onClick={() => executePaste(previewItem.rawContent)}
-                            className="min-h-[36px] px-3.5 py-1.5 rounded-md text-[11px] font-semibold text-white bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] border border-white/30 shadow-apple-sm hover:brightness-105 transition-[filter] flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                            className="min-h-[36px] px-3.5 py-1.5 rounded-md text-[11px] font-semibold text-white bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] border border-white/30 shadow-apple-sm hover:brightness-105 transition-[filter] flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00]"
                           >
                             <span>Paste</span>
                             <span className="text-[10px] font-bold">↵</span>
@@ -925,7 +938,7 @@ export default function ZestSimulator() {
                             onClick={() => setSelectedCategory(cat)}
                             className={`min-h-[32px] px-2.5 py-1 rounded-full border transition-colors shrink-0 ${
                               selectedCategory === cat
-                                ? 'bg-apple-tint text-white border-white/40 font-semibold'
+                                ? 'bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] text-white border-white/40 font-semibold'
                                 : isDark
                                 ? 'bg-white/[0.06] text-neutral-300 border-white/[0.10] hover:bg-white/[0.10]'
                                 : 'bg-black/[0.05] text-neutral-700 border-black/10 hover:bg-black/[0.08]'
@@ -951,7 +964,7 @@ export default function ZestSimulator() {
                             }}
                             className={`min-h-[34px] px-3 py-1.5 rounded-md border text-[11px] shrink-0 font-medium transition-colors ${
                               activeTransform?.id === action.id
-                                ? 'bg-apple-tint text-white border-white/40 shadow-apple-sm'
+                                ? 'bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] text-white border-white/40 shadow-apple-sm'
                                 : isDark
                                 ? 'bg-white/[0.08] text-neutral-200 border-white/[0.12] hover:bg-white/[0.14]'
                                 : 'bg-black/[0.05] text-neutral-800 border-black/10 hover:bg-black/[0.08]'
@@ -964,10 +977,10 @@ export default function ZestSimulator() {
 
                       {/* Transformed Preview Box */}
                       <div
-                        className={`flex-1 max-h-[140px] overflow-y-auto p-2.5 rounded-lg border text-[11px] font-mono leading-relaxed whitespace-pre-wrap select-text ${
+                        className={`flex-1 max-h-[140px] overflow-y-auto p-2.5 rounded-lg border border-[#ff8a00]/25 text-[11px] font-mono leading-relaxed whitespace-pre-wrap select-text ${
                           isDark
-                            ? 'bg-black/60 border-white/[0.10] text-neutral-100'
-                            : 'bg-black/[0.04] border-black/10 text-neutral-900'
+                            ? 'bg-black/60 text-neutral-100'
+                            : 'bg-black/[0.04] text-neutral-900'
                         }`}
                       >
                         {transformedPreview ?? transformItem.rawContent}
@@ -1035,11 +1048,7 @@ export default function ZestSimulator() {
                           {/* PINNED SECTION */}
                           {!searchQuery.trim() && pinnedList.length > 0 && (
                             <div className="mb-1">
-                              <div
-                                className={`px-2 pt-1.5 pb-0.5 text-[9px] font-bold font-sans ${
-                                  isDark ? 'text-neutral-400' : 'text-neutral-500'
-                                }`}
-                              >
+                              <div className="px-2 pt-1.5 pb-0.5 text-[9px] font-bold font-sans text-amber-600 dark:text-amber-400">
                                 Pinned
                               </div>
                               <div className="flex flex-col gap-0.5">
@@ -1050,16 +1059,20 @@ export default function ZestSimulator() {
                                       key={clip.id}
                                       onClick={() => executePaste(clip.rawContent)}
                                       onMouseEnter={() => setHighlightedIndex(idx)}
-                                      className={`h-[34px] px-2 rounded-lg flex items-center justify-between gap-2 cursor-pointer transition-colors border select-none ${
+                                      className={`relative h-[34px] px-2 rounded-lg flex items-center justify-between gap-2 cursor-pointer transition-colors border select-none ${
                                         isHighlighted
-                                          ? isDark
-                                            ? 'bg-white/[0.12] border-white/[0.14] shadow-apple-sm'
-                                            : 'bg-black/[0.07] border-black/10 shadow-apple-sm'
+                                          ? 'bg-gradient-to-r from-[#ff6b00]/[0.16] to-[#f59e0b]/[0.06] border-[#ff6b00]/45 shadow-apple-sm'
                                           : isDark
                                           ? 'bg-transparent border-transparent hover:bg-white/[0.06]'
                                           : 'bg-transparent border-transparent hover:bg-black/[0.04]'
                                       }`}
                                     >
+                                      {isHighlighted && (
+                                        <span
+                                          aria-hidden="true"
+                                          className="absolute left-0.5 top-1.5 bottom-1.5 w-[2.5px] rounded-full bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)]"
+                                        />
+                                      )}
                                       {/* Left: Shortcut Bead + Pin Icon + Type Badge + Title */}
                                       <div className="flex items-center gap-1.5 overflow-hidden">
                                         <span
@@ -1141,7 +1154,7 @@ export default function ZestSimulator() {
                                               setActiveTransform(null);
                                               setTransformedPreview(null);
                                             }}
-                                            className="w-5 h-5 rounded flex items-center justify-center text-apple-tint hover:bg-black/10 dark:hover:bg-white/[0.14]"
+                                            className="w-5 h-5 rounded flex items-center justify-center text-[#ff6b00] hover:bg-black/10 dark:hover:bg-white/[0.14]"
                                             title="Transform Deck (Tab)"
                                             aria-label="Transform Deck"
                                           >
@@ -1203,16 +1216,20 @@ export default function ZestSimulator() {
                                     key={clip.id}
                                     onClick={() => executePaste(clip.rawContent)}
                                     onMouseEnter={() => setHighlightedIndex(globalIdx)}
-                                    className={`h-[34px] px-2 rounded-lg flex items-center justify-between gap-2 cursor-pointer transition-colors border select-none ${
+                                    className={`relative h-[34px] px-2 rounded-lg flex items-center justify-between gap-2 cursor-pointer transition-colors border select-none ${
                                       isHighlighted
-                                        ? isDark
-                                          ? 'bg-white/[0.12] border-white/[0.14] shadow-apple-sm'
-                                          : 'bg-black/[0.07] border-black/10 shadow-apple-sm'
+                                        ? 'bg-gradient-to-r from-[#ff6b00]/[0.16] to-[#f59e0b]/[0.06] border-[#ff6b00]/45 shadow-apple-sm'
                                         : isDark
                                         ? 'bg-transparent border-transparent hover:bg-white/[0.06]'
                                         : 'bg-transparent border-transparent hover:bg-black/[0.04]'
                                     }`}
                                   >
+                                    {isHighlighted && (
+                                      <span
+                                        aria-hidden="true"
+                                        className="absolute left-0.5 top-1.5 bottom-1.5 w-[2.5px] rounded-full bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)]"
+                                      />
+                                    )}
                                     {/* Left: Shortcut Bead + Type Badge + Title */}
                                     <div className="flex items-center gap-1.5 overflow-hidden">
                                       <span
@@ -1288,7 +1305,7 @@ export default function ZestSimulator() {
                                             setActiveTransform(null);
                                             setTransformedPreview(null);
                                           }}
-                                          className="w-5 h-5 rounded flex items-center justify-center text-apple-tint hover:bg-black/10 dark:hover:bg-white/[0.14]"
+                                          className="w-5 h-5 rounded flex items-center justify-center text-[#ff6b00] hover:bg-black/10 dark:hover:bg-white/[0.14]"
                                           title="Transform Deck (Tab)"
                                           aria-label="Transform Deck"
                                         >
@@ -1365,10 +1382,10 @@ export default function ZestSimulator() {
                           setPreviewItem(null);
                           resetTransform();
                         }}
-                        className={`flex items-center gap-1 min-h-[30px] px-2.5 py-1 rounded-full font-semibold text-[11px] transition-colors border whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`flex items-center gap-1 min-h-[30px] px-2.5 py-1 rounded-full font-semibold text-[11px] transition-colors border whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00] ${
                           isDark
-                            ? 'bg-white/[0.10] hover:bg-white/[0.16] text-neutral-200 border-white/[0.14]'
-                            : 'bg-black/[0.06] hover:bg-black/[0.10] text-neutral-800 border-black/10'
+                            ? 'bg-white/[0.10] hover:bg-[#ff6b00]/15 text-neutral-200 border-white/[0.14] hover:border-[#ff6b00]/45'
+                            : 'bg-black/[0.06] hover:bg-[#ff6b00]/15 text-neutral-800 border-black/10 hover:border-[#ff6b00]/45'
                         }`}
                       >
                         <svg aria-hidden="true" className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -1397,7 +1414,7 @@ export default function ZestSimulator() {
 
                     {/* Right Utility Group: 5 Uniform Circle Buttons */}
                     <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-                      {/* 1. Theme Toggle */}
+                      {/* 1. Theme Toggle (Emphasized Citrus Accent) */}
                       <button
                         type="button"
                         onClick={() => {
@@ -1408,11 +1425,7 @@ export default function ZestSimulator() {
                             return 'auto';
                           });
                         }}
-                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
-                          isDark
-                            ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-white'
-                            : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-neutral-900'
-                        }`}
+                        className="w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border border-[#ff6b00]/35 bg-[#ff6b00]/10 text-[#ff6b00] hover:bg-[#ff6b00]/20 hover:border-[#ff6b00]/60 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00]"
                         title={`Theme: ${hudThemeMode === 'auto' ? 'Auto (System)' : hudThemeMode === 'dark' ? 'Dark' : 'Light'} (Click to cycle)`}
                         aria-label="Toggle HUD Theme"
                       >
@@ -1425,10 +1438,10 @@ export default function ZestSimulator() {
                       <button
                         type="button"
                         onClick={handleTriggerOCR}
-                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00] ${
                           isDark
-                            ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-white'
-                            : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-neutral-900'
+                            ? 'bg-white/[0.08] hover:bg-[#ff6b00]/15 border-white/[0.14] hover:border-[#ff6b00]/50 text-neutral-300 hover:text-[#ff6b00]'
+                            : 'bg-black/[0.06] hover:bg-[#ff6b00]/15 border-black/10 hover:border-[#ff6b00]/50 text-neutral-700 hover:text-[#ea580c]'
                         }`}
                         title="Capture Screen Text (Vision OCR)"
                         aria-label="Capture Screen Text"
@@ -1443,10 +1456,10 @@ export default function ZestSimulator() {
                       <button
                         type="button"
                         onClick={() => setShowGuideModal(true)}
-                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00] ${
                           isDark
-                            ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-white'
-                            : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-neutral-900'
+                            ? 'bg-white/[0.08] hover:bg-[#ff6b00]/15 border-white/[0.14] hover:border-[#ff6b00]/50 text-neutral-300 hover:text-[#ff6b00]'
+                            : 'bg-black/[0.06] hover:bg-[#ff6b00]/15 border-black/10 hover:border-[#ff6b00]/50 text-neutral-700 hover:text-[#ea580c]'
                         }`}
                         title="Keyboard Shortcuts & Guide"
                         aria-label="Keyboard Shortcuts and Guide"
@@ -1463,10 +1476,10 @@ export default function ZestSimulator() {
                           setShowPrefToast(true);
                           setTimeout(() => setShowPrefToast(false), 2500);
                         }}
-                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00] ${
                           isDark
-                            ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-white'
-                            : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-neutral-900'
+                            ? 'bg-white/[0.08] hover:bg-[#ff6b00]/15 border-white/[0.14] hover:border-[#ff6b00]/50 text-neutral-300 hover:text-[#ff6b00]'
+                            : 'bg-black/[0.06] hover:bg-[#ff6b00]/15 border-black/10 hover:border-[#ff6b00]/50 text-neutral-700 hover:text-[#ea580c]'
                         }`}
                         title="Open Preferences (⌘,)"
                         aria-label="Open Preferences"
@@ -1480,7 +1493,7 @@ export default function ZestSimulator() {
                       <button
                         type="button"
                         onClick={() => setHudOpen(false)}
-                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint ${
+                        className={`w-[22px] h-[22px] relative before:absolute before:-inset-1.5 before:content-[''] rounded-full flex items-center justify-center border transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00] ${
                           isDark
                             ? 'bg-white/[0.08] hover:bg-white/[0.16] border-white/[0.14] text-neutral-300 hover:text-red-400'
                             : 'bg-black/[0.06] hover:bg-black/[0.12] border-black/10 text-neutral-700 hover:text-red-600'
@@ -1531,7 +1544,7 @@ export default function ZestSimulator() {
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center font-bold text-[13px]">
+                      <div className="w-7 h-7 rounded-lg bg-[#ff6b00]/15 text-[#ff6b00] flex items-center justify-center font-bold text-[13px]">
                         ⌘
                       </div>
                       <div>
@@ -1620,7 +1633,7 @@ export default function ZestSimulator() {
 
                     {/* Section 2 */}
                     <div>
-                      <div className="font-semibold text-blue-500 text-[11px] mb-2">
+                      <div className="font-semibold text-[#ff6b00] text-[11px] mb-2">
                         Quick Look & Navigation
                       </div>
                       <div className="space-y-1.5">
@@ -1672,7 +1685,7 @@ export default function ZestSimulator() {
                     <button
                       type="button"
                       onClick={() => setShowGuideModal(false)}
-                      className="min-h-[44px] px-5 py-2 rounded-xl bg-apple-tint text-white font-medium text-[13px] hover:bg-apple-tint-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-apple-tint"
+                      className="min-h-[44px] px-5 py-2 rounded-xl bg-gradient-to-b from-[var(--zest-amber-from)] to-[var(--zest-amber-to)] text-white font-semibold text-[13px] hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff6b00]"
                     >
                       Done
                     </button>
